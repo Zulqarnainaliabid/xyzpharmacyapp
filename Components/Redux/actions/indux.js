@@ -6,8 +6,9 @@ export const UPDATEHEADERNAME=(item,name)=>{
         name:name
     }
 }
-export const INCREMENTBACKGROUNDCOLORPASSION=()=>{
+export const TOGGLEDRAWERBUTTON=(item)=>{
     return{
-        type:'INCREMENTBACKGROUNDCOLORPASSION',
+        type:'TOGGLEDRAWERBUTTON',
+        payload:item,
     }
 }

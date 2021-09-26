@@ -22,7 +22,7 @@ export default class MyCarousel extends Component {
       <View style={styles.container}>
         <SliderBox
           circleLoop={true}
-          ImageComponentStyle={{width:"94%",borderRadius: 5,height:"111%"}}
+          ImageComponentStyle={{width:"96%",borderRadius: 5,height:180,borderRadius:5}}
           dotStyle={{display: 'none'}}
           autoplay={true}
           images={this.state.images}
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     borderColor: "#20232a",
     flexDirection:"column",
     alignItems: 'center',
-    height:131,
+    height:180,
+    // borderWidth:1,
+    marginTop:5
   },
 });

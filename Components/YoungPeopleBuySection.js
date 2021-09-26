@@ -15,7 +15,7 @@ export default function YoungPeopleBuySection(props) {
           display: 'flex',
           alignItems: 'center',
         }}>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
           <View style={styles.YoungPeopleBuyBoxOuterWraperScrollView}>
             <YoungPeopleBuyBox HandleGotoTabsCatagoriesListSecreen={props.HandleGotoTabsCatagoriesListSecreen} />
             <YoungPeopleBuyBox HandleGotoTabsCatagoriesListSecreen={props.HandleGotoTabsCatagoriesListSecreen}/>

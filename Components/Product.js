@@ -23,17 +23,17 @@ export default function Products(props) {
           </TouchableOpacity>
         </View>
         <View style={{display: 'flex', alignItems: 'center'}}>
-          <ScrollView horizontal={true}>
-            <View style={{marginLeft: 5, marginRight: 5}}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+            <View style={{marginLeft: 3, marginRight: 3}}>
               <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
             </View>
-            <View style={{marginLeft: 5, marginRight: 5}}>
+            <View style={{marginLeft: 3, marginRight: 3}}>
               <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
             </View>
-            <View style={{marginLeft: 5, marginRight: 5}}>
+            <View style={{marginLeft: 3, marginRight: 3}}>
               <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
             </View>
-            <View style={{marginLeft: 5, marginRight: 5}}>
+            <View style={{marginLeft: 3, marginRight: 3}}>
               <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
             </View>
           </ScrollView>

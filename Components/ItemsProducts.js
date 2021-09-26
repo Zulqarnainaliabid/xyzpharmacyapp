@@ -7,7 +7,7 @@ import {UPDATEHEADERNAME} from './Redux/actions/indux';
 const img = require('./Images/CheckenSecond.webp');
 const ArrowLeftIcon = (
   <FontAwesome5
-    style={{fontSize: 21, color: '#C2C2C2'}}
+    style={{fontSize: 17, color: '#C2C2C2'}}
     name={'chevron-right'}
     solid
   />
@@ -21,13 +21,41 @@ export default function ItemsProduct() {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            dispatch(UPDATEHEADERNAME(true,'lllllllllllllllluuuuuuuuuuuuuuu'));
+            dispatch(UPDATEHEADERNAME(true, 'lllllllllllllllluuuuuuuuuuuuuuu'));
           }}>
           <View style={styles.InnerContainerItemProductImageHolder}>
             <Image
-              style={{width: '100%', height: 140, borderColor: '#F4CA16'}}
+              style={{
+                width: '100%',
+                height: 120,
+                borderColor: '#F4CA16',
+              }}
               source={img}
             />
+            <View
+              style={{display: 'flex', flexDirection: 'row', marginLeft: 12}}>
+              <Text
+                style={{
+                  color: '#010101',
+                  fontSize: 20,
+                  fontWeight: '700',
+                }}>
+                Rs 381
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#757575',
+                  textDecorationLine: 'line-through',
+                  marginTop: 4,
+                  marginLeft: 4,
+                }}>
+                Rs 410
+              </Text>
+              <Text style={styles.InnerContainerItemProductSubmitButton}>
+                Add to Cart
+              </Text>
+            </View>
           </View>
         </TouchableOpacity>
         <View style={styles.InnerContainerItemProductTextHolder}>
@@ -42,37 +70,12 @@ export default function ItemsProduct() {
           </Text>
           <Text
             style={{
-              marginTop: 10,
-              fontSize: 12,
               color: '#878787',
-              fontSize: 19,
+              fontSize: 17,
             }}>
             1 kg
           </Text>
           <Text style={styles.InnerContainerItemProductDiscRate}>15% OFF</Text>
-          <View style={{display: 'flex', flexDirection: 'row', marginTop: 20}}>
-            <Text
-              style={{
-                color: '#010101',
-                fontSize: 20,
-                fontWeight: '700',
-              }}>
-              Rs 381
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                color: '#757575',
-                textDecorationLine: 'line-through',
-                marginTop: 6,
-                marginLeft: 4,
-              }}>
-              Rs 410
-            </Text>
-          </View>
-          <Text style={styles.InnerContainerItemProductSubmitButton}>
-            Add to Cart
-          </Text>
         </View>
         <Text style={styles.InnerContainerItemProductOuterWraperArroeIcon}>
           {ArrowLeftIcon}

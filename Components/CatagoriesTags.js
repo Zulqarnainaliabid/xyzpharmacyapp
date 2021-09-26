@@ -11,22 +11,22 @@ import CatagoriesTagsBox from './CatagoriesTagsBox';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 const img = require('./Images/Teetock.webp');
 const ArrowDownIcon = (
-  <FontAwesome5 style={{fontSize: 16}} name={'chevron-down'} solid />
+  <FontAwesome5 style={{fontSize: 12}} name={'chevron-down'} solid />
 );
 export default function CatagoriesTag(props) {
   const [ballAnimation, setballAnimation] = useState(new Animated.Value(0));
   const [ToggleArrow, setToggleArrow] = useState(false);
-
+  const [ToggleColor, setToggleColor] = useState(false);
   const animateBall = () => {
-    if (ToggleArrow) {
-      props.color('#FFFFFF');
+    if (!ToggleArrow) {
+      setToggleColor(true);
       Animated.timing(ballAnimation, {
         toValue: 180,
         duration: 500,
         useNativeDriver: true,
       }).start();
     } else {
-      props.color('#FEFCC9');
+      setToggleColor(false);
       Animated.timing(ballAnimation, {
         toValue: 0,
         duration: 500,
@@ -46,7 +46,7 @@ export default function CatagoriesTag(props) {
     ],
   };
   return (
-    <>
+    <View style={{backgroundColor: ToggleColor ? '#FEFCC9' : '#FFFFFF'}}>
       <TouchableOpacity
         onPress={() => {
           setToggleArrow(!ToggleArrow);
@@ -78,12 +78,12 @@ export default function CatagoriesTag(props) {
             </View>
           </View>
         </View>
-        {ToggleArrow && (
-          <View>
-            <CatagoriesTagsBox />
-          </View>
-        )}
       </TouchableOpacity>
-    </>
+      {ToggleArrow && (
+        <View>
+          <CatagoriesTagsBox HandleGotoTabsVegetablesAndFruitsSecreen={props.HandleGotoTabsVegetablesAndFruitsSecreen} />
+        </View>
+      )}
+    </View>
   );
 }

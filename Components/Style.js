@@ -2,23 +2,29 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 export default styles = StyleSheet.create({
   Outercontainer: {
-    // padding: 6,
     backgroundColor: '#eaeaea',
-    borderWidth: 2,
     paddingHorizontal: 6,
-    // paddingleft:6,
-    // paddingright:6,
   },
-  OutercontainerDetailScreen:{
+  OutercontainerDetailScreen: {
     backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    paddingHorizontal: 6,
+    paddingHorizontal: 15,
+    flex: 1,
   },
   OutercontainerHeader: {
-    borderWidth: 1,
     display: 'flex',
     flexDirection: 'row',
-    padding: 6,
+    padding: 7,
+    backgroundColor: 'white',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   HeaderOuterWraperInputinput: {
     borderWidth: 1,
@@ -52,7 +58,8 @@ export default styles = StyleSheet.create({
   },
   CatagoriesTagBoxOuterContainer: {
     borderWidth: 1,
-    margin: 12,
+    marginHorizontal: 7,
+    marginBottom: 10,
     backgroundColor: 'white',
 
     borderWidth: 1,
@@ -72,24 +79,26 @@ export default styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#EDEDED',
     padding: 10,
-    width: 109,
+    width: 114,
   },
   CatagoriesTagBoxOuterWraperImageHolder: {
     borderWidth: 1,
   },
   TopBrandOuterWraperImageHolder: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     borderColor: '#C0C0C0',
-    marginBottom: 10,
-    marginHorizontal: 4,
+    marginBottom: 16,
+    marginTop: 12,
+    marginHorizontal: 8,
     width: 90,
   },
   YoungPeopleBuyBoxOuterWraperImageHolder: {
     borderRightWidth: 1,
     borderRightColor: '#EEEEEE',
-    width: 90,
+    width: 118,
     display: 'flex',
     alignItems: 'center',
+    marginTop: 12,
     padding: 12,
   },
   YoungPeopleBuyBoxOuterWraperScrollView: {
@@ -137,18 +146,14 @@ export default styles = StyleSheet.create({
     fontSize: 18,
   },
   OuterContainerProductBox: {
-    width: 130,
-    padding: 10,
+    width: 140,
+    padding: 7,
     borderRadius: 3,
-    marginTop: 20,
-
+    marginTop: 10,
     borderWidth: 1,
-    borderColor: '#AEAEAE',
-    shadowColor: '#AEAEAE',
-    shadowOffset: {width: 0, height: 0},
-    shadowOpacity: 0.12,
-    shadowRadius: 0,
-    // elevation: 1
+    borderColor: '#F0F0F0',
+
+    // elevation: 2,
   },
   ImageHolderOuterContainerProductBox: {
     // borderWidth: 1,
@@ -166,7 +171,7 @@ export default styles = StyleSheet.create({
     padding: 7,
     borderRadius: 5,
     color: '#FFFFFF',
-    marginTop: 20,
+    marginTop: 10,
   },
   // OutercontainerdCatagoriesTags:{
 
@@ -220,14 +225,16 @@ export default styles = StyleSheet.create({
     // borderColor: '#D8D8D8',
     // borderRadius: 3,
     // paddingBottom: 100,
-    marginBottom:110
+    // marginBottom:110
+    flex: 1,
   },
   InnerContainerItemProduct: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     display: 'flex',
     flexDirection: 'row',
     paddingBottom: 12,
     borderColor: '#C2C2C2',
+    backgroundColor: '#FFFFFF',
   },
   InnerContainerItemProductImageHolder: {
     // borderWidth: 1,
@@ -239,31 +246,36 @@ export default styles = StyleSheet.create({
   InnerContainerItemProductTextHolder: {
     width: 170,
     marginLeft: 12,
+    // borderWidth:1
   },
   InnerContainerItemProductSubmitButton: {
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 14,
     paddingVertical: 7,
     backgroundColor: '#18AE43',
     color: '#E3F2E9',
-    marginTop: 7,
+    marginLeft: 10,
     borderRadius: 5,
+    width: 190,
+    marginTop: -3,
   },
   InnerContainerItemProductOuterWraperArroeIcon: {
     // marginTop:55,
     textAlignVertical: 'center',
+    marginLeft: 5,
   },
   InnerContainerItemProductDiscRate: {
     // borderWidth: 1,
     backgroundColor: '#E5023C',
     color: '#FFFCFF',
-    padding: 5,
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 15,
-    width: 90,
+    paddingHorizontal: 3,
+    paddingVertical: 2,
+    fontSize: 14,
+    marginTop: 10,
+    width: 65,
     textAlign: 'center',
     borderRadius: 17,
+    fontWeight: '700',
   },
   OuterWraperImageDetailsScreen: {
     borderWidth: 1,
@@ -275,24 +287,59 @@ export default styles = StyleSheet.create({
     marginLeft: 45,
   },
   OuterWraperDetailTextHolderDetailsScreen: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  BrandListScreenImageHolder: {
+    // borderWidth:1,
+    width: 282,
+  },
+  BrandListTagsTextHolder: {
     borderWidth: 1,
-    display:"flex",
-    flexDirection:"row"
-  },
-  BrandListScreenImageHolder:{
-  // borderWidth:1,
-  width:282,
-  },
-  BrandListTagsTextHolder:{
-    borderWidth:1,
-    marginHorizontal:6,
-    marginTop:12,
-    paddingVertical:3,
-    paddingHorizontal:5,
-    borderColor:"#F28029",
-    color:"#F28029",
-    borderRadius:14,
+    marginHorizontal: 6,
+    marginTop: 12,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    borderColor: '#F28029',
+    color: '#F28029',
+    borderRadius: 14,
     // display: flex;
     // align-items: center;
+  },
+  OutercontainerClubScreen: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 6,
+    flex: 1,
+  },
+  OutercontainerPkges: {
+    borderWidth: 1,
+    borderColor: '#9D9D9D',
+    borderRadius: 10,
+    width: 110,
+  },
+  OutercontainerDeliveryCharges: {
+    borderWidth: 1,
+    borderColor: '#C3C3C3',
+    borderRadius: 10,
+    padding: 6,
+  },
+  OutercontainerDeliveryChargesBox: {
+    // borderWidth:1,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  OutercontainerFaq: {
+    borderBottomWidth: 1,
+    borderColor: '#C6C5CA',
+    paddingVertical: 8,
+  },
+  OutercontainerPlansScreen: {
+    paddingHorizontal: 6,
+  },
+  OutercontainerMemberShipPlan:{
+    borderWidth:1,
+    borderColor:"#DADADA",
+    padding:16,
+    borderRadius:5,
   }
 });

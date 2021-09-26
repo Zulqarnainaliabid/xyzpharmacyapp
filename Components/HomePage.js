@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Image, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import MyCarousel from './Slider';
 import styles from './Style';
 import Products from './Product';
@@ -9,13 +16,22 @@ import CatagoriesTag from './CatagoriesTags';
 import ItemsProduct from './ItemsProducts';
 import Header from './Header';
 import {useDispatch, useSelector} from 'react-redux';
+import AnimationBall from './BallAnimation';
+import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import {UPDATEHEADERNAME} from './Redux/actions/indux';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import 'react-native-gesture-handler';
 const img = require('./Images/FreeClub.webp');
 export default function HomPage({navigation}) {
   const [ToggleColor, setToggleColor] = useState('#FFFFFF');
   const [ToggleHeader, setToggleHeader] = useState(false);
+  const [CatagorisTagArray, setCatagorisTagArray] = useState([
+    {select: false},
+    {select: false},
+    {select: false},
+  ]);
+
   const HeaderName = useSelector(state => state.UpdateHeaderName);
-  const CatagoriesTagArray = [1, 1, 1, 1, 1];
   const dispatch = useDispatch();
   const UpdateHeaderName = useSelector(state => state.UpdateHeaderName);
 
@@ -50,10 +66,22 @@ export default function HomPage({navigation}) {
     });
   }
 
+  function HandleGotoTabsVegetablesAndFruitsSecreen(name) {
+    navigation.navigate('VegetablesAndFruitScreen', {
+      name: name,
+    });
+  }
+
+  function HandleGotoMemberShipScreen() {
+    navigation.navigate('MemberShipScreen', {
+      name: 'GrocerClub Membership mmmm',
+    });
+  }
+
   return (
     <>
       <Header ToggleHeader={ToggleHeader} ScreenName={true} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.Outercontainer}>
           <MyCarousel />
           <View style={styles.OutercontainerdProduct}>
@@ -63,9 +91,13 @@ export default function HomPage({navigation}) {
               funHandlegotoDetails={HandleGotoDetailsSecreen}
             />
           </View>
-          <View style={{width: 344, marginVertical: 5}}>
-            <Image style={{width: '100%', height: 150}} source={img} />
-          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={HandleGotoMemberShipScreen}>
+            <View style={{width: 347, marginVertical: 5}}>
+              <Image style={{width: '100%', height: 130}} source={img} />
+            </View>
+          </TouchableOpacity>
           <View style={styles.OutercontainerdProduct}>
             <Products
               name={'Top Sellers'}
@@ -83,9 +115,14 @@ export default function HomPage({navigation}) {
               fun={HandleGotProductListSecreen}
             />
           </View>
-          <View style={{width: 344, marginVertical: 5}}>
-            <Image style={{width: '100%', height: 150}} source={img} />
-          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={HandleGotoMemberShipScreen}>
+            <View style={{width: 347, marginVertical: 5}}>
+              <Image style={{width: '100%', height: 130}} source={img} />
+            </View>
+          </TouchableOpacity>
+
           <View style={styles.OutercontainerdProduct}>
             <YoungPeopleBuySection
               HandleGotoTabsCatagoriesListSecreen={
@@ -100,17 +137,20 @@ export default function HomPage({navigation}) {
               fun={HandleGotProductListSecreen}
             />
           </View>
-          {CatagoriesTagArray &&
-            CatagoriesTagArray.map((item, index) => {
+          {CatagorisTagArray &&
+            CatagorisTagArray.map((item, index) => {
               return (
                 <View
                   key={index}
                   style={{
                     marginHorizontal: -5,
                     marginVertical: 5,
-                    backgroundColor: ToggleColor,
                   }}>
-                  <CatagoriesTag color={setToggleColor} />
+                  <CatagoriesTag
+                    HandleGotoTabsVegetablesAndFruitsSecreen={
+                      HandleGotoTabsVegetablesAndFruitsSecreen
+                    }
+                  />
                 </View>
               );
             })}

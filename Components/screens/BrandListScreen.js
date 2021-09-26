@@ -5,17 +5,16 @@ import ItemsProduct from '../ItemsProducts';
 const img = require('../Images/UnileverBrand.webp');
 
 const BrandListScreen = ({route, navigation}) => {
- 
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
- 
+
   function HandleGoBackToHomeSecreen() {
     navigation.navigate('HomPage');
   }
-
+  const ItemAray = [1, 1, 1, 1, 1, 1, 1, 1];
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Header
         name={HeaderName}
         fun={HandleGoBackToHomeSecreen}
@@ -28,7 +27,7 @@ const BrandListScreen = ({route, navigation}) => {
             source={img}
           />
         </View>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <Text style={styles.BrandListTagsTextHolder}>All</Text>
           <Text style={styles.BrandListTagsTextHolder}>Shampoo (39)</Text>
           <Text style={styles.BrandListTagsTextHolder}>Soaps (18)</Text>
@@ -39,14 +38,13 @@ const BrandListScreen = ({route, navigation}) => {
           <Text style={styles.BrandListTagsTextHolder}>Loundry (20)</Text>
         </ScrollView>
       </View>
-      <ScrollView>
-        <View style={styles.OuterContainerCatagoriesList}>
-          <ItemsProduct />
-          <ItemsProduct />
-          <ItemsProduct />
-          <ItemsProduct />
-        </View>
-      </ScrollView>
+      <View style={{flex: 1}}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {ItemAray.map((item, index) => {
+            return <ItemsProduct key={index} />;
+          })}
+        </ScrollView>
+      </View>
     </View>
   );
 };

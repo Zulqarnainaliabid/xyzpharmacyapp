@@ -30,6 +30,7 @@ export default function AnimetedArrowIcon() {
       }).start();
     }
   };
+  
   const ballInterpolateStyle = ballAnimation.interpolate({
     inputRange: [0, 90],
     outputRange: ['0deg', '90deg'],

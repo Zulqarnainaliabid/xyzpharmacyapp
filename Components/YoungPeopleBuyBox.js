@@ -9,9 +9,9 @@ export default function YoungPeopleBuyBox(props) {
       }}>
         <View style={styles.YoungPeopleBuyBoxOuterWraperImageHolder}>
           <View style={styles.YoungPeopleBuyBoxImageHolder}>
-            <Image style={{width: '100%', height: 77}} source={img} />
+            <Image style={{width: '100%', height: 69}} source={img} />
           </View>
-          <Text style={{textAlign: 'center', marginTop: 6}}>Cold Drink</Text>
+          <Text style={{textAlign: 'center', marginTop: 6,color:"#777777",fontWeight:"500"}}>Cold Drinks</Text>
         </View>
       </TouchableOpacity>
     </>

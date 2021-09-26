@@ -1,24 +1,32 @@
 import React from 'react';
-import {Text, View, Image, ScrollView} from 'react-native';
+import {Text, View, Image, ScrollView,TouchableOpacity} from 'react-native';
 const img = require('./Images/Vagetable.webp');
-export function CatagoriesTagsBoxFun() {
+export function CatagoriesTagsBoxFun(props) {
   return (
     <>
-      <View style={styles.CataGoriesTagBoxImageHolder}>
+     <TouchableOpacity
+        style={styles.button}
+        onPress={()=>{
+          props.HandleGotoTabsVegetablesAndFruitsSecreen("Vegetables & Fruit")
+        }}
+      >
+        <View style={styles.CataGoriesTagBoxImageHolder}>
         <Image style={{width: '100%', height: 80}} source={img} />
-        <Text style={{textAlign: 'center', marginTop: 10, fontSize:12,color:"#757575"}}>Vegetables</Text>
+        <Text style={{textAlign: 'center', marginTop: 10, fontSize:12,color:"#757575",fontWeight:"500"}}>Vegetables</Text>
       </View>
+      </TouchableOpacity>
+      
     </>
   );
 }
-export default function CatagoriesTagsBox() {
+export default function CatagoriesTagsBox(props) {
   return (
     <>
       <View style={styles.CatagoriesTagBoxOuterContainer}>
-        <CatagoriesTagsBoxFun />
-        <CatagoriesTagsBoxFun />
-        <CatagoriesTagsBoxFun />
-        <CatagoriesTagsBoxFun />
+        <CatagoriesTagsBoxFun HandleGotoTabsVegetablesAndFruitsSecreen={props.HandleGotoTabsVegetablesAndFruitsSecreen} />
+        <CatagoriesTagsBoxFun HandleGotoTabsVegetablesAndFruitsSecreen={props.HandleGotoTabsVegetablesAndFruitsSecreen}/>
+        <CatagoriesTagsBoxFun HandleGotoTabsVegetablesAndFruitsSecreen={props.HandleGotoTabsVegetablesAndFruitsSecreen}/>
+        <CatagoriesTagsBoxFun HandleGotoTabsVegetablesAndFruitsSecreen={props.HandleGotoTabsVegetablesAndFruitsSecreen}/>
       </View>
     </>
   );
