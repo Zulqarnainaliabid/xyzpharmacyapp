@@ -16,21 +16,32 @@ import VegeTablesAndFruitsScreen from './Components/screens/TabsVegetablesAndFru
 import MemberShipScreen from './Components/screens/MemberShipScren';
 import PlansScreen from './Components/screens/PlansScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-
+import DrawerCategoriesScreen from './Components/screens/DrawerCategoriesScreen';
+import CartScreen from './Components/screens/CartScreen';
 import {DrawerContent} from './Components/DrawerContent';
-
+import ProfileScreen from './Components/screens/Profile';
+import OrderScreen from './Components/screens/OrderScreen';
+import ShareAndEarnScreen from './Components/screens/ShareAndErnScreen';
+import PromoAlertScreen from './Components/screens/PromoAlertScreen';
+import DrawerBrandScreen from './Components/screens/DrawerBrandScren';
+import InBoxScreen from './Components/screens/InBoxScreen';
+import DrawerFaqsScreen from './Components/screens/DrawerFaqsScreen'
+import WishListScreen from './Components/screens/WhishListScreen'
+import SearchScreen from './Components/screens/SearchScren'
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function Feed({navigation}) {
   const ToggleDrawer = useSelector(state => state.ToggleDrawer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (ToggleDrawer) {
       navigation.openDrawer();
     }
     dispatch(TOGGLEDRAWERBUTTON(false));
   }, [ToggleDrawer]);
+
   return (
     <>
       <Stack.Navigator>
@@ -74,16 +85,64 @@ function Feed({navigation}) {
           name="PlansScreen"
           component={PlansScreen}
         />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="DrawerCategoriesScren"
+          component={DrawerCategoriesScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="CartScreen"
+          component={CartScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ProfileScreen"
+          component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="OrderScreen"
+          component={OrderScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ShareAndEarnScreen"
+          component={ShareAndEarnScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="PromoAlertScreen"
+          component={PromoAlertScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="DrawerBrandScreen"
+          component={DrawerBrandScreen}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="InBoxScreen"
+          component={InBoxScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="DrawerFaqsScreen"
+          component={DrawerFaqsScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="WhishListScreen"
+          component={WishListScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SearchScreen"
+          component={SearchScreen}
+        />
       </Stack.Navigator>
     </>
-  );
-}
-
-function Article() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Article Screen</Text>
-    </View>
   );
 }
 
@@ -95,25 +154,7 @@ function MyDrawer() {
         options={{headerShown: false}}
         component={Feed}
       />
-      <Drawer.Screen
-        name="Article"
-        options={{headerShown: false}}
-        component={Article}
-      />
     </Drawer.Navigator>
-
-    // <Drawer.Navigator>
-    //   <Drawer.Screen
-    //     name="Feed"
-    //     options={{headerShown: false}}
-    //     component={Feed}
-    //   />
-    //   <Drawer.Screen
-    //     name="Article"
-    //     options={{headerShown: false}}
-    //     component={Article}
-    //   />
-    // </Drawer.Navigator>
   );
 }
 

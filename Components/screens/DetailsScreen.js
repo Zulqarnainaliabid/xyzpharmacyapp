@@ -13,9 +13,7 @@ const DetailsScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  function HandleGoBackToHomeSecreen() {
-    navigation.goBack();
-  }
+ 
   function HandleGotoDetailsSecreen(name) {
     navigation.push('DetailsSecreenSecreen', {
       name: name,
@@ -25,7 +23,6 @@ const DetailsScreen = ({route, navigation}) => {
     <View style={{backgroundColor: 'white',flex:1}}>
       <Header
         name={HeaderName}
-        fun={HandleGoBackToHomeSecreen}
         ScreenName={true}
       />
       <View style={styles.OutercontainerDetailScreen}>

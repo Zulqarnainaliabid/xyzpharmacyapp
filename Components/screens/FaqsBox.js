@@ -42,7 +42,7 @@ export default function FaqsBox(props) {
               justifyContent: 'space-between',
               paddingVertical: 12,
             }}>
-            <Text style={{fontSize: 17, color: '#444444', width: 327}}>
+            <Text style={{fontSize: 17, color: '#444444',width:300}}>
               {props.data.Question}
             </Text>
             <Text style={{marginTop: 4}}>{ArrowDownIcon}</Text>

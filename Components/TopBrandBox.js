@@ -1,11 +1,15 @@
 import React from 'react';
 import {Text, View, Image, ScrollView , TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 const img = require('./Images/UnileverBrand.webp');
 export default function TopBrandBox(props) {
+  const navigation = useNavigation();
   return (
     <>
       <TouchableOpacity style={styles.button} onPress={()=>{
-      props.HandleGotoBrandListSecreen("Unilever")
+        navigation.navigate('BrandListScreen', {
+          name: "Uniliver",
+        });
       }}>
         <View style={styles.TopBrandOuterWraperImageHolder}>
           <View style={styles.TopBrandImageHolder}>

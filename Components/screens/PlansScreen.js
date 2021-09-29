@@ -3,7 +3,6 @@ import {Text, View, ScrollView} from 'react-native';
 import Header from '../Header';
 import DeliveryCharges from './DeliveryCharges';
 export function MemberShipPlan(props) {
-  console.log('OtherAmount = ', props.data);
   return (
     <View style={styles.OutercontainerMemberShipPlan}>
       <View
@@ -79,18 +78,12 @@ export function MemberShipPlan(props) {
 export default function PlansScreen({route, navigation}) {
   let {name} = route.params;
   let {OtherData} = route.params;
-  console.log('data = ', OtherData);
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  function HandleGoBackToHomeSecreen() {
-    navigation.goBack();
-  }
-  //   jnjn = {OtherData.ActualAmount}
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <Header
         name={HeaderName}
-        fun={HandleGoBackToHomeSecreen}
         ScreenName={false}
       />
       <View style={{flex: 1}}>

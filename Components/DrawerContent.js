@@ -1,273 +1,144 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import React, {useState,useEffect} from 'react';
 import {
-  useTheme,
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
+  View,
+  StyleSheet,
   Switch,
-} from 'react-native-paper';
+  Image,
+  TouchableOpacity,
+  Share,
+} from 'react-native';
+import {
+  LocationIcon,
+  ShoppingCart,
+  Profile,
+  MyOrder,
+  GrocerClub,
+  Doller,
+  Alert,
+  ShareIcon,
+  Question,
+  Chat,
+  Phone,
+  WhishList,
+  Brands,
+  Email,
+  SignIn,
+  Categories,
+} from './Icons';
+import {Paragraph, Text} from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {svg} from './Images/icon.svg';
+import {useNavigation} from '@react-navigation/native';
+
+export function DrawerListList(props) {
+  const navigation = useNavigation();
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'React Native | A framework for building native apps using React',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        if(props.item.Label==="Share"){
+          onShare()
+          console.log("ppp")
+        }else{
+        navigation.navigate(props.item.Screen, {
+          name: props.item.Label,
+        });
+      }
+
+      }}>
+      <View style={styles.OuterWraperDrawerLinks}>
+        <Text style={{marginRight: 30}}>{props.item.Icon}</Text>
+        <Text style={{color: '#3D3D3D', fontSize: 15}}>{props.item.Label}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
 export function DrawerContent(props) {
-  const paperTheme = useTheme();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const LinksArray = [
+    {Icon: Categories, Label: 'Categories',Screen:"DrawerCategoriesScren"},
+    {Icon: ShoppingCart, Label: 'My Cart',Screen:"CartScreen"},
+    {Icon: Profile, Label: 'My Profile',Screen:"ProfileScreen"},
+    {Icon: MyOrder, Label: 'My Order',Screen:"OrderScreen"},
+    {Icon: GrocerClub, Label: 'GrocerClub',Screen:"MemberShipScreen"},
+    {Icon: Doller, Label: 'Share & Earn',Screen:"ShareAndEarnScreen"},
+    {Icon: Alert, Label: 'Promo Alerts',Screen:"PromoAlertScreen"},
+    {Icon: ShareIcon, Label: 'Share',Screen:"Share"},
+    {Icon: Question, Label: 'FAQs',Screen:"DrawerFaqsScreen"},
+    {Icon: Chat, Label: 'Live Chat',Screen:"ProfileScreen"},
+    {Icon: Phone, Label: 'Call Us',Screen:"ProfileScreen"},
+    {Icon: WhishList, Label: 'Whish List',Screen:"WhishListScreen"},
+    {Icon: Brands, Label: 'Brands',Screen:"DrawerBrandScreen"},
+    {Icon: Email, Label: 'App InBox',Screen:"InBoxScreen"},
+    {Icon: SignIn, Label: 'Sign In',Screen:"ProfileScreen"},
+  ];
   return (
     <View style={{flex: 1}}>
-      <DrawerContentScrollView {...props}>
+      <DrawerContentScrollView
+        {...props}
+        contentContainerStyle={{backgroundColor: '#FAFAFA'}}>
         <View style={styles.drawerContent}>
-          <View style={styles.userInfoSection}>
-            <View style={styles.row}>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph]}>
-                  Hey, Gust User
-                </Paragraph>
-              </View>
-            </View>
-            <View style={styles.Location}>
-              <Text style={styles.LocationTextHolder}>njmmmn</Text>
-              <DrawerItem
-                icon={({color, size}) => (
-                  <FontAwesome5
-                    style={{fontSize: 17, color: '#000000'}}
-                    name={'map-marker-alt'}
-                    solid
-                  />
-                )}
-                label=""
-                onPress={() => {
-                  signOut();
-                }}
-              />
+          <View style={styles.OuterWraperUserInfo}>
+            <Paragraph style={[styles.Headingparagraph]}>
+              Hey, Gust User
+            </Paragraph>
+            <View style={styles.OuterWraperLocation}>
+              <Text style={styles.LocationTextHolder}>njmmmmm</Text>
+              <Text style={styles.LocationFontIcon}>{LocationIcon}</Text>
             </View>
           </View>
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'window-maximize'}
-                  solid
-                />
-              )}
-              label="Catagories"
-              onPress={() => {
-                props.navigation.navigate('Home');
-              }}
+          <Image src={svg} />
+          <View
+            style={{
+              paddingVertical: 5,
+              paddingHorizontal: 18,
+              borderBottomWidth: 1,
+              marginHorizontal: -4,
+              borderColor: '#C4C4C4',
+            }}>
+            {LinksArray.map((item, index) => {
+              return <DrawerListList key={index} item={item} />;
+            })}
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginVertical: 12,
+            }}>
+            <Text style={{marginTop: 4, fontSize: 15}}>English</Text>
+            <Switch
+              trackColor={{false: '#767577', true: '#81b0ff'}}
+              thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+              style={{marginHorizontal: 12}}
             />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'shopping-cart'}
-                  solid
-                />
-              )}
-              label="My Cart"
-              onPress={() => {
-                props.navigation.navigate('Profile');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'user-circle'}
-                  solid
-                />
-              )}
-              label="My Profile"
-              onPress={() => {
-                props.navigation.navigate('BookmarkScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'border-none'}
-                  solid
-                />
-              )}
-              label="My Order"
-              onPress={() => {
-                props.navigation.navigate('SettingsScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'presentation'}
-                  solid
-                />
-              )}
-              label="GrocerClub"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'dollar-sign'}
-                  solid
-                />
-              )}
-              label="Share & Earn"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'bell'}
-                  solid
-                />
-              )}
-              label="Promo Alerts"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'share-alt'}
-                  solid
-                />
-              )}
-              label="Share"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'question-circle'}
-                  solid
-                />
-              )}
-              label="Faqs"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'comment-alt'}
-                  solid
-                />
-              )}
-              label="Live Chats"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'phone-alt'}
-                  solid
-                />
-              )}
-              label="Call Us"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'address-book'}
-                  solid
-                />
-              )}
-              label="Wich List"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'bandcamp'}
-                  solid
-                />
-              )}
-              label="Brands"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'envelope'}
-                  solid
-                />
-              )}
-              label="App Index"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({color, size}) => (
-                <FontAwesome5
-                  style={{fontSize: 17, color: '#C2C2C2'}}
-                  name={'sign-out-alt'}
-                  solid
-                />
-              )}
-              label="Sign In"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
-          </Drawer.Section>
-          <Drawer.Section title="Preferences">
-            <TouchableRipple
-              onPress={() => {
-                toggleTheme();
-              }}>
-              <View style={styles.preference}>
-                <Text>Dark Theme</Text>
-                <View pointerEvents="none">
-                  <Switch value={paperTheme.dark} />
-                </View>
-              </View>
-            </TouchableRipple>
-          </Drawer.Section>
+            <Text style={{marginTop: 4, fontSize: 15}}>Urdu</Text>
+          </View>
         </View>
       </DrawerContentScrollView>
-      <Drawer.Section style={styles.bottomDrawerSection}>
-        <DrawerItem
-          icon={({color, size}) => (
-            <Icon name="exit-to-app" color={color} size={size} />
-          )}
-          label="Sign Out"
-          onPress={() => {
-            signOut();
-          }}
-        />
-      </Drawer.Section>
     </View>
   );
 }
@@ -275,63 +146,43 @@ export function DrawerContent(props) {
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
+    padding: 4,
+    // borderWidth: 1,
   },
-  userInfoSection: {
-    paddingLeft: 20,
-  },
-  title: {
-    fontSize: 16,
-    marginTop: 3,
-    fontWeight: 'bold',
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-  },
-  row: {
-    marginTop: 20,
+  OuterWraperDrawerLinks: {
+    // borderWidth: 1,
+    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    marginVertical: 12,
   },
-  section: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 15,
+  OuterWraperUserInfo: {
+    // borderWidth: 1,
+    // marginVertical:12
+  },
+  Headingparagraph: {
+    color: '#050505',
+    // borderWidth: 1,
+    fontSize: 17,
+    marginBottom: 12,
+  },
+  OuterWraperLocation: {
     borderWidth: 1,
-  },
-  paragraph: {
-    marginRight: 3,
-    color:"#0D0D0D",
-  },
-  Location: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 20,
-    borderWidth: 1,
-    borderColor:"#AFAFAF",
-    borderRadius:12,
-    // paddingHorizontal:12,
-    justifyContent:"space-between",
-    height:43,
-  },
-  LocationTextHolder:{
-//   borderWidth:1,
-  width:180,
-  fontSize:20,
-  marginLeft:12,
-  },
-  drawerSection: {
-    marginTop: 15,
-  },
-  bottomDrawerSection: {
-    marginBottom: 15,
-    borderTopColor: '#f4f4f4',
-    borderTopWidth: 1,
-  },
-  preference: {
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: 3,
+    paddingHorizontal: 12,
+    color: '#B4B4B4',
+    borderColor: '#B4B4B4',
+    borderRadius: 8,
+  },
+  LocationTextHolder: {
+    // borderWidth:1,
+    width: 220,
+    fontSize: 14,
+  },
+  LocationFontIcon: {
+    // borderWidth:1,
+    textAlignVertical: 'center',
   },
 });

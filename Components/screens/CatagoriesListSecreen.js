@@ -7,13 +7,10 @@ const CatagoriesListSecreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  function HandleGoBackToHomeSecreen() {
-    navigation.navigate('HomPage');
-  }
-  
+
   return (
     <View>
-      <Header name={HeaderName} fun={HandleGoBackToHomeSecreen} ScreenName={true} />
+      <Header name={HeaderName}  ScreenName={true} />
       <ScrollView>
         <View style={styles.OuterContainerCatagoriesList}>
           <ItemsProduct />

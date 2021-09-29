@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import styles from './Style';
 import ProductsBox from './ProductBox';
-import {UPDATEHEADERNAME} from './Redux/actions/indux'
-import { useDispatch, useSelector } from "react-redux";
 export default function Products(props) {
-  
+  const navigation = useNavigation();
   return (
     <>
       <View style={styles.InnercontainerdProduct}>
@@ -15,7 +14,9 @@ export default function Products(props) {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              props.fun(props.name);
+                navigation.navigate('CatagoriesListSecreen', {
+                  name: props.name,
+                });
             }}>
             <Text style={styles.ViewAllButtonInnercontainerdProduct}>
               View all
@@ -25,16 +26,16 @@ export default function Products(props) {
         <View style={{display: 'flex', alignItems: 'center'}}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
             <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
+              <ProductsBox />
             </View>
             <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
+              <ProductsBox  />
             </View>
             <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
+              <ProductsBox />
             </View>
             <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox funHandlegotoDetails={props.funHandlegotoDetails} />
+              <ProductsBox  />
             </View>
           </ScrollView>
         </View>

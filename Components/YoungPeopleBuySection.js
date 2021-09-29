@@ -17,15 +17,10 @@ export default function YoungPeopleBuySection(props) {
         }}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
           <View style={styles.YoungPeopleBuyBoxOuterWraperScrollView}>
-            <YoungPeopleBuyBox HandleGotoTabsCatagoriesListSecreen={props.HandleGotoTabsCatagoriesListSecreen} />
-            <YoungPeopleBuyBox HandleGotoTabsCatagoriesListSecreen={props.HandleGotoTabsCatagoriesListSecreen}/>
-            <YoungPeopleBuyBox HandleGotoTabsCatagoriesListSecreen={props.HandleGotoTabsCatagoriesListSecreen}/>
-            <YoungPeopleBuyBox HandleGotoTabsCatagoriesListSecreen={props.HandleGotoTabsCatagoriesListSecreen}/>
-            {/* <YoungPeopleBuyBox />
-              <YoungPeopleBuyBox /> */}
-            {/* <View style={styles.YoungPeopleBuyBoxOuterWraperImageHolder}>
-                <YoungPeopleBuyBox />
-              </View> */}
+            <YoungPeopleBuyBox/>
+            <YoungPeopleBuyBox/>
+            <YoungPeopleBuyBox/>
+            <YoungPeopleBuyBox/>
           </View>
         </ScrollView>
       </View>

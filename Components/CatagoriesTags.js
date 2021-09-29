@@ -81,7 +81,7 @@ export default function CatagoriesTag(props) {
       </TouchableOpacity>
       {ToggleArrow && (
         <View>
-          <CatagoriesTagsBox HandleGotoTabsVegetablesAndFruitsSecreen={props.HandleGotoTabsVegetablesAndFruitsSecreen} />
+          <CatagoriesTagsBox />
         </View>
       )}
     </View>

@@ -8,16 +8,11 @@ const BrandListScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-
-  function HandleGoBackToHomeSecreen() {
-    navigation.navigate('HomPage');
-  }
   const ItemAray = [1, 1, 1, 1, 1, 1, 1, 1];
   return (
     <View style={{flex: 1}}>
       <Header
         name={HeaderName}
-        fun={HandleGoBackToHomeSecreen}
         ScreenName={false}
       />
       <View style={{display: 'flex', alignItems: 'center', padding: 10}}>

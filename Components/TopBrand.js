@@ -8,12 +8,12 @@ export default function TopBrand(props) {
       <View style={{padding: 12}}>
         <Text style={styles.ProductNameButtonInnercontainerdProduct}>Top Brand</Text>
         <View style={styles.InnercontainerdBrand}>
-          <TopBrandBox HandleGotoBrandListSecreen={props.HandleGotoBrandListSecreen} />
-          <TopBrandBox HandleGotoBrandListSecreen={props.HandleGotoBrandListSecreen} />
-          <TopBrandBox HandleGotoBrandListSecreen={props.HandleGotoBrandListSecreen} />
-          <TopBrandBox HandleGotoBrandListSecreen={props.HandleGotoBrandListSecreen} />
-          <TopBrandBox HandleGotoBrandListSecreen={props.HandleGotoBrandListSecreen} />
-          <TopBrandBox HandleGotoBrandListSecreen={props.HandleGotoBrandListSecreen} />
+          <TopBrandBox />
+          <TopBrandBox />
+          <TopBrandBox />
+          <TopBrandBox />
+          <TopBrandBox />
+          <TopBrandBox />
         </View>
       </View>
     </>

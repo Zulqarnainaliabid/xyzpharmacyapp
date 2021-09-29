@@ -220,14 +220,10 @@ export default function CatagoriesListScreen({route, navigation}) {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  function HandleGoBackToHomeSecreen() {
-    navigation.navigate('HomPage');
-  }
   return (
     <View style={{backgroundColor: 'white',flex:1}}>
       <Header
         name={HeaderName}
-        fun={HandleGoBackToHomeSecreen}
         ScreenName={false}
       />
         <Tab.Navigator

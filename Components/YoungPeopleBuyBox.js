@@ -1,11 +1,15 @@
 import React from 'react';
 import {Text, View, Image, ScrollView , TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 const img = require('./Images/ColdDrink.webp');
 export default function YoungPeopleBuyBox(props) {
+  const navigation = useNavigation();
   return (
     <>
       <TouchableOpacity style={styles.button} onPress={()=>{
-        props.HandleGotoTabsCatagoriesListSecreen("Cold Drink")
+          navigation.navigate('TabsCatagoriesList', {
+            name: "Cold Drink",
+          });
       }}>
         <View style={styles.YoungPeopleBuyBoxOuterWraperImageHolder}>
           <View style={styles.YoungPeopleBuyBoxImageHolder}>

@@ -3,7 +3,7 @@ import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
 import styles from './Style';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useDispatch, useSelector} from 'react-redux';
-import {UPDATEHEADERNAME} from './Redux/actions/indux';
+import {useNavigation} from '@react-navigation/native';
 const img = require('./Images/CheckenSecond.webp');
 const ArrowLeftIcon = (
   <FontAwesome5
@@ -14,14 +14,16 @@ const ArrowLeftIcon = (
 );
 
 export default function ItemsProduct() {
-  const dispatch = useDispatch();
+  const navigation = useNavigation();
   return (
     <>
       <View style={styles.InnerContainerItemProduct}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            dispatch(UPDATEHEADERNAME(true, 'lllllllllllllllluuuuuuuuuuuuuuu'));
+            navigation.push('DetailsSecreenSecreen', {
+              name: 'lllllllllllllllluuuuuuuuuuuuuuu',
+            });
           }}>
           <View style={styles.InnerContainerItemProductImageHolder}>
             <Image

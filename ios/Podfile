@@ -14,6 +14,8 @@ target 'xyzPharmacy' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'xyzPharmacyTests' do
     inherit! :complete
     # Pods for testing
