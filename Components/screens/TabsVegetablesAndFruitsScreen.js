@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Text, View, ScrollView} from 'react-native';
 import Header from '../Header';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {TempDataCategoriesTag} from '../TempData'
 import ItemsProduct from '../ItemsProducts';
 const tabsArray = [1,2,3,4];
 function TabScreen1() {
@@ -13,13 +14,11 @@ function TabScreen1() {
           alignItems: 'center',
           backgroundColor: 'white',
         }}>
-        {tabsArray.map((item, index) => {
-          return (
-            <View key={index}>
-              <ItemsProduct />
-            </View>
-          );
-        })}
+        {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
       </View>
     </ScrollView>
   );
@@ -34,13 +33,11 @@ function TabScreen2() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+      {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );

@@ -165,8 +165,8 @@ export default styles = StyleSheet.create({
     // elevation: 2,
   },
   ImageHolderOuterContainerProductBox: {
-    // borderWidth: 1,
-    // borderColor: '#EEEEEE',
+    width:125,
+    height:133,
   },
   TextHolderProductBox: {
     borderColor: '#000000',
@@ -194,12 +194,15 @@ export default styles = StyleSheet.create({
     // borderWidth: 1,
     borderColor: '#F4CA16',
     display: 'flex',
+    justifyContent:"space-between",
     flexDirection: 'row',
-    width: 220,
+    width: 240,
   },
   CatagoriesTagTextHolder: {
     textAlign: 'left',
     // marginTop: 14,
+    // borderWidth:1,
+    width:212,
     marginLeft: 10,
     fontSize: 12,
     color: '#898989',
@@ -248,14 +251,10 @@ export default styles = StyleSheet.create({
   InnerContainerItemProductImageHolder: {
     // borderWidth: 1,
     textAlignVertical: 'center',
-    width: 120,
+    width: 130,
+    padding:5,
     display: 'flex',
     justifyContent: 'center',
-  },
-  InnerContainerItemProductTextHolder: {
-    width: 170,
-    marginLeft: 12,
-    // borderWidth:1
   },
   InnerContainerItemProductSubmitButton: {
     textAlign: 'center',
@@ -263,41 +262,40 @@ export default styles = StyleSheet.create({
     paddingVertical: 7,
     backgroundColor: '#18AE43',
     color: '#E3F2E9',
-    marginLeft: 10,
     borderRadius: 5,
-    width: 190,
-    marginTop: -3,
   },
   InnerContainerItemProductOuterWraperArroeIcon: {
-    // marginTop:55,
-    textAlignVertical: 'center',
-    marginLeft: 5,
+    textAlignVertical:"center",
+     textAlign:"right"
   },
   InnerContainerItemProductDiscRate: {
     // borderWidth: 1,
-    backgroundColor: '#E5023C',
+    backgroundColor: '#FE0000',
     color: '#FFFCFF',
     paddingHorizontal: 3,
     paddingVertical: 2,
-    fontSize: 14,
-    marginTop: 10,
-    width: 65,
+    fontSize: 16,
+    marginVertical: 12,
     textAlign: 'center',
     borderRadius: 17,
-    fontWeight: '700',
+    fontWeight:"700"
+    // fontWeight: '700',
   },
   OuterWraperImageDetailsScreen: {
     borderWidth: 1,
     marginTop: 12,
   },
   OuterWraperImageHolderDetailScreen: {
-    width: 270,
+    width: 260,
     padding: 12,
     marginLeft: 45,
+    padding:12
   },
   OuterWraperDetailTextHolderDetailsScreen: {
     display: 'flex',
     flexDirection: 'row',
+    // borderWidth:1,
+    justifyContent:"space-between"
   },
   BrandListScreenImageHolder: {
     // borderWidth:1,

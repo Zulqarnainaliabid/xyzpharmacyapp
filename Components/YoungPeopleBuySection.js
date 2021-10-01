@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, ScrollView} from 'react-native';
 import styles from './Style';
 import YoungPeopleBuyBox from './YoungPeopleBuyBox';
+import {TempDataYoungPeopleBuy} from './TempData'
 export default function YoungPeopleBuySection(props) {
   return (
     <>
@@ -17,10 +18,10 @@ export default function YoungPeopleBuySection(props) {
         }}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
           <View style={styles.YoungPeopleBuyBoxOuterWraperScrollView}>
-            <YoungPeopleBuyBox/>
-            <YoungPeopleBuyBox/>
-            <YoungPeopleBuyBox/>
-            <YoungPeopleBuyBox/>
+            {TempDataYoungPeopleBuy && TempDataYoungPeopleBuy.map((item,index)=>{
+              return<YoungPeopleBuyBox key={index} Data={item} />
+            })}
+            
           </View>
         </ScrollView>
       </View>

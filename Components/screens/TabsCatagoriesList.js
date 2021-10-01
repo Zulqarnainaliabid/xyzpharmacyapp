@@ -3,7 +3,7 @@ import {Text, View, ScrollView} from 'react-native';
 import Header from '../Header';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import ItemsProduct from '../ItemsProducts';
-const tabsArray = [1,2,3,4];
+import {TempDataCategoriesTag} from '../TempData'
 function TabScreen1() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -13,13 +13,11 @@ function TabScreen1() {
           alignItems: 'center',
           backgroundColor: 'white',
         }}>
-        {tabsArray.map((item, index) => {
-          return (
-            <View key={index} style={{width:"100%"}}>
-              <ItemsProduct />
-            </View>
-          );
-        })}
+        {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
       </View>
     </ScrollView>
   );
@@ -34,13 +32,11 @@ function TabScreen2() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index} style={{width:"100%"}}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+       {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -55,13 +51,11 @@ function TabScreen3() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index} style={{width:"100%"}}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+       {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -76,13 +70,11 @@ function TabScreen4() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index} style={{width:"100%"}}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+      {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -97,13 +89,11 @@ function TabScreen5() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index} style={{width:"100%"}}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+       {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -118,13 +108,11 @@ function TabScreen6() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index} style={{width:"100%"}}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+       {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -139,13 +127,11 @@ function TabScreen7() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index} style={{width:"100%"}}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+      {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -160,13 +146,11 @@ function TabScreen8() {
           alignItems: 'center',
           backgroundColor: 'white',
         }}>
-        {tabsArray.map((item, index) => {
-          return (
-            <View key={index}>
-              <ItemsProduct />
-            </View>
-          );
-        })}
+         {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
       </View>
     </ScrollView>
   );
@@ -181,13 +165,11 @@ function TabScreen9() {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      {tabsArray.map((item, index) => {
-        return (
-          <View key={index}>
-            <ItemsProduct />
-          </View>
-        );
-      })}
+       {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
     </View>
   </ScrollView>
   );
@@ -202,13 +184,11 @@ function TabScreen10() {
           alignItems: 'center',
           backgroundColor: 'white',
         }}>
-        {tabsArray.map((item, index) => {
-          return (
-            <View key={index}>
-              <ItemsProduct />
-            </View>
-          );
-        })}
+        {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
       </View>
     </ScrollView>
   );
@@ -218,6 +198,10 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function CatagoriesListScreen({route, navigation}) {
   let {name} = route.params;
+
+  let {otherData} = route.params;
+  let TitleName = otherData.titleName
+ console.log("po data",TitleName)
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
   return (
@@ -227,27 +211,27 @@ export default function CatagoriesListScreen({route, navigation}) {
         ScreenName={false}
       />
         <Tab.Navigator
+         initialRouteName={TitleName}
           screenOptions={{
-            tabBarLabelStyle: {fontSize: 13,width:70,fontWeight:"600"},
-            tabBarItemStyle: { width: 73 },
+            tabBarLabelStyle: {fontSize: 13,width:130,fontWeight:"600"},
+            tabBarItemStyle: { width: 130 },
             tabBarBounces: true,
             tabBarScrollEnabled: true,
             tabBarContentContainerStyle: {screollY: 'true'},
             tabBarActiveTintColor: '#F18029',
             tabBarInactiveTintColor: '#1C2223',
             tabBarIndicatorStyle: {backgroundColor: '#F18029'},
-
             tabBarStyle: {
               backgroundColor: '#FFFFFF',
               // borderBottomWidth: 1,
               borderBottomColor: '#C4C4C4',
             },
           }}>
-          <Tab.Screen name="Home" component={TabScreen1} />
-          <Tab.Screen name="Settings" component={TabScreen2} />
-          <Tab.Screen name="Home2" component={TabScreen3} />
-          <Tab.Screen name="Settings2" component={TabScreen4} />
-          <Tab.Screen name="Home3" component={TabScreen5} />
+          <Tab.Screen name={"Cold Drink"} component={TabScreen1} />
+          <Tab.Screen name={"Biscuits & Cookies"} component={TabScreen2} />
+          <Tab.Screen name={"Chips & Nimko"} component={TabScreen3} />
+          <Tab.Screen name={"Settings2"} component={TabScreen4} />
+          <Tab.Screen name={"Chocolates"} component={TabScreen5} />
           <Tab.Screen name="Settings3" component={TabScreen6} />
           <Tab.Screen name="Home4" component={TabScreen7} />
           <Tab.Screen name="Settings4" component={TabScreen8} />

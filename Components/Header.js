@@ -16,7 +16,7 @@ import {
 } from './Redux/actions/indux';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {JSONDATALIST1} from './TempData';
+import {TempDataCategoriesTag} from './TempData';
 const SearchIcon = (
   <FontAwesome5
     style={{fontSize: 20, color: '#777777'}}
@@ -57,18 +57,22 @@ function Header(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     setTextTopSearch(UpdateTopSearchName);
+    // HandleSearchItem(UpdateTopSearchName)
+    
   }, [UpdateTopSearchName]);
+
   function HandleSearchItem(text) {
     setTextTopSearch(text);
-    let arr = JSONDATALIST1.filter(value => {
+    let arr = TempDataCategoriesTag.filter(value => {
       if (text == '') {
-      } else if (value.first_name.toLowerCase().includes(text.toLowerCase())) {
+      } else if (value.titleName.toLowerCase().includes(text.toLowerCase())) {
         return value;
       } else {
         dispatch(UPDATESEARCHARRAY([]));
         dispatch(UPDATETOPSEARCHNAME(''));
       }
     });
+    console.log("array . name = ",arr)
     dispatch(UPDATESEARCHARRAY(arr));
     if (arr.length === 0) {
       dispatch(UPDATEARRAYLENGTH(false));
@@ -129,6 +133,8 @@ function Header(props) {
               onPress={() => {
                 navigation.goBack();
                 dispatch(UPDATETOPSEARCHNAME(''));
+                dispatch(UPDATEARRAYLENGTH(false));
+                dispatch(UPDATESEARCHARRAY([]));
               }}>
               <Text>{ArrowLeftIcon}</Text>
             </TouchableOpacity>

@@ -54,7 +54,10 @@ export default function CatagoriesTag(props) {
         }}>
         <View style={styles.InnerContainerCatagoriesTagBoxImageHolder}>
           <View style={styles.CatagoriesTags}>
-            <Image style={{width: '100%', height: 100}} source={img} />
+            <Image
+              style={{width: '100%', height: 100}}
+              source={props.Data.img}
+            />
           </View>
           <View style={styles.CatagoriesTagBoxTextHolder}>
             <View>
@@ -64,11 +67,13 @@ export default function CatagoriesTag(props) {
                   marginTop: 14,
                   marginLeft: 10,
                   fontSize: 17,
+                  // borderWidth:1,
+                  width:211,
                 }}>
-                Fruit & Vegetables
+                {props.Data.titleName}
               </Text>
               <Text style={styles.CatagoriesTagTextHolder}>
-                Fruit,Vegetables,Potato,Tomato,Brocoli,onion
+                {props.Data.Discrption}
               </Text>
             </View>
             <View style={styles.CatagoriesTagBoxArrowIconHolder}>
@@ -81,7 +86,7 @@ export default function CatagoriesTag(props) {
       </TouchableOpacity>
       {ToggleArrow && (
         <View>
-          <CatagoriesTagsBox />
+          <CatagoriesTagsBox DataArry={props.Data.FruitsAndVegatblesInner} />
         </View>
       )}
     </View>

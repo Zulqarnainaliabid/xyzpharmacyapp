@@ -32,8 +32,6 @@ const SearchScreen = ({route, navigation}) => {
   HeaderName = HeaderName.replace('"', '').replace('"', '');
   const UpdateSearchArray = useSelector(state => state.UpdateSearchArray);
   const UpdateArrayLength = useSelector(state => state.UpdateArrayLength);
-
-  console.log('pp', UpdateArrayLength, 'jj', UpdateSearchArray);
   const ItemAray = [
     {name: 'Grapes'},
     {name: 'Mango'},
@@ -107,7 +105,7 @@ const SearchScreen = ({route, navigation}) => {
                 UpdateSearchArray.map((item, index) => {
                   return (
                     <View key={index}>
-                      <ItemsProduct />
+                      <ItemsProduct Data={item} />
                     </View>
                   );
                 })}

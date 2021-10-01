@@ -29,3 +29,10 @@ export const UPDATETOPSEARCHNAME=(item)=>{
         payload:item,
     }
 }
+
+export const UPDATEARRAYWISHLISTSCREEN=(item)=>{
+    return{
+        type:'UPDATEARRAYWISHLISTSCREEN',
+        payload:item,
+    }
+}

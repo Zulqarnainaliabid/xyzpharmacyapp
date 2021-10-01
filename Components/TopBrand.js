@@ -1,19 +1,16 @@
 import React from 'react';
-import {Text, View, Image, ScrollView} from 'react-native';
+import {Text, View} from 'react-native';
 import TopBrandBox from './TopBrandBox';
-const img = require('./Images/UnileverBrand.webp');
+import {TempDataTopBrand} from './TempData'
 export default function TopBrand(props) {
   return (
     <>
       <View style={{padding: 12}}>
         <Text style={styles.ProductNameButtonInnercontainerdProduct}>Top Brand</Text>
         <View style={styles.InnercontainerdBrand}>
-          <TopBrandBox />
-          <TopBrandBox />
-          <TopBrandBox />
-          <TopBrandBox />
-          <TopBrandBox />
-          <TopBrandBox />
+          {TempDataTopBrand.map((item,index)=>{
+            return  <TopBrandBox key={index} Data={item} />
+          })}
         </View>
       </View>
     </>

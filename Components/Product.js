@@ -23,22 +23,15 @@ export default function Products(props) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{display: 'flex', alignItems: 'center'}}>
+        <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-            <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox />
-            </View>
-            <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox  />
-            </View>
-            <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox />
-            </View>
-            <View style={{marginLeft: 3, marginRight: 3}}>
-              <ProductsBox  />
+            <View style={{display:"flex",flexDirection:"row"}}>
+              {props.TempDataArray && props.TempDataArray.map((item,index)=>{
+                return <View style={{marginHorizontal:4}}><ProductsBox Data={item} /></View>
+              })}
             </View>
           </ScrollView>
-        </View>
+          </View>
       </View>
     </>
   );

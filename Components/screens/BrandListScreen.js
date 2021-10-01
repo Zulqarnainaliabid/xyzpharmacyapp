@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text,ScrollView, Image} from 'react-native';
+import {TempDataCategoriesTag} from '../TempData'
 import Header from '../Header';
 import ItemsProduct from '../ItemsProducts';
-const img = require('../Images/UnileverBrand.webp');
-
 const BrandListScreen = ({route, navigation}) => {
-  let {name} = route.params;
-  let HeaderName = JSON.stringify(name);
+  let {otherData} = route.params;
+  console.log("Brand Data",otherData)
+  let Img = JSON.stringify(otherData.img);
+  let HeaderName = JSON.stringify(otherData.titleName);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  const ItemAray = [1, 1, 1, 1, 1, 1, 1, 1];
   return (
     <View style={{flex: 1}}>
       <Header
@@ -19,7 +19,7 @@ const BrandListScreen = ({route, navigation}) => {
         <View style={styles.BrandListScreenImageHolder}>
           <Image
             style={{width: '100%', height: 110, borderColor: '#F4CA16'}}
-            source={img}
+            source={Img}
           />
         </View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -35,9 +35,11 @@ const BrandListScreen = ({route, navigation}) => {
       </View>
       <View style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {ItemAray.map((item, index) => {
-            return <ItemsProduct key={index} />;
-          })}
+        {TempDataCategoriesTag && TempDataCategoriesTag.map((item,index)=>{
+              return <ItemsProduct key={index}
+              Data={item}
+              />
+            })}
         </ScrollView>
       </View>
     </View>

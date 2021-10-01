@@ -8,15 +8,18 @@ import YoungPeopleBuySection from './YoungPeopleBuySection';
 import CatagoriesTag from './CatagoriesTags';
 import ItemsProduct from './ItemsProducts';
 import Header from './Header';
+import {
+  TempDataTopSlleer,
+  TempDataFeatureProduct,
+  TempDataFruitsAndVegatbles,
+  TempDataDaalain,
+  TempDataFruitsAndVegatblesOuter,
+  TempDataCategoriesTag,
+} from './TempData';
 import 'react-native-gesture-handler';
 const img = require('./Images/FreeClub.webp');
 export default function HomPage({navigation}) {
   const [ToggleHeader, setToggleHeader] = useState(false);
-  const [CatagorisTagArray, setCatagorisTagArray] = useState([
-    {select: false},
-    {select: false},
-    {select: false},
-  ]);
 
   function HandleGotoMemberShipScreen() {
     navigation.navigate('MemberShipScreen', {
@@ -30,7 +33,10 @@ export default function HomPage({navigation}) {
         <View style={styles.Outercontainer}>
           <MyCarousel />
           <View style={styles.OutercontainerdProduct}>
-            <Products name={'Featured products'} />
+            <Products
+              name={'Featured products'}
+              TempDataArray={TempDataFeatureProduct}
+            />
           </View>
           <TouchableOpacity
             style={styles.button}
@@ -40,13 +46,16 @@ export default function HomPage({navigation}) {
             </View>
           </TouchableOpacity>
           <View style={styles.OutercontainerdProduct}>
-            <Products name={'Top Sellers'} />
+            <Products name={'Top Sellers'} TempDataArray={TempDataTopSlleer} />
           </View>
           <View style={styles.OutercontainerdProduct}>
             <TopBrand />
           </View>
           <View style={styles.OutercontainerdProduct}>
-            <Products name={'Fruits & Vegetables'} />
+            <Products
+              name={'Fruits & Vegetables'}
+              TempDataArray={TempDataFruitsAndVegatbles}
+            />
           </View>
           <TouchableOpacity
             style={styles.button}
@@ -60,10 +69,13 @@ export default function HomPage({navigation}) {
             <YoungPeopleBuySection />
           </View>
           <View style={styles.OutercontainerdProduct}>
-            <Products name={'Daalain, Rice & Flour'} />
+            <Products
+              name={'Daalain, Rice & Flour'}
+              TempDataArray={TempDataDaalain}
+            />
           </View>
-          {CatagorisTagArray &&
-            CatagorisTagArray.map((item, index) => {
+          {TempDataFruitsAndVegatblesOuter &&
+            TempDataFruitsAndVegatblesOuter.map((item, index) => {
               return (
                 <View
                   key={index}
@@ -71,7 +83,7 @@ export default function HomPage({navigation}) {
                     marginHorizontal: -5,
                     marginVertical: 5,
                   }}>
-                  <CatagoriesTag />
+                  <CatagoriesTag Data={item} />
                 </View>
               );
             })}
@@ -82,10 +94,10 @@ export default function HomPage({navigation}) {
             </Text>
           </View>
           <View style={styles.OuterContainerItemProduct}>
-            <ItemsProduct />
-            <ItemsProduct />
-            <ItemsProduct />
-            <ItemsProduct />
+            {TempDataCategoriesTag &&
+              TempDataCategoriesTag.map((item, index) => {
+                return <ItemsProduct key={index} Data={item} />;
+              })}
           </View>
         </View>
       </ScrollView>

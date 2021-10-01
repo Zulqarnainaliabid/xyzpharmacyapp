@@ -17,12 +17,9 @@ const ProfileScreen = ({route, navigation}) => {
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
   return (
-    <View style={{flex: 1, alignItems: 'center',justifyContent:"center"}}>
-      <View style={{height:"100%", width:"100%"}}>
-        <ImageBackground
-          source={image}
-          blurRadius={4}
-          style={styles.image}>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{height: '100%', width: '100%'}}>
+        <ImageBackground source={image} blurRadius={4} style={styles.image}>
           <View
             style={{
               display: 'flex',
@@ -51,7 +48,10 @@ const ProfileScreen = ({route, navigation}) => {
               }}>
               Login/Sign Up
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('HomPage');
+              }}>
               <Text
                 style={{
                   color: '#FFFFFF',
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
   image: {
     // flex: 1,sr
     justifyContent: 'center',
-    width: "100%",
-    height:"100%",
+    width: '100%',
+    height: '100%',
     flex: 1,
     resizeMode: 'cover',
   },

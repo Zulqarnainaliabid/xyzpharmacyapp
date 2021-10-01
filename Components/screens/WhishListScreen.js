@@ -2,11 +2,14 @@ import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import Header from '../Header';
 import {WishListHeart} from '../Icons';
+import {useDispatch, useSelector} from 'react-redux';
 const img = require('../Images/FreePik.jpg');
 const WishListScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
+  const UpdateArrayWishListScreen = useSelector(state => state.UpdateArrayWishListScreen);
+  console.log("WishList Array.  new n n",UpdateArrayWishListScreen)
   return (
     <View style={{flex: 1}}>
       <Header

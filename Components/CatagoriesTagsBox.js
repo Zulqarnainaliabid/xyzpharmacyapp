@@ -14,7 +14,7 @@ export function CatagoriesTagsBoxFun(props) {
           });
         }}>
         <View style={styles.CataGoriesTagBoxImageHolder}>
-          <Image style={{width: '100%', height: 80}} source={img} />
+          <Image style={{width: '100%', height: 80}} source={props.Data.img} />
           <Text
             style={{
               textAlign: 'center',
@@ -23,7 +23,7 @@ export function CatagoriesTagsBoxFun(props) {
               color: '#757575',
               fontWeight: '500',
             }}>
-            Vegetables
+              {props.Data. titleName}
           </Text>
         </View>
       </TouchableOpacity>
@@ -34,14 +34,13 @@ export default function CatagoriesTagsBox(props) {
   return (
     <>
       <View style={styles.CatagoriesTagBoxOuterContainer}>
-        <CatagoriesTagsBoxFun
-        />
-        <CatagoriesTagsBoxFun
-        />
-        <CatagoriesTagsBoxFun
-        />
-        <CatagoriesTagsBoxFun
-        />
+        {props.DataArry && props.DataArry.map((item,index)=>{
+          return  <CatagoriesTagsBoxFun
+          key={index}
+          Data={item}
+          />
+        })}
+       
       </View>
     </>
   );

@@ -2,18 +2,12 @@ import React from 'react';
 import {View, Text, Button, StyleSheet, ScrollView, Image} from 'react-native';
 import Header from '../Header';
 import CatagoriesTag from '../CatagoriesTags';
+import {TempDataFruitsAndVegatblesOuter} from '../TempData'
 const img = require('../Images/UnileverBrand.webp');
 const DrawerCategoriesScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-
-  function HandleGotoTabsVegetablesAndFruitsSecreen(name) {
-    navigation.navigate('VegetablesAndFruitScreen', {
-      name: name,
-    });
-  }
-  const ItemAray = [1, 1, 1, 1, 1, 1, 1, 1];
   return (
     <View style={{flex: 1}}>
       <Header
@@ -23,13 +17,19 @@ const DrawerCategoriesScreen = ({route, navigation}) => {
 
       <View style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {ItemAray.map((item, index) => {
-            return (
-              <View style={{marginVertical:7}}>
-                <CatagoriesTag key={index} HandleGotoTabsVegetablesAndFruitsSecreen={HandleGotoTabsVegetablesAndFruitsSecreen} />
-              </View>
-            );
-          })}
+        {TempDataFruitsAndVegatblesOuter &&
+            TempDataFruitsAndVegatblesOuter.map((item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={{
+                    marginHorizontal: -5,
+                    marginVertical: 5,
+                  }}>
+                  <CatagoriesTag Data={item} />
+                </View>
+              );
+            })}
         </ScrollView>
       </View>
     </View>
