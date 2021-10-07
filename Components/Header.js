@@ -13,6 +13,7 @@ import {
   UPDATESEARCHARRAY,
   UPDATEARRAYLENGTH,
   UPDATETOPSEARCHNAME,
+  TOGGLEEDITBUTTON,
 } from './Redux/actions/indux';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -58,7 +59,6 @@ function Header(props) {
   useEffect(() => {
     setTextTopSearch(UpdateTopSearchName);
     // HandleSearchItem(UpdateTopSearchName)
-    
   }, [UpdateTopSearchName]);
 
   function HandleSearchItem(text) {
@@ -72,7 +72,7 @@ function Header(props) {
         dispatch(UPDATETOPSEARCHNAME(''));
       }
     });
-    console.log("array . name = ",arr)
+    console.log('array . name = ', arr);
     dispatch(UPDATESEARCHARRAY(arr));
     if (arr.length === 0) {
       dispatch(UPDATEARRAYLENGTH(false));
@@ -180,7 +180,13 @@ function Header(props) {
                   {SearchIcon}
                 </View>
               )}
-
+              {props.EditButton && (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => dispatch(TOGGLEEDITBUTTON(true))}>
+                  <Text style={{marginTop: 10, color: '#FE7740'}}>EDIT</Text>
+                </TouchableOpacity>
+              )}
               {props.ScreenName ? (
                 <View style={{marginTop: 14}}>{ShoppingIcon}</View>
               ) : (

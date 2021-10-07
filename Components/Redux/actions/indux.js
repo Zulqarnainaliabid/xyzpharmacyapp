@@ -36,3 +36,11 @@ export const UPDATEARRAYWISHLISTSCREEN=(item)=>{
         payload:item,
     }
 }
+
+
+export const TOGGLEEDITBUTTON=(item)=>{
+    return{
+        type:'TOGGLEEDITBUTTON',
+        payload:item,
+    }
+}

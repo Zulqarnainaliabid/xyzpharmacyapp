@@ -1,6 +1,18 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, ScrollView, Image, Alert, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Alert,
+  TextInput,
+  Modal,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../Header';
+import {useToast} from 'react-native-toast-notifications';
 import ItemsProduct from '../ItemsProducts';
 import {useDispatch, useSelector} from 'react-redux';
 import Swiper from 'react-native-swiper';
@@ -9,29 +21,30 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import {TempDataCategoriesTag, TempDataFeatureProduct} from '../TempData';
 import {UPDATEARRAYWISHLISTSCREEN} from '../Redux/actions/indux';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 const CrossIcon = (
   <FontAwesome5 style={{fontSize: 30, color: '#F08243'}} name={'times'} />
 );
-
 const HeartFilld = (
   <FontAwesome5 style={{fontSize: 20, color: '#F08243'}} name={'heart'} solid />
 );
 const HeartUnFilld = (
   <FontAwesome5 style={{fontSize: 20, color: '#F08243'}} name={'heart'} />
 );
-
 const PlusIcon = (
   <FontAwesome5 style={{fontSize: 20, color: '#F08243'}} name={'plus'} />
 );
-const FavouriteListItemArray = [];
 const DetailsScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
+  const toast = useToast();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [Index, setIndex] = useState(null);
+  const [FavouriteListItemArray, setFavouriteListItemArray] = useState(null);
   const [Click, setClick] = useState(false);
   const [ShowMessageBox, setShowMessageBox] = useState(false);
   const [ToggleModalCreateListScreen, setToggleModalCreateListScreen] =
     useState(false);
   const [HandleFavouriteListText, setHandleFavouriteListText] = useState('');
+  const [ToggleModal, setToggleModal] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,6 +52,35 @@ const DetailsScreen = ({route, navigation}) => {
     }, 1000);
     return () => clearTimeout(timer);
   }, [ShowMessageBox]);
+  function HnadleOpenBottomModal() {
+    refRBSheet.current.open();
+  }
+
+  const storeData = async (listName, value) => {
+    let data = JSON.stringify(value);
+    try {
+      await AsyncStorage.setItem(listName, data);
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('WishListArray');
+        if (value !== null) {
+          let data = JSON.parse(value);
+          setFavouriteListItemArray(data);
+        } else {
+          setFavouriteListItemArray(['somthing You Want..']);
+        }
+      } catch (e) {
+        console.log('read error', e);
+      }
+    };
+    getData();
+  }, [ToggleModal]);
 
   let {otherData} = route.params;
   let name = otherData.titleName;
@@ -54,8 +96,35 @@ const DetailsScreen = ({route, navigation}) => {
       name: name,
     });
   }
+
+  let DataArray = [];
+  let temp = [];
+  const HandleSetData = async listName => {
+    console.log('data - ', DataArray);
+    if (DataArray.length === 0) {
+      DataArray.push({name: listName, value: temp});
+    } else {
+      DataArray.map((item,index)=>{
+        // console.log('*');
+        if (DataArray[index] === listName) {
+          DataArray.value.push(otherData);
+          console.log('io');
+        } else {
+          console.log('io else');
+          temp.push(otherData);
+          DataArray.push({name: listName, value: temp});
+        }
+      })
+    }
+
+    try {
+      await AsyncStorage.setItem('WishList', JSON.stringify(DataArray));
+    } catch (e) {
+      console.log('error', e);
+    }
+    console.log('Same,,', DataArray);
+  };
   const refRBSheet = useRef();
-  let WishListArray = [];
   if (ToggleModalCreateListScreen) {
     return (
       <View
@@ -70,6 +139,7 @@ const DetailsScreen = ({route, navigation}) => {
           onPress={() => setToggleModalCreateListScreen(false)}>
           {CrossIcon}
         </Text>
+
         <Text
           style={{
             //   borderWidth: 1,
@@ -80,6 +150,7 @@ const DetailsScreen = ({route, navigation}) => {
           }}>
           Create a new list
         </Text>
+
         <TextInput
           style={{
             borderWidth: 1,
@@ -106,6 +177,7 @@ const DetailsScreen = ({route, navigation}) => {
           onPress={() => {
             FavouriteListItemArray.push(HandleFavouriteListText);
             setToggleModalCreateListScreen(false);
+            storeData('WishListArray', FavouriteListItemArray);
             console.log('text array.', FavouriteListItemArray);
           }}>
           Create
@@ -115,7 +187,7 @@ const DetailsScreen = ({route, navigation}) => {
   } else {
     return (
       <View style={{backgroundColor: 'white', flex: 1}}>
-        <Header name={HeaderName} ScreenName={true} />
+        <Header name={HeaderName} EditButton={false} ScreenName={true} />
         <View style={styles.OutercontainerDetailScreen}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={{marginTop: 12, fontSize: 18}}>{HeaderName}</Text>
@@ -205,19 +277,22 @@ const DetailsScreen = ({route, navigation}) => {
                     onPress={() => {
                       setClick(!Click);
                       setShowMessageBox(true);
+                      setToggleModal(!ToggleModal);
                     }}>
                     {HeartFilld}
                   </Text>
                 ) : (
-                  <Text
-                    style={{marginLeft: 17, marginTop: 5}}
+                  <Pressable
                     onPress={() => {
                       setClick(!Click);
-                      refRBSheet.current.open();
+                      HnadleOpenBottomModal();
                       setShowMessageBox(true);
+                      setToggleModal(!ToggleModal);
                     }}>
-                    {HeartUnFilld}
-                  </Text>
+                    <Text style={{marginLeft: 17, marginTop: 5}}>
+                      {HeartUnFilld}
+                    </Text>
+                  </Pressable>
                 )}
                 <Text
                   style={{
@@ -320,48 +395,33 @@ const DetailsScreen = ({route, navigation}) => {
           <Text style={{marginTop: 12, color: '#181818', fontSize: 16}}>
             Add to another favourite list
           </Text>
-          <View style={{minHeight: '10%', maxHeight: 150}}>
+          <View style={{minHeight: '10%', maxHeight: 200}}>
             <ScrollView>
               <View style={{paddingHorizontal: 12}}>
                 {FavouriteListItemArray &&
                   FavouriteListItemArray.map((item, index) => {
                     return (
-                      <Text
-                        key={index}
-                        style={{
-                          marginVertical: 12,
-                          fontSize: 17,
-                          color: '#7B7B7B',
-                          borderWidth: 1,
-                          textAlign: 'center',
-                          padding: 6,
-                          borderRadius: 3,
-                          borderColor: '#FF783E',
-                        }}
+                      <Pressable
                         onPress={() => {
-                          let temp = false
-                          if(WishListArray.length===0){
-                            WishListArray.push(item);
-                          }
-
-                          if (WishListArray.length !== 0) {
-                            for (let i = 0; i < WishListArray.length; i++) {
-                              if (WishListArray[i] === item) {
-                                temp=true
-                              }
-                            }
-                            if(temp===false){
-                              WishListArray.push(item);
-                            }
-                            console.log("yes")
-                          }
-
-                          console.log('89', item);
-                          console.log('uiuiui', WishListArray);
-                          dispatch(UPDATEARRAYWISHLISTSCREEN(WishListArray));
+                          HandleSetData(item);
+                          setIndex(index);
+                          // dispatch(UPDATEARRAYWISHLISTSCREEN(item));
                         }}>
-                        {item}
-                      </Text>
+                        <Text
+                          key={index}
+                          style={{
+                            marginVertical: 12,
+                            fontSize: 17,
+                            color: '#7B7B7B',
+                            borderWidth: 1,
+                            textAlign: 'center',
+                            padding: 6,
+                            borderRadius: 3,
+                            borderColor: '#FF783E',
+                          }}>
+                          {item}
+                        </Text>
+                      </Pressable>
                     );
                   })}
               </View>
@@ -388,5 +448,4 @@ const DetailsScreen = ({route, navigation}) => {
     );
   }
 };
-
 export default DetailsScreen;

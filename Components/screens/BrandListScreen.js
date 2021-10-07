@@ -13,6 +13,7 @@ const BrandListScreen = ({route, navigation}) => {
     <View style={{flex: 1}}>
       <Header
         name={HeaderName}
+        EditButton={false}
         ScreenName={false}
       />
       <View style={{display: 'flex', alignItems: 'center', padding: 10}}>

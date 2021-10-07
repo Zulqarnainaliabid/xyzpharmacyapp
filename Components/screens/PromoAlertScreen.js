@@ -53,6 +53,7 @@ const PromoAlertScreen = ({route, navigation}) => {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
 
       <View style={{flex: 1, backgroundColor: '#F2F6F9'}}>

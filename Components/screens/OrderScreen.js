@@ -16,6 +16,7 @@ const OrderScreen = ({route, navigation}) => {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
       <View style={{flex: 1, justifyContent: 'center', padding: 12}}>
         <Text style={{color: '#2A2A2A', textAlign: 'center'}}>

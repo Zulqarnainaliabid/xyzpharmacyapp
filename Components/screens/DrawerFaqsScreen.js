@@ -12,6 +12,7 @@ const DrawerFaqsScreen = ({route, navigation}) => {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

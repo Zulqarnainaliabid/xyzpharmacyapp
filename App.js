@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
 import HomPage from './Components/HomePage';
 import Products from './Components/Product';
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,6 +27,9 @@ import InBoxScreen from './Components/screens/InBoxScreen';
 import DrawerFaqsScreen from './Components/screens/DrawerFaqsScreen'
 import WishListScreen from './Components/screens/WhishListScreen'
 import SearchScreen from './Components/screens/SearchScren'
+import { Alert } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -159,9 +161,19 @@ function MyDrawer() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+    
+  }, []);
+
   return (
     <NavigationContainer>
+      
       <MyDrawer />
+     
     </NavigationContainer>
   );
 }

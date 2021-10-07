@@ -1,4 +1,4 @@
-const UpdateArrayWishListScreen = (state=false,action)=>{
+const UpdateArrayWishListScreen = (state=null,action)=>{
     switch(action.type){
         case 'UPDATEARRAYWISHLISTSCREEN':
             return state = action.payload

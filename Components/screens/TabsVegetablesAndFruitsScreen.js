@@ -55,6 +55,7 @@ export default function VegeTablesAndFruitsScreen({route, navigation}) {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
         <Tab.Navigator
           screenOptions={{

@@ -11,6 +11,7 @@ const ShareAndEarnScreen = ({route, navigation}) => {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
 
       <View

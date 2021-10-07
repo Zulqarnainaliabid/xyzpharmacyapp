@@ -20,7 +20,6 @@ import 'react-native-gesture-handler';
 const img = require('./Images/FreeClub.webp');
 export default function HomPage({navigation}) {
   const [ToggleHeader, setToggleHeader] = useState(false);
-
   function HandleGotoMemberShipScreen() {
     navigation.navigate('MemberShipScreen', {
       name: 'GrocerClub Membership mmmm',
@@ -28,7 +27,7 @@ export default function HomPage({navigation}) {
   }
   return (
     <>
-      <Header ToggleHeader={ToggleHeader} ScreenName={true} />
+      <Header ToggleHeader={ToggleHeader}  EditButton={false} ScreenName={true} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.Outercontainer}>
           <MyCarousel />

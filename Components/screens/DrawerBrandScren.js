@@ -10,7 +10,7 @@ const DrawerBrandScreen = ({route, navigation}) => {
   HeaderName = HeaderName.replace('"', '').replace('"', '');
   return (
     <View style={{flex: 1}}>
-      <Header name={HeaderName} ScreenName={false} />
+      <Header name={HeaderName} EditButton={false} ScreenName={false} />
       <View style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View

@@ -79,6 +79,7 @@ const InBoxScreen = ({route, navigation}) => {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
       <View style={{flex: 1}}>
         <Tab.Navigator

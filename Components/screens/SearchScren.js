@@ -60,7 +60,7 @@ const SearchScreen = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <Header name={HeaderName} ScreenName={false} Searchbarinputfield={true} />
+      <Header name={HeaderName} ScreenName={false} EditButton={false} Searchbarinputfield={true} />
       <View
         style={{
           flex: 1,

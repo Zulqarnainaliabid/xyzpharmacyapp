@@ -10,7 +10,7 @@ const CatagoriesListSecreen = ({route, navigation}) => {
 
   return (
     <View>
-      <Header name={HeaderName}  ScreenName={true} />
+      <Header name={HeaderName} EditButton={false} ScreenName={true} />
       <ScrollView>
         <View style={styles.OuterContainerCatagoriesList}>
           <ItemsProduct />

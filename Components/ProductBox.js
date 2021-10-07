@@ -9,7 +9,7 @@ export default function ProductsBox(props) {
 
   return (
     <>
-      <View style={{display: 'flex', alignItems: 'center'}}>
+      <View style={{display: 'flex', alignItems: 'center',backgroundColor:"#FFFFFF"}}>
         <View style={styles.OuterContainerProductBox}>
           <TouchableOpacity
             style={styles.button}

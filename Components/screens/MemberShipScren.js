@@ -25,6 +25,7 @@ const MemberShipScreen = ({route, navigation}) => {
       <Header
         name={HeaderName}
         ScreenName={false}
+        EditButton={false}
       />
       <View style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>

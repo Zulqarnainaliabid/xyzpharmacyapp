@@ -13,6 +13,7 @@ const CartScreen = ({route, navigation}) => {
     <View style={{flex: 1}}>
       <Header
         name={HeaderName}
+        EditButton={false}
         ScreenName={false}
       />
       <View style={{flex: 1, borderWidth: 1, paddingHorizontal: 19}}>

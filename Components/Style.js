@@ -35,7 +35,7 @@ export default styles = StyleSheet.create({
     borderRadius: 22,
     height: 40,
   },
-  HeaderOuterWraperInputinputSearchScreen:{
+  HeaderOuterWraperInputinputSearchScreen: {
     borderWidth: 1,
     borderColor: '#D3D3D3',
     width: 260,
@@ -165,8 +165,8 @@ export default styles = StyleSheet.create({
     // elevation: 2,
   },
   ImageHolderOuterContainerProductBox: {
-    width:125,
-    height:133,
+    width: 125,
+    height: 133,
   },
   TextHolderProductBox: {
     borderColor: '#000000',
@@ -194,7 +194,7 @@ export default styles = StyleSheet.create({
     // borderWidth: 1,
     borderColor: '#F4CA16',
     display: 'flex',
-    justifyContent:"space-between",
+    justifyContent: 'space-between',
     flexDirection: 'row',
     width: 240,
   },
@@ -202,7 +202,7 @@ export default styles = StyleSheet.create({
     textAlign: 'left',
     // marginTop: 14,
     // borderWidth:1,
-    width:212,
+    width: 212,
     marginLeft: 10,
     fontSize: 12,
     color: '#898989',
@@ -252,7 +252,7 @@ export default styles = StyleSheet.create({
     // borderWidth: 1,
     textAlignVertical: 'center',
     width: 130,
-    padding:5,
+    padding: 5,
     display: 'flex',
     justifyContent: 'center',
   },
@@ -265,8 +265,8 @@ export default styles = StyleSheet.create({
     borderRadius: 5,
   },
   InnerContainerItemProductOuterWraperArroeIcon: {
-    textAlignVertical:"center",
-     textAlign:"right"
+    textAlignVertical: 'center',
+    textAlign: 'right',
   },
   InnerContainerItemProductDiscRate: {
     // borderWidth: 1,
@@ -278,7 +278,7 @@ export default styles = StyleSheet.create({
     marginVertical: 12,
     textAlign: 'center',
     borderRadius: 17,
-    fontWeight:"700"
+    fontWeight: '700',
     // fontWeight: '700',
   },
   OuterWraperImageDetailsScreen: {
@@ -289,13 +289,13 @@ export default styles = StyleSheet.create({
     width: 260,
     padding: 12,
     marginLeft: 45,
-    padding:12
+    padding: 12,
   },
   OuterWraperDetailTextHolderDetailsScreen: {
     display: 'flex',
     flexDirection: 'row',
     // borderWidth:1,
-    justifyContent:"space-between"
+    justifyContent: 'space-between',
   },
   BrandListScreenImageHolder: {
     // borderWidth:1,
@@ -359,7 +359,77 @@ export default styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
+
+  modalView: {
+    // borderWidth:3,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    position: 'absolute',
+    top: 150,
+    left: 62,
+    zIndex: 5,
+  },
+  buttonModall: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    width: 160,
+    marginVertical: 5,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#18AE43',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  ViewAllButtonWishScreen: {
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 6,
+    textAlignVertical: 'center',
+    fontWeight: '700',
+  },
+  root: {padding: 0},
+  title: {textAlign: 'center', fontSize: 30},
+  codeFieldRoot: {marginTop: 0},
+  cell: {
+    width: 40,
+    height: 40,
+    lineHeight: 38,
+    fontSize: 24,
+    borderBottomWidth:1 ,
+    marginHorizontal:5,
+    textAlign: 'center',
+    borderColor:"#697177"
+  },
+  focusCell: {
+    borderColor: '#E57D50',
+  },
+  BackImage:{
+    width: '100%',
+    height: '100%',
+    flex: 1,
+    resizeMode: 'cover',
+   
+  }
 });
