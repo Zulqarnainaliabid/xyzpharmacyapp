@@ -12,8 +12,9 @@ export default function DatePicker(props){
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
-    let date =  moment(currentDate).format("YYYY-MM-DD")
+    let date =  moment(currentDate).format("DD/MM/YYYY")
     console.log("ii data" ,date)
+    props.handleDate(date)
   };
 
   const showMode = (currentMode) => {

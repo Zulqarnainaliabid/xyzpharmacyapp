@@ -5,24 +5,30 @@ import CountDown from 'react-native-countdown-component';
 import {useDispatch, useSelector} from 'react-redux';
 import {TOGGLEEDITBUTTON} from '../Redux/actions/indux';
 import DatePicker from '../DatePicker';
+import Alert from '../AwsomeAlert';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 export default function InputTextField(props) {
   const dispatch = useDispatch();
   const ToggleEditButton = useSelector(state => state.ToggleEditButton);
+  const [Gender, setGender] = useState('');
   const [ShowDate, setShowDate] = useState(false);
+  const [ShowGender, setShowGender] = useState(false);
   const [ToggleCounter, setToggleCounter] = useState(false);
-  const [Date, setDate] = useState("")
+  const [Date, setDate] = useState('');
   console.log('data y ', props.item);
-  console.log('data ii ', props.item.label);
- function handleDate(date){
-  setDate(date)
+  function handleDate(date) {
+    setDate(date);
+  }
+  function handleGernder(date) {
+    setGender(date);
   }
   return (
     <View style={{borderWidth: 1, flex: 1}}>
       {ToggleEditButton ? (
         <View>
           <FloatingLabelInput
-            label={'io'}
-            value={props.item.name}
+            label={'Name'}
+            value={props.item.userName}
             // onChangeText={value => setData()}
             inputStyles={{
               borderBottomWidth: 2,
@@ -49,8 +55,8 @@ export default function InputTextField(props) {
             }}
           />
           <FloatingLabelInput
-            label={'io'}
-            value={props.item.name}
+            label={'Email'}
+            value={props.item.userEmail}
             // onChangeText={value => setData()}
             inputStyles={{
               borderBottomWidth: 2,
@@ -77,8 +83,8 @@ export default function InputTextField(props) {
             }}
           />
           <FloatingLabelInput
-            label={'io'}
-            value={props.item.name}
+            label={'Mobile Number'}
+            value={""}
             // onChangeText={value => setData()}
             inputStyles={{
               borderBottomWidth: 2,
@@ -142,46 +148,155 @@ export default function InputTextField(props) {
           <TouchableOpacity
             onPress={() => {
               setShowDate(true);
-              console.log('show ');
             }}
             style={{borderWidth: 1}}>
-               <View pointerEvents="none">
-            <FloatingLabelInput
-              showSoftInputOnFocus={false}
-              editable={false}
-              selectTextOnFocus={false}
-              label={'Date of Birth'}
-              value={props.item.name}
-              // onChangeText={value => setData()}
-              inputStyles={{
-                borderBottomWidth: 2,
-                color: '#000000',
-                borderColor: '#D49579',
-                paddingBottom: 3,
-                fontSize: 17,
-                textDecorationLine: 'none',
-              }}
-              containerStyles={{
-                backgroundColor: '#fff',
-                height: 78,
-              }}
-              labelStyles={{
-                fontSize: 17,
-                color: '#C2C2C2',
-              }}
-              customLabelStyles={{
-                colorFocused: '#C2C2C2',
-                fontSizeFocused: 15,
-                fontSize: 15,
-                margin: 0,
-                padding: 0,
-              }}
-            />
+            <View pointerEvents="none">
+              <FloatingLabelInput
+                showSoftInputOnFocus={false}
+                editable={false}
+                selectTextOnFocus={false}
+                label={'Date of Birth'}
+                value={Date}
+                // onChangeText={value => setData()}
+                inputStyles={{
+                  borderBottomWidth: 2,
+                  color: '#000000',
+                  borderColor: '#D49579',
+                  paddingBottom: 3,
+                  fontSize: 17,
+                  textDecorationLine: 'none',
+                }}
+                containerStyles={{
+                  backgroundColor: '#fff',
+                  height: 78,
+                }}
+                labelStyles={{
+                  fontSize: 17,
+                  color: '#C2C2C2',
+                }}
+                customLabelStyles={{
+                  colorFocused: '#C2C2C2',
+                  fontSizeFocused: 15,
+                  fontSize: 15,
+                  margin: 0,
+                  padding: 0,
+                }}
+              />
             </View>
           </TouchableOpacity>
-          <DatePicker data={ShowDate} 
-          setShowDate={setShowDate}
+
+          <DatePicker
+            data={ShowDate}
+            setShowDate={setShowDate}
+            handleDate={handleDate}
           />
+          <TouchableOpacity
+            onPress={() => {
+              setShowGender(true);
+            }}
+            style={{borderWidth: 1}}>
+            <View pointerEvents="none">
+              <FloatingLabelInput
+                showSoftInputOnFocus={false}
+                editable={false}
+                selectTextOnFocus={false}
+                label={'Gender'}
+                value={Gender}
+                // onChangeText={value => setData()}
+                inputStyles={{
+                  borderBottomWidth: 2,
+                  color: '#000000',
+                  borderColor: '#D49579',
+                  paddingBottom: 3,
+                  fontSize: 17,
+                  textDecorationLine: 'none',
+                }}
+                containerStyles={{
+                  backgroundColor: '#fff',
+                  height: 78,
+                }}
+                labelStyles={{
+                  fontSize: 17,
+                  color: '#C2C2C2',
+                }}
+                customLabelStyles={{
+                  colorFocused: '#C2C2C2',
+                  fontSizeFocused: 15,
+                  fontSize: 15,
+                  margin: 0,
+                  padding: 0,
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <Alert
+            handleGernder={handleGernder}
+            data={ShowGender}
+            setShowGender={setShowGender}
+          />
+          <FloatingLabelInput
+            showSoftInputOnFocus={false}
+            editable={false}
+            selectTextOnFocus={false}
+            label={'Location On Map(req. to Optimise store)'}
+            value={props.item.userLocation}
+            // onChangeText={value => setData()}
+            inputStyles={{
+              borderBottomWidth: 2,
+              color: '#000000',
+              borderColor: '#D49579',
+              paddingBottom: 3,
+              fontSize: 17,
+              textDecorationLine: 'none',
+            }}
+            containerStyles={{
+              backgroundColor: '#fff',
+              height: 78,
+            }}
+            labelStyles={{
+              fontSize: 17,
+              color: '#C2C2C2',
+            }}
+            customLabelStyles={{
+              colorFocused: '#C2C2C2',
+              fontSizeFocused: 15,
+              fontSize: 15,
+              margin: 0,
+              padding: 0,
+            }}
+          />
+          <FloatingLabelInput
+            showSoftInputOnFocus={false}
+            editable={false}
+            selectTextOnFocus={false}
+            label={'Complete Adress House #(for delivery)'}
+            value={props.item.UserAdress}
+            // onChangeText={value => setData()}
+            inputStyles={{
+              borderBottomWidth: 2,
+              color: '#000000',
+              borderColor: '#D49579',
+              paddingBottom: 3,
+              fontSize: 17,
+              textDecorationLine: 'none',
+            }}
+            containerStyles={{
+              backgroundColor: '#fff',
+              height: 78,
+            }}
+            labelStyles={{
+              fontSize: 17,
+              color: '#C2C2C2',
+            }}
+            customLabelStyles={{
+              colorFocused: '#C2C2C2',
+              fontSizeFocused: 15,
+              fontSize: 15,
+              margin: 0,
+              padding: 0,
+            }}
+          />
+
           <TouchableOpacity
             style={{display: props.item.seletedUpdateButton ? 'none' : 'flex'}}
             onPress={() => dispatch(TOGGLEEDITBUTTON(false))}>
