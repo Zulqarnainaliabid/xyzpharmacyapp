@@ -7,6 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {ISSINGIN} from '../redux/actions'
+import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const img = require('../Images/loin.jpg');
 const img2 = require('../Images/Fb.png');
@@ -18,6 +20,7 @@ export default function LoginScreen(props) {
   const [UserAdressTextHolder, setUserAdressTextHolder] = useState('');
   const [UserLocation, setUserLocation] = useState('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const storeData = async value => {
     let ProFileData = {
       userName: UserNameTextHolder,
@@ -26,15 +29,12 @@ export default function LoginScreen(props) {
       userLocation: UserLocation,
       toggleScreen: value,
     };
-    // let data = JSON.stringify(ProFileData);
-    console.log('data', ProFileData);
     try {
       await AsyncStorage.setItem('Login', JSON.stringify(ProFileData));
     } catch (e) {
       console.log('error', e);
     }
   };
-  console.log('io', UserNameTextHolder);
   return (
     <View
       style={{
@@ -180,6 +180,7 @@ export default function LoginScreen(props) {
           style={styles.button}
           onPress={() => {
             storeData('true');
+            dispatch(ISSINGIN(true));
             navigation.navigate('HomPage');
           }}>
           <Text

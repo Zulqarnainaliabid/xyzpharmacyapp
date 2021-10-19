@@ -5,8 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import CatagoriesListSecreen from './Components/screens/CatagoriesListSecreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import {INCREMENT, TOGGLEDRAWERBUTTON} from './Components/Redux/actions/indux';
+import {TOGGLEDRAWERBUTTON} from './Components/redux/actions';
 import SwiperComponent from './Components/Swiper';
 import DetailsScreen from './Components/screens/DetailsScreen';
 import BrandListScreen from './Components/screens/BrandListScreen';
@@ -29,21 +28,20 @@ import WishListScreen from './Components/screens/WhishListScreen'
 import SearchScreen from './Components/screens/SearchScren'
 import { Alert } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-
+import Wallet from './Components/screens/WalletScreen'
+import CardsDetailsScreen from './Components/screens/CardsDetailsScreen'
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function Feed({navigation}) {
-  const ToggleDrawer = useSelector(state => state.ToggleDrawer);
+  const { ToggleDrawer } = useSelector(state => state.booksReducer);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (ToggleDrawer) {
       navigation.openDrawer();
     }
     dispatch(TOGGLEDRAWERBUTTON(false));
   }, [ToggleDrawer]);
-
   return (
     <>
       <Stack.Navigator>
@@ -81,6 +79,11 @@ function Feed({navigation}) {
           options={{headerShown: false}}
           name="MemberShipScreen"
           component={MemberShipScreen}
+        />
+           <Stack.Screen
+          options={{headerShown: false}}
+          name="WalletScreen"
+           component={Wallet}
         />
         <Stack.Screen
           options={{headerShown: false}}
@@ -143,6 +146,11 @@ function Feed({navigation}) {
           name="SearchScreen"
           component={SearchScreen}
         />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="CardsDetailsScreen"
+          component={CardsDetailsScreen}
+        />
       </Stack.Navigator>
     </>
   );
@@ -171,9 +179,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      
       <MyDrawer />
-     
     </NavigationContainer>
   );
 }

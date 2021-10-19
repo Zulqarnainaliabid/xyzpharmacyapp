@@ -16,6 +16,8 @@ import LoginTimerScreren from './LoginTimerScreen';
 import PhoneNumber from '../PhoneNumber';
 import LoginUpdatedScreren from './LoginUpdatedScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ISSINGIN} from '../redux/actions';
+import {useDispatch} from 'react-redux';
 const image = require('../Images/BackImage.jpg');
 const image2 = require('../Images/Fruti.jpg');
 
@@ -26,6 +28,7 @@ const ProfileScreen = ({route, navigation}) => {
   const [ToggleUpdatedLoginScreen, setToggleUpdatedLoginScreen] =
     useState(false);
     const [UserUpdatedData, setUserUpdatedData] = useState(null)
+    const dispatch = useDispatch();
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
@@ -35,16 +38,11 @@ const ProfileScreen = ({route, navigation}) => {
       try {
         const value = await AsyncStorage.getItem('Login');
         if (value !== null) {
-          console.log('Login . .', value);
            let data = JSON.parse(value)
-          console.log("M data = ",data.toggleScreen);
           if (data.toggleScreen) {
-            console.log("iiii")
-           
             setUserUpdatedData(data)
             setToggleUpdatedLoginScreen(true);
-            console.log("++",data)
-          
+            dispatch(ISSINGIN(true));
           }
         }
       } catch (e) {
@@ -53,7 +51,6 @@ const ProfileScreen = ({route, navigation}) => {
     };
     getData();
   }, []);
-console.log("o",ToggleUpdatedLoginScreen)
   function HandlePhoneNumber(text) {
     let length = text.toString().length;
     if (length === 10) {
@@ -82,7 +79,7 @@ console.log("o",ToggleUpdatedLoginScreen)
       if (ToggleProfileScreen) {
         return (
           <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            style={{alignItems: 'center', justifyContent: 'center'}}>
             <View style={{height: '100%', width: '100%'}}>
               <ImageBackground
                 source={image}
@@ -90,11 +87,12 @@ console.log("o",ToggleUpdatedLoginScreen)
                 style={styles.image}>
                 <View
                   style={{
-                    display: 'flex',
+                    flex:1,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    borderWidth:1
                   }}>
-                  <Text style={{color: '#FFFFFF', textAlign: 'center'}}>
+                  <Text style={{color: '#FFFFFF', textAlign: 'center',fontSize:17}}>
                     Hi, we need your phone number
                   </Text>
                   <Text style={{color: '#FFFFFF', textAlign: 'center'}}>
@@ -131,7 +129,6 @@ console.log("o",ToggleUpdatedLoginScreen)
                         textAlign: 'center',
                         marginBottom: 17,
                         fontWeight: '700',
-                        color: '#FF783E',
                       }}>
                       Cancel
                     </Text>

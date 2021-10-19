@@ -23,7 +23,7 @@ const DrawerBrandScreen = ({route, navigation}) => {
             }}>
             {TempDataTopBrand.map((item, index) => {
               return (
-                <View style={{marginVertical: 7}}>
+                <View  key={index} style={{marginVertical: 7}}>
                   <TopBrandBox key={index} Data={item} />
                 </View>
               );

@@ -1,6 +1,25 @@
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 {/* <i class="fas fa-heart"></i> */}
+{/* <i class="fas fa-wallet"></i> */}
+
+
+export const WalletCardIcon = (
+  <FontAwesome5
+    style={{fontSize: 30, color: '#84959F'}}
+    name={'credit-card'}
+    solid
+  />
+);
+
+export const Wallet = (
+  <FontAwesome5
+    style={{fontSize: 17, color: '#777777'}}
+    name={'wallet'}
+    solid
+  />
+);
+
 export const WishListHeart = (
   <FontAwesome5
     style={{fontSize: 21, color: '#FF783E'}}
@@ -48,7 +67,7 @@ export const MyOrder = (
 export const GrocerClub = (
   <FontAwesome5
     style={{fontSize: 17, color: '#777777'}}
-    name={'presentation'}
+    // name={'presentation'}
     solid
   />
 );
@@ -61,7 +80,7 @@ export const Doller = (
   />
 );
 
-export const Alert = (
+export const AlertIcon = (
   <FontAwesome5 style={{fontSize: 17, color: '#777777'}} name={'bell'} solid />
 );
 

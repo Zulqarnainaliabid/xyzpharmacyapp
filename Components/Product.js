@@ -14,24 +14,37 @@ export default function Products(props) {
           </Text>
           <TouchableOpacity
             onPress={() => {
-                navigation.navigate('CatagoriesListSecreen', {
-                  name: props.name,
-                });
+              navigation.navigate('CatagoriesListSecreen', {
+                name: props.name,
+              });
             }}>
             <Text style={styles.ViewAllButtonInnercontainerdProduct}>
               View all
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-            <View style={{display:"flex",flexDirection:"row"}}>
-              {props.TempDataArray && props.TempDataArray.map((item,index)=>{
-                return <View style={{marginHorizontal:4}}><ProductsBox Data={item} /></View>
-              })}
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              {props.TempDataArray &&
+                props.TempDataArray.map((item, index) => {
+                  return (
+                    <View key={index} style={{marginHorizontal: 4}}>
+                      <ProductsBox
+                        Data  = {item}
+                        index = {index}
+                        list  = {props.TempDataArray}
+                        name  = {props.name} 
+                        getData={props.getData}
+                        CartData={props.CartData}
+                        outerIndex={props.outerIndex}
+                      />
+                    </View>
+                  );
+                })}
             </View>
           </ScrollView>
-          </View>
+        </View>
       </View>
     </>
   );

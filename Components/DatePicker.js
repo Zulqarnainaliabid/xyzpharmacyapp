@@ -13,7 +13,6 @@ export default function DatePicker(props){
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
     let date =  moment(currentDate).format("DD/MM/YYYY")
-    console.log("ii data" ,date)
     props.handleDate(date)
   };
 
@@ -46,6 +45,7 @@ export default function DatePicker(props){
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
+          textColor="#FE7740"
           mode={mode}
           is24Hour={true}
           display="default"

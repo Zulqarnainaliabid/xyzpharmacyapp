@@ -14,12 +14,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../Header';
 import {useToast} from 'react-native-toast-notifications';
 import ItemsProduct from '../ItemsProducts';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import ProductsBox from '../ProductBox';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {TempDataCategoriesTag, TempDataFeatureProduct} from '../TempData';
-import {UPDATEARRAYWISHLISTSCREEN} from '../Redux/actions/indux';
+import {UPDATEARRAYWISHLISTSCREEN} from '../redux/actions';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 const CrossIcon = (
   <FontAwesome5 style={{fontSize: 30, color: '#F08243'}} name={'times'} />
@@ -100,21 +100,17 @@ const DetailsScreen = ({route, navigation}) => {
   let DataArray = [];
   let temp = [];
   const HandleSetData = async listName => {
-    console.log('data - ', DataArray);
     if (DataArray.length === 0) {
       DataArray.push({name: listName, value: temp});
     } else {
-      DataArray.map((item,index)=>{
-        // console.log('*');
+      DataArray.map((item, index) => {
         if (DataArray[index] === listName) {
           DataArray.value.push(otherData);
-          console.log('io');
         } else {
-          console.log('io else');
           temp.push(otherData);
           DataArray.push({name: listName, value: temp});
         }
-      })
+      });
     }
 
     try {
@@ -122,7 +118,6 @@ const DetailsScreen = ({route, navigation}) => {
     } catch (e) {
       console.log('error', e);
     }
-    console.log('Same,,', DataArray);
   };
   const refRBSheet = useRef();
   if (ToggleModalCreateListScreen) {
@@ -178,7 +173,6 @@ const DetailsScreen = ({route, navigation}) => {
             FavouriteListItemArray.push(HandleFavouriteListText);
             setToggleModalCreateListScreen(false);
             storeData('WishListArray', FavouriteListItemArray);
-            console.log('text array.', FavouriteListItemArray);
           }}>
           Create
         </Text>
@@ -308,6 +302,80 @@ const DetailsScreen = ({route, navigation}) => {
                 </Text>
               </View>
             </View>
+            <View style={{marginLeft: 16, marginTop: 12}}>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{fontSize: 10, textAlign: 'center', marginRight: 7}}>
+                  {'\u2B24'}
+                </Text>
+                <Text style={{fontSize: 16, width: 297}}>100% Halal</Text>
+              </View>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{fontSize: 10, textAlign: 'center', marginRight: 7}}>
+                  {'\u2B24'}
+                </Text>
+                <Text style={{fontSize: 16, width: 297}}>PFA Approved</Text>
+              </View>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{fontSize: 10, textAlign: 'center', marginRight: 7}}>
+                  {'\u2B24'}
+                </Text>
+                <Text style={{fontSize: 16, width: 297}}>Standard Quality</Text>
+              </View>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{fontSize: 10, textAlign: 'center', marginRight: 7}}>
+                  {'\u2B24'}
+                </Text>
+                <Text style={{fontSize: 16, width: 297}}>
+                  Our products are blast frozen from thawed state for quick
+                  defrosting
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{fontSize: 10, textAlign: 'center', marginRight: 7}}>
+                  {'\u2B24'}
+                </Text>
+                <Text style={{fontSize: 16, width: 297}}>
+                  Approx. 20 Pieces
+                </Text>
+              </View>
+            </View>
+            <Text style={{lineHeight: 20, fontSize: 15}}>
+              The Chicken Karahi cut provides you convenience for dinner
+              shortcuts. It is a tasty dish prepared with strong flavors of
+              onion, tomatoes, ginger, garlic, yogurt and chicken. Its
+              mouthwatering masala tastes absolutely delicious with hot naan and
+              tandoori roti.
+            </Text>
             <Text style={{marginTop: 12, fontWeight: '700', fontSize: 18}}>
               More Vegetables
             </Text>
@@ -402,6 +470,7 @@ const DetailsScreen = ({route, navigation}) => {
                   FavouriteListItemArray.map((item, index) => {
                     return (
                       <Pressable
+                        key={index}
                         onPress={() => {
                           HandleSetData(item);
                           setIndex(index);

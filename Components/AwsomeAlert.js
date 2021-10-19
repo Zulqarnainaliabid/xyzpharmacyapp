@@ -14,7 +14,6 @@ export default function Alert(props) {
     setVisible(true);
   };
   const handleGender = gender => {
-    console.log('gender', gender);
     setVisible(false);
     props.handleGernder(gender);
   };

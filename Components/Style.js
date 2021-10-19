@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default styles = StyleSheet.create({
   Outercontainer: {
     backgroundColor: '#eaeaea',
-    paddingHorizontal: 6,
+    paddingHorizontal: 12,
   },
   OutercontainerDetailScreen: {
     backgroundColor: '#FFFFFF',
@@ -13,9 +13,9 @@ export default styles = StyleSheet.create({
   OutercontainerHeader: {
     display: 'flex',
     flexDirection: 'row',
-    padding: 7,
+    padding: 10,
     backgroundColor: 'white',
-
+    // borderWidth:1,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -29,11 +29,12 @@ export default styles = StyleSheet.create({
   HeaderOuterWraperInputinput: {
     borderWidth: 1,
     borderColor: '#D3D3D3',
-    width: 270,
+    width: 250,
     display: 'flex',
     flexDirection: 'row',
     borderRadius: 22,
-    height: 40,
+    height: 45,
+    marginRight:12
   },
   HeaderOuterWraperInputinputSearchScreen: {
     borderWidth: 1,
@@ -64,6 +65,7 @@ export default styles = StyleSheet.create({
   },
   InnerContainerTopBrand: {
     padding: 12,
+    borderWidth:1
   },
   CatagoriesTagBoxOuterContainer: {
     borderWidth: 1,
@@ -98,8 +100,9 @@ export default styles = StyleSheet.create({
     borderColor: '#C0C0C0',
     marginBottom: 16,
     marginTop: 12,
-    marginHorizontal: 8,
+    marginHorizontal: 5,
     width: 90,
+    // borderWidth:1
   },
   YoungPeopleBuyBoxOuterWraperImageHolder: {
     borderRightWidth: 1,
@@ -182,9 +185,19 @@ export default styles = StyleSheet.create({
     color: '#FFFFFF',
     marginTop: 10,
   },
-  // OutercontainerdCatagoriesTags:{
 
-  // },
+  OuterWraperProductBoxDeleteButton: {
+    borderWidth: 2,
+    borderColor: '#00C41A',
+    textAlign: 'center',
+    padding: 7,
+    borderRadius: 5,
+    marginTop: 10,
+    display:"flex",
+    flexDirection:"row",
+   justifyContent:"space-between"
+  },
+
   InnerContainerCatagoriesTagBoxImageHolder: {
     display: 'flex',
     flexDirection: 'row',
@@ -257,12 +270,14 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
   },
   InnerContainerItemProductSubmitButton: {
-    textAlign: 'center',
-    fontSize: 14,
-    paddingVertical: 7,
-    backgroundColor: '#18AE43',
-    color: '#E3F2E9',
-    borderRadius: 5,
+    // textAlign: 'center',
+    // fontSize: 14,
+    // paddingVertical: 7,
+    // backgroundColor: '#18AE43',
+    // color: '#E3F2E9',
+    // borderRadius: 5,
+    borderWidth:1,
+    
   },
   InnerContainerItemProductOuterWraperArroeIcon: {
     textAlignVertical: 'center',
@@ -417,19 +432,146 @@ export default styles = StyleSheet.create({
     height: 40,
     lineHeight: 38,
     fontSize: 24,
-    borderBottomWidth:1 ,
-    marginHorizontal:5,
+    borderBottomWidth: 1,
+    marginHorizontal: 5,
     textAlign: 'center',
-    borderColor:"#697177"
+    borderColor: '#697177',
   },
   focusCell: {
     borderColor: '#E57D50',
   },
-  BackImage:{
+  BackImage: {
     width: '100%',
     height: '100%',
     flex: 1,
     resizeMode: 'cover',
-   
+  },
+  OuterWraperBalanceBox: {
+    // borderWidth: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 33,
+    paddingBottom: 20,
+    backgroundColor: 'white',
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  OuterWraperCardsBox: {
+    padding: 15,
+    paddingBottom:25,
+    backgroundColor: 'white',
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    // borderWidth: 1,
+  },
+  OuterTextHolderPKR: {
+    marginTop: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    // borderWidth:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textHolderQuestionMArk: {
+    color: '#BB3838',
+  },
+  TextHolderBalance: {
+    fontSize: 13,
+  },
+  TextHolderPkr: {
+    color: '#1CA643',
+    marginHorizontal: 1,
+    textAlignVertical: 'bottom',
+    // borderWidth:1,
+    marginTop: 4,
+    // vertical-align: bottom;
+  },
+  TextHolderPkrPrice: {},
+  TextHolderPkrPrice: {
+    fontWeight: '700',
+    fontSize: 24,
+  },
+  TextHolderPkrAvailbleBalance: {
+    fontSize: 19,
+    color: '#1CA643',
+    marginTop: 6,
+  },
+  TextHolderPriceAvailbleBalance: {
+    color: '#1CA643',
+    fontWeight: '700',
+    marginLeft: 4,
+    fontSize: 30,
+  },
+
+  TextHolderPrice: {
+    color: '#1CA643',
+    fontWeight: '700',
+    // borderWidth:1,
+    fontSize: 25,
+    marginLeft: 4,
+  },
+  AddcardButton:{
+    backgroundColor:"#FF783E",
+    color:"white",
+    padding:10,
+    fontSize:16,
+    textAlign:"center",
+    borderRadius:3,
+    marginTop:44,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  AddcardButtonWalletScreen:{
+    marginTop:33,
+    padding:7,
+  },
+  outerWraperErrorMessageName: {
+    top: 27,
+  },
+  outerWraperErrorMessage: {
+    position: 'absolute',
+    top: 40,
+    elevation: 5,
+    zIndex: 5,
+    right: 0,
+    // width:"10%"
+  },
+  ErrorMessage: {
+    backgroundColor: '#000000',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderTopWidth: 3,
+    fontSize:12,
+    borderColor: '#F50632',
+  },
+  outerwraperTextHolder:{
+    // borderWidth:1,
+    marginVertical:50,
+    color:"#757575",
+    fontSize:16,
+    lineHeight:22,
   }
 });

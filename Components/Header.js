@@ -6,61 +6,35 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Dimensions,
+  Pressable,
 } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {
   TOGGLEDRAWERBUTTON,
   UPDATESEARCHARRAY,
   UPDATEARRAYLENGTH,
   UPDATETOPSEARCHNAME,
   TOGGLEEDITBUTTON,
-} from './Redux/actions/indux';
+} from './redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {TempDataCategoriesTag} from './TempData';
-const SearchIcon = (
-  <FontAwesome5
-    style={{fontSize: 20, color: '#777777'}}
-    name={'search'}
-    solid
-  />
-);
-const ShoppingIcon = (
-  <FontAwesome5
-    style={{fontSize: 25, color: '#FF7440'}}
-    name={'shopping-cart'}
-    solid
-  />
-);
-const HeaderIcon = (
-  <FontAwesome5 style={{fontSize: 20, color: '#FF7440'}} name={'bars'} solid />
-);
 
-const ShareIcon = (
-  <FontAwesome5
-    style={{fontSize: 25, color: '#FF7440'}}
-    name={'share-alt'}
-    solid
-  />
-);
-
-const ArrowLeftIcon = (
-  <FontAwesome5
-    style={{fontSize: 20, color: '#FF7440'}}
-    name={'arrow-left'}
-    solid
-  />
-);
+const img = require('./Images/shopping-cart.png');
+const Menu = require('./Images/menu.png');
+const Ioupe = require('./Images/search.png');
+const LeftArrow = require('./Images/left-arrow.png');
+const Sharing = require('./Images/sharing.png');
 function Header(props) {
   const [TextTopSearch, setTextTopSearch] = useState('');
-  const UpdateTopSearchName = useSelector(state => state.UpdateTopSearchName);
+  const { UpdateTopSearchName } = useSelector(state => state.booksReducer);
+  const {bookmarks} = useSelector (state => state.booksReducer);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  
   useEffect(() => {
     setTextTopSearch(UpdateTopSearchName);
-    // HandleSearchItem(UpdateTopSearchName)
   }, [UpdateTopSearchName]);
-
   function HandleSearchItem(text) {
     setTextTopSearch(text);
     let arr = TempDataCategoriesTag.filter(value => {
@@ -72,7 +46,6 @@ function Header(props) {
         dispatch(UPDATETOPSEARCHNAME(''));
       }
     });
-    console.log('array . name = ', arr);
     dispatch(UPDATESEARCHARRAY(arr));
     if (arr.length === 0) {
       dispatch(UPDATEARRAYLENGTH(false));
@@ -85,13 +58,39 @@ function Header(props) {
     return (
       <>
         <View style={styles.OutercontainerHeader}>
-          <View style={{marginRight: 10, marginTop: 10, marginLeft: 1}}>
+          <Text
+            style={{
+              position: 'absolute',
+              elevation: 1,
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              display: 'flex',
+              flexDirection: 'row',
+              backgroundColor: '#18AE43',
+              height: '58%',
+              width: '8%',
+              borderRadius: 15,
+              color: 'white',
+              left: 331,
+              bottom: 22,
+              top: 7,
+              fontSize: 11,
+            }}>
+             {bookmarks.length} 
+          </Text>
+          <View style={{marginRight: 19, marginTop: 10, marginLeft: 5}}>
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 dispatch(TOGGLEDRAWERBUTTON(true));
               }}>
-              {HeaderIcon}
+              <View style={{width: 23, height: 25}}>
+                <Image
+                  style={{width: '100%', height: '100%'}}
+                  source={Menu}
+                  tintColor="#F6783B"
+                />
+              </View>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -101,8 +100,14 @@ function Header(props) {
               });
             }}>
             <View style={styles.HeaderOuterWraperInputinput}>
-              <View style={{marginHorizontal: 9, marginTop: 8, padding: 1}}>
-                {SearchIcon}
+              <View style={{marginHorizontal: 9, marginTop: 11, padding: 1}}>
+                <View style={{width: 20, height: 20}}>
+                  <Image
+                    style={{width: '100%', height: '100%'}}
+                    source={Ioupe}
+                    tintColor="#727272"
+                  />
+                </View>
               </View>
               <TextInput
                 editable={false}
@@ -113,21 +118,58 @@ function Header(props) {
               />
             </View>
           </TouchableOpacity>
-          <View style={{marginLeft: 10, marginTop: 10}}>{ShoppingIcon}</View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('CartScreen', {
+                name: 'My Cart',
+              });
+            }}>
+            <View style={{marginTop: 12}}>
+              <View style={{width: 25, height: 25}}>
+                <Image
+                  style={{width: '100%', height: '100%'}}
+                  source={img}
+                  tintColor="#F6783B"
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </>
     );
   } else {
     return (
       <View style={styles.OutercontainerHeader}>
+        <Text
+          style={{
+            position: 'absolute',
+            elevation: 1,
+            textAlign: 'center',
+            textAlignVertical: 'center',
+            display: 'flex',
+            flexDirection: 'row',
+            backgroundColor: '#18AE43',
+            height: '58%',
+            width: '8%',
+            borderRadius: 15,
+            color: 'white',
+            left: 331,
+            bottom: 22,
+            top: 7,
+            fontSize: 11,
+          }}>
+          {bookmarks.length}
+        </Text>
         <View
           style={{display: 'flex', flexDirection: 'row', paddingVertical: 3}}>
           <View
             style={{
               marginRight: 10,
-              marginTop: 9,
-              marginLeft: 17,
-              marginRight: 17,
+              marginTop: 11,
+              marginLeft: 7,
+              marginRight: 10,
+              // borderWidth:1
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -136,7 +178,14 @@ function Header(props) {
                 dispatch(UPDATEARRAYLENGTH(false));
                 dispatch(UPDATESEARCHARRAY([]));
               }}>
-              <Text>{ArrowLeftIcon}</Text>
+              <View style={{width: 25, height: 25}}>
+                <Image
+                  style={{width: '100%', height: '100%'}}
+                  source={LeftArrow}
+                  tintColor="#F6783B"
+                />
+              </View>
+              {/* <Text>{ArrowLeftIcon}</Text> */}
             </TouchableOpacity>
           </View>
           <View
@@ -144,13 +193,20 @@ function Header(props) {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              width: 288,
+              width: 278,
+              // borderWidth:1
             }}>
             {props.Searchbarinputfield ? (
               <>
                 <View style={styles.HeaderOuterWraperInputinputSearchScreen}>
                   <View style={{marginHorizontal: 6, marginTop: 7, padding: 1}}>
-                    {SearchIcon}
+                    <View style={{width: 20, height: 20}}>
+                      <Image
+                        style={{width: '100%', height: '100%'}}
+                        source={Ioupe}
+                        tintColor="#727272"
+                      />
+                    </View>
                   </View>
                   <TextInput
                     onChangeText={text => {
@@ -164,7 +220,12 @@ function Header(props) {
               </>
             ) : (
               <Text
-                style={{marginTop: 10, fontSize: 20, width: 233}}
+                style={{
+                  marginTop: 10,
+                  fontSize: 20,
+                  width: 190,
+                  borderWidth: 1,
+                }}
                 numberOfLines={1}>
                 {props.name}
               </Text>
@@ -172,12 +233,24 @@ function Header(props) {
             <View style={{display: 'flex', flexDirection: 'row'}}>
               {props.ScreenName && (
                 <View style={{marginTop: 14, marginRight: 13}}>
-                  {ShareIcon}
+                  <View style={{width: 25, height: 25}}>
+                    <Image
+                      style={{width: '100%', height: '100%'}}
+                      source={Sharing}
+                      tintColor="#F6783B"
+                    />
+                  </View>
                 </View>
               )}
               {props.ScreenName && (
                 <View style={{marginTop: 14, marginRight: 13}}>
-                  {SearchIcon}
+                  <View style={{width: 20, height: 20}}>
+                    <Image
+                      style={{width: '100%', height: '100%'}}
+                      source={Ioupe}
+                      tintColor="#F6783B"
+                    />
+                  </View>
                 </View>
               )}
               {props.EditButton && (
@@ -188,10 +261,40 @@ function Header(props) {
                 </TouchableOpacity>
               )}
               {props.ScreenName ? (
-                <View style={{marginTop: 14}}>{ShoppingIcon}</View>
+                <View>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      navigation.navigate('CartScreen');
+                    }}>
+                    <View style={{marginTop: 12}}>
+                      <View style={{width: 25, height: 25}}>
+                        <Image
+                          style={{width: '100%', height: '100%'}}
+                          source={img}
+                          tintColor="#F6783B"
+                        />
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               ) : (
-                <View style={{marginTop: 5, marginLeft: 5}}>
-                  {ShoppingIcon}
+                <View>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      navigation.navigate('CartScreen');
+                    }}>
+                    <View style={{marginTop: 12}}>
+                      <View style={{width: 25, height: 25}}>
+                        <Image
+                          style={{width: '100%', height: '100%'}}
+                          source={img}
+                          tintColor="#F6783B"
+                        />
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               )}
             </View>

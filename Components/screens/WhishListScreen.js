@@ -41,19 +41,13 @@ const WishListScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  const UpdateArrayWishListScreen = useSelector(
-    state => state.UpdateArrayWishListScreen,
-  );
-
-  console.log('WishList Array.  new n n', UpdateArrayWishListScreen);
-
+  const { UpdateArrayWishListScreen } = useSelector(state => state.booksReducer);
   useEffect(() => {
     const getData = async () => {
       try {
         const value = await AsyncStorage.getItem('WishList');
         if (value !== null) {
           let data = JSON.parse(value);
-          console.log('WishList . .', data);
           setWishListArray(data);
         }
       } catch (e) {
@@ -82,7 +76,9 @@ const WishListScreen = ({route, navigation}) => {
               {WishListArray.map((item, index) => {
                 return (
                   <>
-                    <View style={{marginVertical: 12}}>
+                    <View 
+                     key={index}
+                    style={{marginVertical: 12}}>
                       <View
                         style={{
                           display: 'flex',

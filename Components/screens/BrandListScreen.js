@@ -5,7 +5,6 @@ import Header from '../Header';
 import ItemsProduct from '../ItemsProducts';
 const BrandListScreen = ({route, navigation}) => {
   let {otherData} = route.params;
-  console.log("Brand Data",otherData)
   let Img = JSON.stringify(otherData.img);
   let HeaderName = JSON.stringify(otherData.titleName);
   HeaderName = HeaderName.replace('"', '').replace('"', '');

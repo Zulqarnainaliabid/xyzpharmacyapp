@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Share,
 } from 'react-native';
+import Dialog from 'react-native-dialog';
 import {
   LocationIcon,
   ShoppingCart,
@@ -14,7 +15,7 @@ import {
   MyOrder,
   GrocerClub,
   Doller,
-  Alert,
+  AlertIcon,
   ShareIcon,
   Question,
   Chat,
@@ -23,20 +24,25 @@ import {
   Brands,
   Email,
   SignIn,
+  Wallet,
   Categories,
 } from './Icons';
 import {Paragraph, Text} from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {svg} from './Images/icon.svg';
 import {useNavigation} from '@react-navigation/native';
-
-export function DrawerListList(props) {
-  const navigation = useNavigation();
+import {ISSINGIN} from './redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
+export function DrawerListList (props) {
+  const [visible, setVisible] = useState (false);
+  const navigation = useNavigation ();
+  const dispatch = useDispatch ();
+  const {bookmarks} = useSelector (state => state.booksReducer);
   const onShare = async () => {
     try {
-      const result = await Share.share({
-        message:
-          'React Native | A framework for building native apps using React',
+      const result = await Share.share ({
+        message: 'React Native | A framework for building native apps using React',
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -48,54 +54,297 @@ export function DrawerListList(props) {
         // dismissed
       }
     } catch (error) {
-      alert(error.message);
+      alert (error.message);
     }
   };
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        if(props.item.Label==="Share"){
-          onShare()
-          console.log("ppp")
-        }else{
-        navigation.navigate(props.item.Screen, {
-          name: props.item.Label,
-        });
+  const storeData = async value => {
+    let data = '';
+    try {
+      const value = await AsyncStorage.getItem ('Login');
+      if (value !== null) {
+        data = JSON.parse (value);
       }
+    } catch (e) {
+      console.log ('read error', e);
+    }
 
-      }}>
-      <View style={styles.OuterWraperDrawerLinks}>
-        <Text style={{marginRight: 30}}>{props.item.Icon}</Text>
-        <Text style={{color: '#3D3D3D', fontSize: 15}}>{props.item.Label}</Text>
-      </View>
-    </TouchableOpacity>
+    let ProFileData = data;
+    ProFileData.toggleScreen = false;
+    try {
+      await AsyncStorage.setItem ('Login', JSON.stringify (ProFileData));
+    } catch (e) {
+      console.log ('error', e);
+    }
+    setVisible (false);
+    dispatch (ISSINGIN (false));
+    navigation.navigate ('HomPage');
+  };
+  return (
+    <View>
+      <Text
+        style={{
+          position: 'absolute',
+          elevation: 1,
+          textAlign: 'center',
+          textAlignVertical: 'center',
+          display: props.item.selectedCartItemNumber ? 'flex' :"none" ,
+          flexDirection: 'row',
+          backgroundColor: '#18AE43',
+          height: '60%',
+          width: '10%',
+          borderRadius: 15,
+          color: 'white',
+          left: 11,
+          // padding:12,
+          bottom: 22,
+          // top: 7,
+          fontSize: 11,
+        }}
+      >
+        {bookmarks.length}
+      </Text>
+      <TouchableOpacity
+        onPress={() => {
+          if (props.item.Label === 'Share') {
+            onShare ();
+          } else if (props.item.Label === 'Sign Out') {
+            setVisible (true);
+          } else {
+            navigation.navigate (props.item.Screen, {
+              name: props.item.Label,
+            });
+          }
+        }}
+      >
+        <Dialog.Container visible={visible}>
+          <Dialog.Title style={{marginTop: -10}}>Sing Out</Dialog.Title>
+          <Text
+            style={{
+              fontWeight: '700',
+              marginLeft: 12,
+              marginTop: -10,
+              marginBottom: 20,
+            }}
+          >
+            Are you sure you want to Sign Out?
+          </Text>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Dialog.Button
+              style={{color: 'red', marginHorizontal: 7}}
+              label="No"
+              onPress={() => setVisible (false)}
+            />
+            <Dialog.Button
+              style={{color: 'red', marginHorizontal: 4}}
+              label="Yes"
+              onPress={() => storeData ()}
+            />
+          </View>
+        </Dialog.Container>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginVertical: 12,
+            display: props.item.selected ? 'flex' : 'none',
+          }}
+        >
+          <Text style={{marginRight: 30, width: 20}}>
+            {props.item.Icon}
+          </Text>
+          <View
+            style={{
+              color: '#3D3D3D',
+              fontSize: 15,
+              width: 200,
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            <Text style={{position: 'relative'}}>{props.item.Label} </Text>
+            <Text
+              style={{
+                backgroundColor: '#18AE43',
+                color: 'white',
+                padding: 13,
+                marginLeft: 12,
+                // borderWidth: 1,
+                borderRadius: 22,
+                fontSize: 16,
+                position: 'absolute',
+                top: -15,
+                left: 33,
+                display: props.item.selectedPricePKR ? 'flex' : 'none',
+              }}
+            >
+              {props.item.pricePkr}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
-export function DrawerContent(props) {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+export function DrawerContent (props) {
+  const [isEnabled, setIsEnabled] = useState (false);
+  const [IsSignIn, setIsSignIn] = useState ('Sign In');
+  const toggleSwitch = () => setIsEnabled (previousState => !previousState);
+  const {IsSignInToggle} = useSelector (state => state.booksReducer);
+
+  useEffect (
+    () => {
+      if (IsSignInToggle) {
+        setIsSignIn ('Sign Out');
+      } else {
+        setIsSignIn ('Sign In');
+      }
+    },
+    [IsSignInToggle]
+  );
+
   const LinksArray = [
-    {Icon: Categories, Label: 'Categories',Screen:"DrawerCategoriesScren"},
-    {Icon: ShoppingCart, Label: 'My Cart',Screen:"CartScreen"},
-    {Icon: Profile, Label: 'My Profile',Screen:"ProfileScreen"},
-    {Icon: MyOrder, Label: 'My Order',Screen:"OrderScreen"},
-    {Icon: GrocerClub, Label: 'GrocerClub',Screen:"MemberShipScreen"},
-    {Icon: Doller, Label: 'Share & Earn',Screen:"ShareAndEarnScreen"},
-    {Icon: Alert, Label: 'Promo Alerts',Screen:"PromoAlertScreen"},
-    {Icon: ShareIcon, Label: 'Share',Screen:"Share"},
-    {Icon: Question, Label: 'FAQs',Screen:"DrawerFaqsScreen"},
-    {Icon: Chat, Label: 'Live Chat',Screen:"ProfileScreen"},
-    {Icon: Phone, Label: 'Call Us',Screen:"ProfileScreen"},
-    {Icon: WhishList, Label: 'Whish List',Screen:"WhishListScreen"},
-    {Icon: Brands, Label: 'Brands',Screen:"DrawerBrandScreen"},
-    {Icon: Email, Label: 'App InBox',Screen:"InBoxScreen"},
-    {Icon: SignIn, Label: 'Sign In',Screen:"ProfileScreen"},
+    {
+      Icon: Categories,
+      Label: 'Categories',
+      Screen: 'DrawerCategoriesScren',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: ShoppingCart,
+      Label: 'My Cart',
+      Screen: 'CartScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:true,
+    },
+    {
+      Icon: Profile,
+      Label: 'My Profile',
+      Screen: 'ProfileScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: MyOrder,
+      Label: 'My Order',
+      Screen: 'OrderScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: GrocerClub,
+      Label: 'GrocerClub',
+      Screen: 'MemberShipScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Wallet,
+      Label: 'Wallet',
+      Screen: 'WalletScreen',
+      selected: IsSignInToggle,
+      pricePkr: 'PKR 0',
+      selectedPricePKR: IsSignInToggle,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Doller,
+      Label: 'Share & Earn',
+      Screen: 'ShareAndEarnScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: AlertIcon,
+      Label: 'Promo Alerts',
+      Screen: 'PromoAlertScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: ShareIcon,
+      Label: 'Share',
+      Screen: 'Share',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Question,
+      Label: 'FAQs',
+      Screen: 'DrawerFaqsScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Chat,
+      Label: 'Live Chat',
+      Screen: 'ProfileScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Phone,
+      Label: 'Call Us',
+      Screen: 'ProfileScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: WhishList,
+      Label: 'Whish List',
+      Screen: 'WhishListScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Brands,
+      Label: 'Brands',
+      Screen: 'DrawerBrandScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: Email,
+      Label: 'App InBox',
+      Screen: 'InBoxScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
+    {
+      Icon: SignIn,
+      Label: IsSignIn,
+      Screen: 'ProfileScreen',
+      selected: true,
+      selectedPricePKR: false,
+      selectedCartItemNumber:false,
+    },
   ];
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{backgroundColor: '#FAFAFA'}}>
+        contentContainerStyle={{backgroundColor: '#FAFAFA'}}
+      >
         <View style={styles.drawerContent}>
           <View style={styles.OuterWraperUserInfo}>
             <Paragraph style={[styles.Headingparagraph]}>
@@ -114,8 +363,9 @@ export function DrawerContent(props) {
               borderBottomWidth: 1,
               marginHorizontal: -4,
               borderColor: '#C4C4C4',
-            }}>
-            {LinksArray.map((item, index) => {
+            }}
+          >
+            {LinksArray.map ((item, index) => {
               return <DrawerListList key={index} item={item} />;
             })}
           </View>
@@ -125,7 +375,8 @@ export function DrawerContent(props) {
               flexDirection: 'row',
               justifyContent: 'center',
               marginVertical: 12,
-            }}>
+            }}
+          >
             <Text style={{marginTop: 4, fontSize: 15}}>English</Text>
             <Switch
               trackColor={{false: '#767577', true: '#81b0ff'}}
@@ -143,7 +394,7 @@ export function DrawerContent(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   drawerContent: {
     flex: 1,
     padding: 4,
@@ -151,9 +402,6 @@ const styles = StyleSheet.create({
   },
   OuterWraperDrawerLinks: {
     // borderWidth: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    marginVertical: 12,
   },
   OuterWraperUserInfo: {
     // borderWidth: 1,

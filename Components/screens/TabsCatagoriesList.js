@@ -201,7 +201,6 @@ export default function CatagoriesListScreen({route, navigation}) {
 
   let {otherData} = route.params;
   let TitleName = otherData.titleName
- console.log("po data",TitleName)
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
   return (
