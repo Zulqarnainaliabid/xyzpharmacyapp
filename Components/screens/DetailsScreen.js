@@ -14,12 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../Header';
 import {useToast} from 'react-native-toast-notifications';
 import ItemsProduct from '../ItemsProducts';
-import {useDispatch} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import ProductsBox from '../ProductBox';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {TempDataCategoriesTag, TempDataFeatureProduct} from '../TempData';
-import {UPDATEARRAYWISHLISTSCREEN} from '../redux/actions';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 const CrossIcon = (
   <FontAwesome5 style={{fontSize: 30, color: '#F08243'}} name={'times'} />
@@ -34,9 +32,6 @@ const PlusIcon = (
   <FontAwesome5 style={{fontSize: 20, color: '#F08243'}} name={'plus'} />
 );
 const DetailsScreen = ({route, navigation}) => {
-  const dispatch = useDispatch();
-  const toast = useToast();
-  const [modalVisible, setModalVisible] = useState(false);
   const [Index, setIndex] = useState(null);
   const [FavouriteListItemArray, setFavouriteListItemArray] = useState(null);
   const [Click, setClick] = useState(false);
@@ -56,31 +51,31 @@ const DetailsScreen = ({route, navigation}) => {
     refRBSheet.current.open();
   }
 
-  const storeData = async (listName, value) => {
-    let data = JSON.stringify(value);
-    try {
-      await AsyncStorage.setItem(listName, data);
-    } catch (e) {
-      console.log('error', e);
-    }
-  };
+  // const storeData = async (listName, value) => {
+  //   let data = JSON.stringify(value);
+  //   try {
+  //     await AsyncStorage.setItem(listName, data);
+  //   } catch (e) {
+  //     console.log('error', e);
+  //   }
+  // };
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('WishListArray');
-        if (value !== null) {
-          let data = JSON.parse(value);
-          setFavouriteListItemArray(data);
-        } else {
-          setFavouriteListItemArray(['somthing You Want..']);
-        }
-      } catch (e) {
-        console.log('read error', e);
-      }
-    };
-    getData();
-  }, [ToggleModal]);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const value = await AsyncStorage.getItem('WishListArray');
+  //       if (value !== null) {
+  //         let data = JSON.parse(value);
+  //         setFavouriteListItemArray(data);
+  //       } else {
+  //         setFavouriteListItemArray(['somthing You Want..']);
+  //       }
+  //     } catch (e) {
+  //       console.log('read error', e);
+  //     }
+  //   };
+  //   getData();
+  // }, [ToggleModal]);
 
   let {otherData} = route.params;
   let name = otherData.titleName;
@@ -89,36 +84,34 @@ const DetailsScreen = ({route, navigation}) => {
   let dicount = otherData.dic;
   let waight = otherData.productWaight;
   let HeaderName = JSON.stringify(name);
-  let MainImg = JSON.stringify(otherData.img);
+  
   HeaderName = HeaderName.replace('"', '').replace('"', '');
   function HandleGotoDetailsSecreen(name) {
     navigation.push('DetailsSecreenSecreen', {
       name: name,
     });
   }
-
   let DataArray = [];
   let temp = [];
-  const HandleSetData = async listName => {
-    if (DataArray.length === 0) {
-      DataArray.push({name: listName, value: temp});
-    } else {
-      DataArray.map((item, index) => {
-        if (DataArray[index] === listName) {
-          DataArray.value.push(otherData);
-        } else {
-          temp.push(otherData);
-          DataArray.push({name: listName, value: temp});
-        }
-      });
-    }
-
-    try {
-      await AsyncStorage.setItem('WishList', JSON.stringify(DataArray));
-    } catch (e) {
-      console.log('error', e);
-    }
-  };
+  // const HandleSetData = async listName => {
+  //   if (DataArray.length === 0) {
+  //     DataArray.push({name: listName, value: temp});
+  //   } else {
+  //     DataArray.map((item, index) => {
+  //       if (DataArray[index] === listName) {
+  //         DataArray.value.push(otherData);
+  //       } else {
+  //         temp.push(otherData);
+  //         DataArray.push({name: listName, value: temp});
+  //       }
+  //     });
+  //   }
+  //   try {
+  //     await AsyncStorage.setItem('WishList', JSON.stringify(DataArray));
+  //   } catch (e) {
+  //     console.log('error', e);
+  //   }
+  // };
   const refRBSheet = useRef();
   if (ToggleModalCreateListScreen) {
     return (
@@ -215,7 +208,7 @@ const DetailsScreen = ({route, navigation}) => {
                 <View style={styles.OuterWraperImageHolderDetailScreen}>
                   <Image
                     style={{width: '100%', height: 200}}
-                    source={MainImg}
+                    source={otherData.img}
                   />
                 </View>
               </Swiper>

@@ -1,20 +1,18 @@
 import React, {useEffect} from 'react';
 import HomPage from './Components/HomePage';
-import Products from './Components/Product';
-import {useDispatch, useSelector} from 'react-redux';
 import CatagoriesListSecreen from './Components/screens/CatagoriesListSecreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {TOGGLEDRAWERBUTTON} from './Components/redux/actions';
-import SwiperComponent from './Components/Swiper';
 import DetailsScreen from './Components/screens/DetailsScreen';
 import BrandListScreen from './Components/screens/BrandListScreen';
 import CatagoriesListScreen from './Components/screens/TabsCatagoriesList';
-import VegeTablesAndFruitsScreen from './Components/screens/TabsVegetablesAndFruitsScreen';
+import VegeTablesAndFruitsScreen
+  from './Components/screens/TabsVegetablesAndFruitsScreen';
 import MemberShipScreen from './Components/screens/MemberShipScren';
 import PlansScreen from './Components/screens/PlansScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import DrawerCategoriesScreen from './Components/screens/DrawerCategoriesScreen';
+import DrawerCategoriesScreen
+  from './Components/screens/DrawerCategoriesScreen';
 import CartScreen from './Components/screens/CartScreen';
 import {DrawerContent} from './Components/DrawerContent';
 import ProfileScreen from './Components/screens/Profile';
@@ -23,27 +21,19 @@ import ShareAndEarnScreen from './Components/screens/ShareAndErnScreen';
 import PromoAlertScreen from './Components/screens/PromoAlertScreen';
 import DrawerBrandScreen from './Components/screens/DrawerBrandScren';
 import InBoxScreen from './Components/screens/InBoxScreen';
-import DrawerFaqsScreen from './Components/screens/DrawerFaqsScreen'
-import WishListScreen from './Components/screens/WhishListScreen'
-import SearchScreen from './Components/screens/SearchScren'
-import { Alert } from 'react-native';
-import messaging from '@react-native-firebase/messaging';
-import Wallet from './Components/screens/WalletScreen'
-import CardsDetailsScreen from './Components/screens/CardsDetailsScreen'
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
-
-function Feed({navigation}) {
-  const { ToggleDrawer } = useSelector(state => state.booksReducer);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (ToggleDrawer) {
-      navigation.openDrawer();
-    }
-    dispatch(TOGGLEDRAWERBUTTON(false));
-  }, [ToggleDrawer]);
+import DrawerFaqsScreen from './Components/screens/DrawerFaqsScreen';
+import WishListScreen from './Components/screens/WhishListScreen';
+import SearchScreen from './Components/screens/SearchScren';
+import {Alert, SafeAreaView} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Wallet from './Components/screens/WalletScreen';
+import CardsDetailsScreen from './Components/screens/CardsDetailsScreen';
+import LiveChateScreen from './Components/screens/LiveChate';
+const Stack = createStackNavigator ();
+const Drawer = createDrawerNavigator ();
+export const ContactStackNavigator = () => {
   return (
-    <>
+    <SafeAreaView style={{flex: 1}}>
       <Stack.Navigator>
         <Stack.Screen
           options={{headerShown: false}}
@@ -80,10 +70,10 @@ function Feed({navigation}) {
           name="MemberShipScreen"
           component={MemberShipScreen}
         />
-           <Stack.Screen
+        <Stack.Screen
           options={{headerShown: false}}
           name="WalletScreen"
-           component={Wallet}
+          component={Wallet}
         />
         <Stack.Screen
           options={{headerShown: false}}
@@ -151,35 +141,128 @@ function Feed({navigation}) {
           name="CardsDetailsScreen"
           component={CardsDetailsScreen}
         />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="LiveChateScreen"
+          component={LiveChateScreen}
+        />
       </Stack.Navigator>
-    </>
+    </SafeAreaView>
   );
-}
+};
 
-function MyDrawer() {
+export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen
-        name="Feed"
+        name="Contact"
         options={{headerShown: false}}
-        component={Feed}
+        component={ContactStackNavigator}
       />
     </Drawer.Navigator>
   );
-}
+};
 
-export default function App() {
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-    return unsubscribe;
-    
-  }, []);
-
+export default function App () {
   return (
     <NavigationContainer>
-      <MyDrawer />
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import * as React from 'react';
+// import { Button, View } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+
+// function HomeScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button
+//         title="Go to Profile"
+//         onPress={() => navigation.navigate('Profile')}
+//       />
+//     </View>
+//   );
+// }
+
+// function ProfileScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button
+//         title="Go to Notifications"
+//         onPress={() => navigation.navigate('Notifications')}
+//       />
+//       <Button title="Go back" onPress={() => navigation.goBack()} />
+//     </View>
+//   );
+// }
+
+// function NotificationsScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button
+//         title="Go to Settings"
+//         onPress={() => navigation.navigate('Settings')}
+//       />
+//       <Button title="Go back" onPress={() => navigation.goBack()} />
+//     </View>
+//   );
+// }
+
+// function SettingsScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button title="Go back" onPress={() => navigation.goBack()} />
+//     </View>
+//   );
+// }
+
+// const Stack = createStackNavigator();
+
+// function MyStack() {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="Home" component={HomeScreen} />
+//       <Stack.Screen name="Notifications" component={NotificationsScreen} />
+//       <Stack.Screen name="Profile" component={ProfileScreen} />
+//       <Stack.Screen name="Settings" component={SettingsScreen} />
+//     </Stack.Navigator>
+//   );
+// }
+
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <MyStack />
+//     </NavigationContainer>
+//   );
+// }

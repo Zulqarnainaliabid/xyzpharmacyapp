@@ -8,6 +8,7 @@ import {
   Share,
 } from 'react-native';
 import Dialog from 'react-native-dialog';
+import ModalCallUs from './ModalCallus'
 import {
   LocationIcon,
   ShoppingCart,
@@ -32,13 +33,10 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {svg} from './Images/icon.svg';
 import {useNavigation} from '@react-navigation/native';
-import {ISSINGIN} from './redux/actions';
-import {useDispatch, useSelector} from 'react-redux';
 export function DrawerListList (props) {
+  const [IsSignInToggle, setIsSignInToggle] = useState(false)
   const [visible, setVisible] = useState (false);
   const navigation = useNavigation ();
-  const dispatch = useDispatch ();
-  const {bookmarks} = useSelector (state => state.booksReducer);
   const onShare = async () => {
     try {
       const result = await Share.share ({
@@ -57,28 +55,27 @@ export function DrawerListList (props) {
       alert (error.message);
     }
   };
-  const storeData = async value => {
-    let data = '';
-    try {
-      const value = await AsyncStorage.getItem ('Login');
-      if (value !== null) {
-        data = JSON.parse (value);
-      }
-    } catch (e) {
-      console.log ('read error', e);
-    }
+  // const storeData = async value => {
+  //   let data = '';
+  //   try {
+  //     const value = await AsyncStorage.getItem ('Login');
+  //     if (value !== null) {
+  //       data = JSON.parse (value);
+  //     }
+  //   } catch (e) {
+  //     console.log ('read error', e);
+  //   }
 
-    let ProFileData = data;
-    ProFileData.toggleScreen = false;
-    try {
-      await AsyncStorage.setItem ('Login', JSON.stringify (ProFileData));
-    } catch (e) {
-      console.log ('error', e);
-    }
-    setVisible (false);
-    dispatch (ISSINGIN (false));
-    navigation.navigate ('HomPage');
-  };
+  //   let ProFileData = data;
+  //   ProFileData.toggleScreen = false;
+  //   try {
+  //     await AsyncStorage.setItem ('Login', JSON.stringify (ProFileData));
+  //   } catch (e) {
+  //     console.log ('error', e);
+  //   }
+  //   setVisible (false);
+  //   navigation.navigate ('HomPage');
+  // };
   return (
     <View>
       <Text
@@ -101,7 +98,7 @@ export function DrawerListList (props) {
           fontSize: 11,
         }}
       >
-        {bookmarks.length}
+        {/* {bookmarks.length} */}jj
       </Text>
       <TouchableOpacity
         onPress={() => {
@@ -109,7 +106,16 @@ export function DrawerListList (props) {
             onShare ();
           } else if (props.item.Label === 'Sign Out') {
             setVisible (true);
-          } else {
+          }else if(props.item.Label === 'Live Chat'){
+             if(IsSignInToggle){
+               navigation.navigate("LiveChateScreen")
+             }
+          }else if(props.item.Label === 'Call Us'){
+            if(IsSignInToggle){
+              props.item.fun(true)
+            }
+         }
+          else {
             navigation.navigate (props.item.Screen, {
               name: props.item.Label,
             });
@@ -192,10 +198,11 @@ export function DrawerListList (props) {
   );
 }
 export function DrawerContent (props) {
+  const [IsSignInToggle, setIsSignInToggle] = useState(false)
   const [isEnabled, setIsEnabled] = useState (false);
   const [IsSignIn, setIsSignIn] = useState ('Sign In');
+  const [ToggleModal, setToggleModal] = useState(false)
   const toggleSwitch = () => setIsEnabled (previousState => !previousState);
-  const {IsSignInToggle} = useSelector (state => state.booksReducer);
 
   useEffect (
     () => {
@@ -207,6 +214,10 @@ export function DrawerContent (props) {
     },
     [IsSignInToggle]
   );
+
+  function HandleModal(toggleScreen){
+    setToggleModal(toggleScreen)
+  }
 
   const LinksArray = [
     {
@@ -305,6 +316,7 @@ export function DrawerContent (props) {
       selected: true,
       selectedPricePKR: false,
       selectedCartItemNumber:false,
+      fun:HandleModal
     },
     {
       Icon: WhishList,
@@ -339,8 +351,13 @@ export function DrawerContent (props) {
       selectedCartItemNumber:false,
     },
   ];
+
   return (
     <View style={{flex: 1}}>
+      <ModalCallUs 
+      setToggleModal={setToggleModal}
+      ToggleModal = {ToggleModal}
+      />
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{backgroundColor: '#FAFAFA'}}

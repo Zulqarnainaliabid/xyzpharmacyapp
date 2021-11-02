@@ -7,23 +7,6 @@ const MinusIconPic = require ('../Images/minusPic.png');
 
 export default function CartItems (props) {
   const [togglePlusMinusButton, settogglePlusMinusButton] = useState (false);
-  
-  console.log("items,",props.CartData)
-
- 
-
-  // function handleAddButton (id) {
-  //   console.log ('uiuiuiu', id);
-  //   let temp = CartData;
-  //   temp.map ((item, index) => {
-  //     console.log ('items, o o o o o o o  o', item);
-  //     item.data.map ((item, index) => {
-  //       console.log ('itm id', item);
-  //     });
-  //   });
-  // }
-
-  // console.log ('list ', props.CartData);
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.InnerContainerItemProduct}>

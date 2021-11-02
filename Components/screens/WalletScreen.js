@@ -6,7 +6,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import WalletCardBox from './WalletCardBox';
 {/* <i class="fal fa-check"></i>; */}
 
-const img = require('../Images/checkmark.png');
+const img = require('../Images/checkit.png');
 export const Check = (
   <FontAwesome5 style={{fontSize: 20, color: '#1CAB46'}} name={'check'} />
 );

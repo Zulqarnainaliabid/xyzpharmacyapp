@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, ScrollView, TouchableHighlight} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './Style';
 import ProductsBox from './ProductBox';
@@ -12,7 +12,8 @@ export default function Products(props) {
           <Text style={styles.ProductNameButtonInnercontainerdProduct}>
             {props.name}
           </Text>
-          <TouchableOpacity
+          <TouchableHighlight
+           underlayColor="none"
             onPress={() => {
               navigation.navigate('CatagoriesListSecreen', {
                 name: props.name,
@@ -21,7 +22,7 @@ export default function Products(props) {
             <Text style={styles.ViewAllButtonInnercontainerdProduct}>
               View all
             </Text>
-          </TouchableOpacity>
+          </TouchableHighlight>
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

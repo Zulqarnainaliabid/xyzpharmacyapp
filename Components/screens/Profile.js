@@ -2,22 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  ScrollView,
-  Image,
   ImageBackground,
   Pressable,
   TouchableOpacity,
 } from 'react-native';
-import Header from '../Header';
-import CatagoriesTag from '../CatagoriesTags';
 import LoginTimerScreren from './LoginTimerScreen';
 import PhoneNumber from '../PhoneNumber';
 import LoginUpdatedScreren from './LoginUpdatedScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ISSINGIN} from '../redux/actions';
-import {useDispatch} from 'react-redux';
 const image = require('../Images/BackImage.jpg');
 const image2 = require('../Images/Fruti.jpg');
 
@@ -25,32 +18,30 @@ const ProfileScreen = ({route, navigation}) => {
   const [ToggleProfileScreen, setToggleProfileScreen] = useState(true);
   const [ToggleDisableButton, setToggleDisableButton] = useState(false);
   const [ToggleLoginScreen, setToggleLoginScreen] = useState(false);
-  const [ToggleUpdatedLoginScreen, setToggleUpdatedLoginScreen] =
-    useState(false);
-    const [UserUpdatedData, setUserUpdatedData] = useState(null)
-    const dispatch = useDispatch();
+  const [ToggleUpdatedLoginScreen, setToggleUpdatedLoginScreen] = useState(false);
+  const [UserUpdatedData, setUserUpdatedData] = useState(null)
+
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('Login');
-        if (value !== null) {
-           let data = JSON.parse(value)
-          if (data.toggleScreen) {
-            setUserUpdatedData(data)
-            setToggleUpdatedLoginScreen(true);
-            dispatch(ISSINGIN(true));
-          }
-        }
-      } catch (e) {
-        console.log('read error', e);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const value = await AsyncStorage.getItem('Login');
+  //       if (value !== null) {
+  //          let data = JSON.parse(value)
+  //         if (data.toggleScreen) {
+  //           setUserUpdatedData(data)
+  //           setToggleUpdatedLoginScreen(true);
+  //         }
+  //       }
+  //     } catch (e) {
+  //       console.log('read error', e);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
   function HandlePhoneNumber(text) {
     let length = text.toString().length;
     if (length === 10) {

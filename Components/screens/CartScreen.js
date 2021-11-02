@@ -9,30 +9,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Header from '../Header';
-import CatagoriesTag from '../CatagoriesTags';
 import CartItems from './CartItems';
-import {useDispatch, useSelector} from 'react-redux';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
-import ItemsProduct from '../ItemsProducts';
-const CartScreen = ({route, navigation}) => {
-  const {bookmarks} = useSelector (state => state.booksReducer);
-  console.log ('bookjnjnjnjnjnjnjnjnjnjn', bookmarks);
-  const [ArrayDataCatagories, setArrayDataCatagories] = useState (bookmarks);
 
+const CartScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify (name);
   HeaderName = HeaderName.replace ('"', '').replace ('"', '');
-
-
-  useEffect(() => {
-   
-
-  }, [])
-
-  
-
-  console.log ('i', ArrayDataCatagories);
-
   return (
     <View style={{flex: 1}}>
       <Header name={HeaderName} EditButton={false} ScreenName={false} />

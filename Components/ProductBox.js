@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableHighlight} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import { addBookmark, removeBookmark} from './redux/actions';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AddToCart from './AddToCart'
 const DeleteIconPic = require ('./Images/delete.png');
 const PlusIconPic = require ('./Images/plus.png');
 const MinusIconPic = require ('./Images/minusPic.png');
@@ -13,30 +12,18 @@ export default function ProductsBox (props) {
   const [Name, setName] = useState (null);
   const [togglePlusMinusButton, settogglePlusMinusButton] = useState (false);
   const navigation = useNavigation ();
-  const dispatch = useDispatch ();
-  const {bookmarks} = useSelector (state => state.booksReducer);
-
-  const addToBookmarkList = book => dispatch (addBookmark (book));
-
-  const handleAddBookmark = book => {
-    addToBookmarkList (book);
-  };
-  const removeFromBookmarkList = book => dispatch (removeBookmark (book));
-  const handleRemoveBookmark = book => {
-    removeFromBookmarkList (book);
-  };
-
-  const storeData = async ItemArray => {
-    try {
-      await AsyncStorage.setItem (
-        JSON.stringify ('CartData'),
-        JSON.stringify (ItemArray)
-      );
-    } catch (e) {
-      console.log ('error', e);
-    }
-    props.getData ();
-  };
+  
+  // const storeData = async ItemArray => {
+  //   try {
+  //     await AsyncStorage.setItem (
+  //       JSON.stringify ('CartData'),
+  //       JSON.stringify (ItemArray)
+  //     );
+  //   } catch (e) {
+  //     console.log ('error', e);
+  //   }
+  //   props.getData ();
+  // };
 
   useEffect (
     () => {
@@ -58,13 +45,12 @@ export default function ProductsBox (props) {
           backgroundColor: '#FFFFFF',
         }}
       >
-        <Text> hbhbhbh</Text>
         <View style={styles.OuterContainerProductBox}>
-          <TouchableOpacity
+          <TouchableHighlight
             style={styles.button}
             onPress={() => {
-              setData ();
-              setName (props.Data.titleName);
+              // setData ();
+              // setName (props.Data.titleName);
               navigation.push ('DetailsSecreenSecreen', {
                 name: Name,
                 otherData: props.Data,
@@ -79,7 +65,7 @@ export default function ProductsBox (props) {
                 />
               </View>
             </View>
-          </TouchableOpacity>
+          </TouchableHighlight>
           <View style={styles.TextHolderProductBox}>
             <Text numberOfLines={1} style={{fontSize: 15, color: '#9b9b9b'}}>
               {props.Data.titleName}
@@ -129,7 +115,8 @@ export default function ProductsBox (props) {
               ? <View style={styles.OuterWraperProductBoxDeleteButton}>
                   <View style={{height: 20, width: 20}}>
                     {togglePlusMinusButton
-                      ? <TouchableOpacity
+                      ? <TouchableHighlight
+                      underlayColor="none"
                           onPress={() => {
                             let temp = props.CartData;
                             let Quantity =
@@ -146,8 +133,9 @@ export default function ProductsBox (props) {
                             source={MinusIconPic}
                             tintColor="#00C41A"
                           />
-                        </TouchableOpacity>
-                      : <TouchableOpacity
+                        </TouchableHighlight>
+                      : <TouchableHighlight
+                      underlayColor="none"
                           onPress={() => {
                             let temp = props.CartData;
                             temp[props.outerIndex].data[
@@ -162,7 +150,7 @@ export default function ProductsBox (props) {
                             source={DeleteIconPic}
                             tintColor="#00C41A"
                           />
-                        </TouchableOpacity>}
+                        </TouchableHighlight>}
                   </View>
                   <Text style={{color: '#000000'}}>
                     {
@@ -171,7 +159,8 @@ export default function ProductsBox (props) {
                     }
                   </Text>
                   <View style={{height: 20, width: 20}}>
-                    <TouchableOpacity
+                    <TouchableHighlight
+                     underlayColor="none"
                       onPress={() => {
                         let temp = props.CartData;
                         let Quantity =
@@ -188,24 +177,21 @@ export default function ProductsBox (props) {
                         source={PlusIconPic}
                         tintColor="#00C41A"
                       />
-                    </TouchableOpacity>
+                    </TouchableHighlight>
                   </View>
                 </View>
-              : <TouchableOpacity
+              : <TouchableHighlight
+              underlayColor="none"
                   onPress={() => {
                     let temp = props.CartData;
                     temp[props.outerIndex].data[props.index].selected = true;
                     storeData (temp);
-                    if (bookmarks.find (id => id === props.Data.Id)) {
-                    } else {
-                      handleAddBookmark(temp[props.outerIndex].data[props.index])
-                    }
+                   
                   }}
                 >
-                  <Text style={styles.OuterWraperSubmitButtonProductBox}>
-                    Add to Cart
-                  </Text>
-                </TouchableOpacity>}
+                  <AddToCart Id={props.Data.Id}>
+                  </AddToCart>
+                </TouchableHighlight>}
           </View>
         </View>
       </View>

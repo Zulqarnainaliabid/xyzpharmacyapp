@@ -7,12 +7,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import styles from './Style';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
-import { addBookmark, removeBookmark, AddQuantity} from './redux/actions';
 const DeleteIconPic = require ('./Images/delete.png');
 const PlusIconPic = require ('./Images/plus.png');
 const MinusIconPic = require ('./Images/minusPic.png');
@@ -27,52 +25,8 @@ const ArrowLeftIcon = (
 export default function ItemsProduct (props) {
   const [togglePlusMinusButton, settogglePlusMinusButton] = useState (false);
   const navigation = useNavigation ();
-  const dispatch = useDispatch ();
-  const {bookmarks} = useSelector (state => state.booksReducer);
-  const {Get_quantity} = useSelector (state => state.quantityReducer);
-  const removeFromBookmarkList = book => dispatch (removeBookmark (book));
-  const addToBookmarkList = book => dispatch (addBookmark (book));
-  const GetQuantitys = book => dispatch (AddQuantity (book));
 
-  console.log ('quantity = ', Get_quantity);
-  
-  const handleAddBookmark = book => {
-    addToBookmarkList (book);
-  };
-  
-  const handleRemoveBookmark = book => {
-    removeFromBookmarkList (book);
-  };
 
-  const handleQuantitys = book => {
-    // storeQuantity(book)
-    GetQuantitys (book);
-  };
-
-  // const storeQuantity = async ItemArray => {
-  //   // AsyncStorage.clear();
-  //   try {
-  //     await AsyncStorage.setItem (
-  //       JSON.stringify ('Quantity'),
-  //       JSON.stringify (ItemArray)
-  //     );
-  //   } catch (e) {
-  //     console.log ('error', e);
-  //   }
-  // };
-
-  // const getQuantityData = async() => {
-  //   // AsyncStorage.clear();
-  //   try {
-  //     const value = await AsyncStorage.getItem (JSON.stringify ("Quantity"));
-  //     if (value !== null) {
-  //       let data = JSON.parse (value);
-  //       GetQuantitys(data)
-  //     }
-  //   } catch (e) {
-  //     console.log ('read error', e);
-  //   }
-  // };
 
   useEffect (() => {
     // getQuantityData()
@@ -85,17 +39,17 @@ export default function ItemsProduct (props) {
     [props.Data.Quantity]
   );
 
-  const storeData = async ItemArray => {
-    try {
-      await AsyncStorage.setItem (
-        JSON.stringify ('CartData'),
-        JSON.stringify (ItemArray)
-      );
-    } catch (e) {
-      console.log ('error', e);
-    }
-    props.getData ();
-  };
+  // const storeData = async ItemArray => {
+  //   try {
+  //     await AsyncStorage.setItem (
+  //       JSON.stringify ('CartData'),
+  //       JSON.stringify (ItemArray)
+  //     );
+  //   } catch (e) {
+  //     console.log ('error', e);
+  //   }
+  //   props.getData ();
+  // };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -250,19 +204,6 @@ export default function ItemsProduct (props) {
                     let temp = props.CartData;
                     temp[props.outerIndex].data[props.index].selected = true;
                     storeData (temp);
-                   
-                    if (!Get_quantity.find (item => item.id === props.Data.Id)) {
-                      let tempQuantity = Get_quantity;
-                      let id = temp[props.outerIndex].data[props.index].Id;
-                      tempQuantity.push ({id: id, quantity: 1});
-                    
-                      handleQuantitys (tempQuantity);
-                    }
-                    if (!bookmarks.find (id => id === props.Data.Id)) {
-                      handleAddBookmark (
-                        temp[props.outerIndex].data[props.index]
-                      );
-                    }
                   }}
                 >
                   <Text

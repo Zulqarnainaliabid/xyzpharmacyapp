@@ -1,17 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import Header from '../Header';
-import {UPDATETOPSEARCHNAME, UPDATEARRAYLENGTH} from '../redux/actions';
-import {useDispatch, useSelector} from 'react-redux';
 import ItemsProduct from '../ItemsProducts';
 export function TopSearchBox(props) {
-  const dispatch = useDispatch();
   return (
     <Text
-      onPress={() => {
-        dispatch(UPDATETOPSEARCHNAME(props.item.name));
-        dispatch(UPDATEARRAYLENGTH(true));
-      }}
       style={{
         borderWidth: 1,
         borderColor: '#CF7F5E',
@@ -30,12 +23,6 @@ const SearchScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-
-  const { UpdateSearchArray, UpdateArrayLength } = useSelector(state => state.booksReducer);
-
-  // const  = useSelector(state => state.UpdateSearchArray);
-  // const  = useSelector(state => state.UpdateArrayLength);
-  
   const ItemAray = [
     {name: 'Grapes'},
     {name: 'Mango'},

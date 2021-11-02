@@ -3,7 +3,6 @@ import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import Header from '../Header';
 import {WishListHeart} from '../Icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
 // import { View, StyleSheet } from 'react-native';
 import ProductsBox from '../ProductBox';
 import Svg, {
@@ -41,21 +40,20 @@ const WishListScreen = ({route, navigation}) => {
   let {name} = route.params;
   let HeaderName = JSON.stringify(name);
   HeaderName = HeaderName.replace('"', '').replace('"', '');
-  const { UpdateArrayWishListScreen } = useSelector(state => state.booksReducer);
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('WishList');
-        if (value !== null) {
-          let data = JSON.parse(value);
-          setWishListArray(data);
-        }
-      } catch (e) {
-        console.log('read error', e);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const value = await AsyncStorage.getItem('WishList');
+  //       if (value !== null) {
+  //         let data = JSON.parse(value);
+  //         setWishListArray(data);
+  //       }
+  //     } catch (e) {
+  //       console.log('read error', e);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
 
   if (WishListArray.length !== 0) {
     return (
