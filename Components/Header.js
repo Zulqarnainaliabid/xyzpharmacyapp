@@ -37,7 +37,7 @@ function Header (props) {
           >
             {/* {bookmarks.length} */}nmnmn
           </Text>
-          <View style={{marginRight: 19, marginTop: 10, marginLeft: 5}}>
+          <View style={{marginRight: 19, marginTop: 10, marginLeft: 5,elevation:1}}>
             <TouchableHighlight
               underlayColor="none"
               onPress={() => {

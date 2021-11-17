@@ -138,7 +138,6 @@ const DetailsScreen = ({route, navigation}) => {
           }}>
           Create a new list
         </Text>
-
         <TextInput
           style={{
             borderWidth: 1,
