@@ -10,6 +10,10 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 15,
     flex: 1,
   },
+  containerLoader:{
+    flex:1,
+  height:50
+  },
   OutercontainerHeader: {
     display: 'flex',
     flexDirection: 'row',

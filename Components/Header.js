@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, TouchableHighlight, Image,SafeAreaView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {TempDataCategoriesTag} from './TempData';
+import styles from './Style'
 const img = require ('./Images/shopping-cart.png');
 const Menu = require ('./Images/menu.png');
 const Ioupe = require ('./Images/search.png');
@@ -11,7 +12,6 @@ const EditIcon = require ('./Images/edit.png');
 function Header (props) {
   const [TextTopSearch, setTextTopSearch] = useState ('');
   const navigation = useNavigation ();
-
   if (props.name === undefined) {
     return (
       <SafeAreaView>
@@ -41,7 +41,9 @@ function Header (props) {
             <TouchableHighlight
               underlayColor="none"
               onPress={() => {
+                console.log("io")
                 navigation.openDrawer ();
+               
               }}
             >
               <View style={{width: 23, height: 25}}>
@@ -51,6 +53,7 @@ function Header (props) {
                   tintColor="#F6783B"
                 />
               </View>
+             
             </TouchableHighlight>
           </View>
           <TouchableHighlight
@@ -145,7 +148,7 @@ function Header (props) {
                   navigation.goBack ();
                 }}
               >
-                <View style={{width: 25, height: 25}}>
+                <View style={{width: 25, height: 25,zIndex:1}}>
                   <Image
                     style={{width: '100%', height: '100%'}}
                     source={LeftArrow}

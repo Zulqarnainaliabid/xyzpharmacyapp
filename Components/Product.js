@@ -35,9 +35,7 @@ export default function Products(props) {
                         Data  = {item}
                         index = {index}
                         list  = {props.TempDataArray}
-                        name  = {props.name} 
-                        getData={props.getData}
-                        CartData={props.CartData}
+                        name  = {props.name}
                         outerIndex={props.outerIndex}
                       />
                     </View>

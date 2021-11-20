@@ -138,7 +138,7 @@ export default function ItemsProduct (props) {
                     {togglePlusMinusButton
                       ? <TouchableOpacity
                           onPress={() => {
-                            let temp = props.CartData;
+                            let temp = props.AllData;
                             let Quantity =
                               temp[props.outerIndex].data[props.index].Quantity;
                             Quantity = Quantity - 1;
@@ -156,7 +156,7 @@ export default function ItemsProduct (props) {
                         </TouchableOpacity>
                       : <TouchableOpacity
                           onPress={() => {
-                            let temp = props.CartData;
+                            let temp = props.AllData;
                             temp[props.outerIndex].data[
                               props.index
                             ].selected = false;

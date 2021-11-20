@@ -10,22 +10,45 @@ import {
 } from 'react-native';
 import Header from '../Header';
 import CartItems from './CartItems';
+import CheckOutButton from './CheckOutButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
-
+import PaymentsBillsCollection from './PaymentsBillsCollection'
 const CartScreen = ({route, navigation}) => {
+  const [CartData, setCartData] = useState ([]);
+  const [CheckCartValue, setCheckCartValue] = useState (false);
   let {name} = route.params;
   let HeaderName = JSON.stringify (name);
   HeaderName = HeaderName.replace ('"', '').replace ('"', '');
+  useEffect (() => {
+    // AsyncStorage.clear();
+    getData ();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem ('CartData');
+      setCheckCartValue (false);
+      if (value !== null) {
+        let data = JSON.parse (value);
+        console.log ('local Data', data);
+        setCartData (data);
+        setCheckCartValue (true);
+      }
+    } catch (e) {
+      console.log ('read error', e);
+    }
+  };
   return (
     <View style={{flex: 1}}>
       <Header name={HeaderName} EditButton={false} ScreenName={false} />
-      <View style={{flex: 1, borderWidth: 1, paddingHorizontal: 19}}>
+      <View style={{flex: 1}}>
         <ProgressSteps
-          borderWidth={3}
-          borderStyle={{borderWidth: 13, width: 12}}
+          borderWidth={2}
+          marginBottom={0}
           activeStepIconBorderColor="#44A903"
           labelFontSize={12}
-          topOffset={15}
+          topOffset={10}
           progressBarColor="#777777"
           disabledStepIconColor="#777777"
           labelColor="#777777"
@@ -34,16 +57,23 @@ const CartScreen = ({route, navigation}) => {
           completedLabelColor="#44A703"
         >
           <ProgressStep removeBtnRow={true} label="1.Your Bill">
-            <View style={{alignItems: 'center'}}>
-              {ArrayDataCatagories &&
-                ArrayDataCatagories.map ((item, index) => {
+            <Text style={{borderBottomWidth: 1, borderColor: '#B3B4B4'}} />
+            <View style={{width: '100%'}}>
+              {CartData &&
+                CartData.map ((item, index) => {
                   return (
-                    <CartItems key={index} index={index} 
-                    item={item}
-                    CartData={item} />
+                    <CartItems
+                      key={index}
+                      index={index}
+                      item={item}
+                      CartData={item}
+                    />
                   );
                 })}
             </View>
+            <View>
+              <PaymentsBillsCollection/>
+              </View>
           </ProgressStep>
           <ProgressStep label="2.Place Holder">
             <View style={{alignItems: 'center'}}>
@@ -57,40 +87,43 @@ const CartScreen = ({route, navigation}) => {
           </ProgressStep>
         </ProgressSteps>
       </View>
-      <View style={{backgroundColor: '#F8F8F8', padding: 22}}>
-        <Text style={{textAlign: 'center', color: '#646464', fontSize: 16}}>
-          Your cart is empty
-        </Text>
-        <Text style={{textAlign: 'center', color: '#646464', fontSize: 16}}>
-          let's fill it by adding some item
-        </Text>
-        <TouchableOpacity>
-          <Text
-            style={{
-              color: '#FFFFFF',
-              textAlign: 'center',
-              backgroundColor: '#FF783E',
-              display: 'flex',
-              paddingVertical: 10,
-              paddingHorizontal: 17,
-              marginVertical: 20,
-              borderRadius: 3,
-              fontSize: 17,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
 
-              elevation: 5,
-            }}
-          >
-            Start Shopping
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {CheckCartValue
+        ? <CheckOutButton />
+        : <View style={{backgroundColor: '#F8F8F8', padding: 22}}>
+            <Text style={{textAlign: 'center', color: '#646464', fontSize: 16}}>
+              Your cart is empty
+            </Text>
+            <Text style={{textAlign: 'center', color: '#646464', fontSize: 16}}>
+              let's fill it by adding some item
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  color: '#FFFFFF',
+                  textAlign: 'center',
+                  backgroundColor: '#FF783E',
+                  display: 'flex',
+                  paddingVertical: 10,
+                  paddingHorizontal: 17,
+                  marginVertical: 20,
+                  borderRadius: 3,
+                  fontSize: 17,
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+
+                  elevation: 5,
+                }}
+              >
+                Start Shopping
+              </Text>
+            </TouchableOpacity>
+          </View>}
     </View>
   );
 };

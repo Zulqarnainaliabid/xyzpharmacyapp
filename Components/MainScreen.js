@@ -28,7 +28,7 @@ import 'react-native-gesture-handler';
 const img = require ('./Images/FreeClub.webp');
 export default function HomPage({navigation}) {
   const [ToggleHeader, setToggleHeader] = useState (false);
-  const [CartData, setCartData] = useState ([
+  const [AllData, setAlltData] = useState ([
     {data: TempDataCategoriesTag},
     {data: TempDataFeatureProduct},
     {data: TempDataTopSlleer},
@@ -40,39 +40,6 @@ export default function HomPage({navigation}) {
       name: 'GrocerClub Membership mmmm',
     });
   }
-  // useEffect (() => {
-  //   getData ();
-  // }, []);
-
-  // useEffect (() => {
-  //   const getData = async () => {
-  //     try {
-  //       const value = await AsyncStorage.getItem ('Login');
-  //       if (value !== null) {
-  //         let data = JSON.parse (value);
-  //         if (data.toggleScreen) {
-  //         }
-  //       }
-  //     } catch (e) {
-  //       console.log ('read error', e);
-  //     }
-  //   };
-  //   getData ();
-  // }, []);
-
-  const getData = async () => {
-    // AsyncStorage.clear();
-    try {
-      const value = await AsyncStorage.getItem (JSON.stringify ('CartData'));
-      if (value !== null) {
-        let data = JSON.parse (value);
-        setCartData (data);
-      }
-    } catch (e) {
-      console.log ('read error', e);
-    }
-  };
-  
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header
@@ -86,9 +53,8 @@ export default function HomPage({navigation}) {
           <View style={styles.OutercontainerdProduct}>
             <Products
               name={'Featured products'}
-              TempDataArray={CartData[1].data}
-              CartData={CartData}
-              getData={getData}
+              TempDataArray={AllData[1].data}
+              AllData={AllData}
               outerIndex={1}
             />
           </View>
@@ -103,9 +69,8 @@ export default function HomPage({navigation}) {
           <View style={styles.OutercontainerdProduct}>
             <Products
               name={'Top Sellers'}
-              TempDataArray={CartData[2].data}
-              CartData={CartData}
-              getData={getData}
+              TempDataArray={AllData[2].data}
+              AllData={AllData}
               outerIndex={2}
             />
           </View>
@@ -115,11 +80,9 @@ export default function HomPage({navigation}) {
           <View style={styles.OutercontainerdProduct}>
             <Products
               name={'Fruits & Vegetables'}
-              TempDataArray={CartData[3].data}
-              CartData={CartData}
+              TempDataArray={AllData[3].data}
+              AllData={AllData}
               outerIndex={3}
-              // setCartData={setCartData}
-              getData={getData}
             />
           </View>
           <TouchableOpacity
@@ -137,10 +100,9 @@ export default function HomPage({navigation}) {
           <View style={styles.OutercontainerdProduct}>
             <Products
               name={'Daalain, Rice & Flour'}
-              TempDataArray={CartData[4].data}
-              CartData={CartData}
+              TempDataArray={AllData[4].data}
+              AllData={AllData}
               outerIndex={4}
-              getData={getData}
             />
           </View>
           {TempDataFruitsAndVegatblesOuter &&
@@ -165,19 +127,18 @@ export default function HomPage({navigation}) {
             </Text>
           </View>
           <View style={styles.OuterContainerItemProduct}>
-            {CartData[0].data &&
-              CartData[0].data.map ((item, index) => {
+            {AllData[0].data &&
+              AllData[0].data.map ((item, index) => {
                 return (
                   <ItemsProduct
                     key={index}
                     Data={item}
                     index={index}
-                    list={CartData}
+                    list={AllData}
                     name={'Categories'}
-                    CartData={CartData}
+                    AllData={AllData}
                     outerIndex={0}
-                    TempDataArray={CartData[0].data}
-                    getData={getData}
+                    TempDataArray={AllData[0].data}
                   />
                 );
               })}

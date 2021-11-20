@@ -31,238 +31,134 @@ import CardsDetailsScreen from './Components/screens/CardsDetailsScreen';
 import LiveChateScreen from './Components/screens/LiveChate';
 const Stack = createStackNavigator ();
 const Drawer = createDrawerNavigator ();
-export const ContactStackNavigator = () => {
+function Root () {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Stack.Navigator>
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="HomPage"
-          component={HomPage}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="CatagoriesListSecreen"
-          component={CatagoriesListSecreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="DetailsSecreenSecreen"
-          component={DetailsScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="BrandListScreen"
-          component={BrandListScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="TabsCatagoriesList"
-          component={CatagoriesListScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="VegetablesAndFruitScreen"
-          component={VegeTablesAndFruitsScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="MemberShipScreen"
-          component={MemberShipScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="WalletScreen"
-          component={Wallet}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="PlansScreen"
-          component={PlansScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="DrawerCategoriesScren"
-          component={DrawerCategoriesScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="CartScreen"
-          component={CartScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="ProfileScreen"
-          component={ProfileScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="OrderScreen"
-          component={OrderScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="ShareAndEarnScreen"
-          component={ShareAndEarnScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="PromoAlertScreen"
-          component={PromoAlertScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="DrawerBrandScreen"
-          component={DrawerBrandScreen}
-        />
-
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="InBoxScreen"
-          component={InBoxScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="DrawerFaqsScreen"
-          component={DrawerFaqsScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="WhishListScreen"
-          component={WishListScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="SearchScreen"
-          component={SearchScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="CardsDetailsScreen"
-          component={CardsDetailsScreen}
-        />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="LiveChateScreen"
-          component={LiveChateScreen}
-        />
-      </Stack.Navigator>
-    </SafeAreaView>
-  );
-};
-
-export const DrawerNavigator = () => {
-  return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen
-        name="Contact"
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
         options={{headerShown: false}}
-        component={ContactStackNavigator}
+        name="HomPage"
+        component={HomPage}
       />
-    </Drawer.Navigator>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="CatagoriesListSecreen"
+        component={CatagoriesListSecreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="DetailsSecreenSecreen"
+        component={DetailsScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="BrandListScreen"
+        component={BrandListScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="TabsCatagoriesList"
+        component={CatagoriesListScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="VegetablesAndFruitScreen"
+        component={VegeTablesAndFruitsScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="MemberShipScreen"
+        component={MemberShipScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="WalletScreen"
+        component={Wallet}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="PlansScreen"
+        component={PlansScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="DrawerCategoriesScren"
+        component={DrawerCategoriesScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="CartScreen"
+        component={CartScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="ProfileScreen"
+        component={ProfileScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="OrderScreen"
+        component={OrderScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="ShareAndEarnScreen"
+        component={ShareAndEarnScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="PromoAlertScreen"
+        component={PromoAlertScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="DrawerBrandScreen"
+        component={DrawerBrandScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="InBoxScreen"
+        component={InBoxScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="DrawerFaqsScreen"
+        component={DrawerFaqsScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="WhishListScreen"
+        component={WishListScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="SearchScreen"
+        component={SearchScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="CardsDetailsScreen"
+        component={CardsDetailsScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="LiveChateScreen"
+        component={LiveChateScreen}
+      />
+    </Stack.Navigator>
   );
-};
+}
 
 export default function App () {
   return (
     <NavigationContainer>
-      <DrawerNavigator />
+      <Drawer.Navigator
+        drawerContent={props => <DrawerContent {...props} />}
+        initialRouteName="Root"
+        screenOptions={{headerShown: false}}
+      >
+        <Drawer.Screen name="Root" component={Root} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import * as React from 'react';
-// import { Button, View } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-
-// function HomeScreen({ navigation }) {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Button
-//         title="Go to Profile"
-//         onPress={() => navigation.navigate('Profile')}
-//       />
-//     </View>
-//   );
-// }
-
-// function ProfileScreen({ navigation }) {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Button
-//         title="Go to Notifications"
-//         onPress={() => navigation.navigate('Notifications')}
-//       />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//     </View>
-//   );
-// }
-
-// function NotificationsScreen({ navigation }) {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Button
-//         title="Go to Settings"
-//         onPress={() => navigation.navigate('Settings')}
-//       />
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//     </View>
-//   );
-// }
-
-// function SettingsScreen({ navigation }) {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Button title="Go back" onPress={() => navigation.goBack()} />
-//     </View>
-//   );
-// }
-
-// const Stack = createStackNavigator();
-
-// function MyStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="Home" component={HomeScreen} />
-//       <Stack.Screen name="Notifications" component={NotificationsScreen} />
-//       <Stack.Screen name="Profile" component={ProfileScreen} />
-//       <Stack.Screen name="Settings" component={SettingsScreen} />
-//     </Stack.Navigator>
-//   );
-// }
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <MyStack />
-//     </NavigationContainer>
-//   );
-// }
+ 

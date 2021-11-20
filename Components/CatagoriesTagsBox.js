@@ -9,9 +9,7 @@ export function CatagoriesTagsBoxFun(props) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigation.navigate('VegetablesAndFruitScreen', {
-            name: 'Vegetables & Fruit',
-          });
+          navigation.navigate('VegetablesAndFruitScreen',{ name: 'Vegetables & Fruit',});
         }}>
         <View style={styles.CataGoriesTagBoxImageHolder}>
           <Image style={{width: '100%', height: 80}} source={props.Data.img} />
