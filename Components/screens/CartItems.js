@@ -12,7 +12,7 @@ export default function CartItems (props) {
           backgroundColor: '#FFFFFF',
           display: 'flex',
           flexDirection: 'row',
-          width:"100%"
+          width: '100%',
         }}
       >
         <View style={{paddingVertical: 15, paddingLeft: 25, paddingRight: 10}}>
@@ -22,12 +22,14 @@ export default function CartItems (props) {
                 width: '100%',
                 height: '100%',
                 borderColor: '#F4CA16',
+                flex: 1,
+                resizeMode: 'contain',
               }}
               source={props.CartData.img}
             />
           </View>
         </View>
-        <View style={{paddingVertical: 15,width:200}}>
+        <View style={{paddingVertical: 15, width: 200}}>
           <Text
             style={{
               color: '#000000',
@@ -85,8 +87,8 @@ export default function CartItems (props) {
               Rs {props.CartData.lessPrice}
             </Text>
           </View>
-          <View style={{marginTop:-6,width:170,alignSelf:"center"}}>
-          <AddToCart Data={props.CartData} />
+          <View style={{marginTop: -6, width: 170, alignSelf: 'center'}}>
+            <AddToCart item={props.CartData} />
           </View>
         </View>
       </View>

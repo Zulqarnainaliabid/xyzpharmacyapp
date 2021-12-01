@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,13 +8,13 @@ import {
   Share,
 } from 'react-native';
 import Dialog from 'react-native-dialog';
-import ModalCallUs from './ModalCallus'
+import {Context} from './Context/Context';
+import ModalCallUs from './ModalCallus';
 import {
   LocationIcon,
   ShoppingCart,
   Profile,
   MyOrder,
-  GrocerClub,
   Doller,
   AlertIcon,
   ShareIcon,
@@ -27,15 +27,19 @@ import {
   SignIn,
   Wallet,
   Categories,
+  GrocerClub,
 } from './Icons';
 import {Paragraph, Text} from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {svg} from './Images/icon.svg';
 import {useNavigation} from '@react-navigation/native';
+import { cos } from 'react-native-reanimated';
 export function DrawerListList (props) {
-  const [IsSignInToggle, setIsSignInToggle] = useState(false)
+  const contextData = useContext(Context);
+  const [IsSignInToggle, setIsSignInToggle] = useState (false);
   const [visible, setVisible] = useState (false);
+  const [ToggleCartValue,setToggleCartValue] = useState(false)
   const navigation = useNavigation ();
   const onShare = async () => {
     try {
@@ -55,36 +59,35 @@ export function DrawerListList (props) {
       alert (error.message);
     }
   };
-  // const storeData = async value => {
-  //   let data = '';
-  //   try {
-  //     const value = await AsyncStorage.getItem ('Login');
-  //     if (value !== null) {
-  //       data = JSON.parse (value);
-  //     }
-  //   } catch (e) {
-  //     console.log ('read error', e);
-  //   }
 
-  //   let ProFileData = data;
-  //   ProFileData.toggleScreen = false;
-  //   try {
-  //     await AsyncStorage.setItem ('Login', JSON.stringify (ProFileData));
-  //   } catch (e) {
-  //     console.log ('error', e);
-  //   }
-  //   setVisible (false);
-  //   navigation.navigate ('HomPage');
-  // };
+  useEffect (() => {
+    if(contextData.CartLength===0){
+      setToggleCartValue(false)
+    }else{
+      setToggleCartValue(true)
+    }
+  }, [contextData.UpdateCartItem]);
+
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem ('UpdateScreen', JSON.stringify (false));
+    } catch (e) {
+      console.log ('error', e);
+    }
+    navigation.navigate ('HomPage');
+    setVisible (false);
+  };
+
+  
   return (
     <View>
-      <Text
+      {ToggleCartValue && <Text
         style={{
           position: 'absolute',
           elevation: 1,
           textAlign: 'center',
           textAlignVertical: 'center',
-          display: props.item.selectedCartItemNumber ? 'flex' :"none" ,
+          display: props.item.selectedCartItemNumber ? 'flex' : 'none',
           flexDirection: 'row',
           backgroundColor: '#18AE43',
           height: '60%',
@@ -97,25 +100,25 @@ export function DrawerListList (props) {
           // top: 7,
           fontSize: 11,
         }}
+        
       >
-        {/* {bookmarks.length} */}jj
-      </Text>
+       {contextData.CartLength}
+      </Text>}
       <TouchableOpacity
         onPress={() => {
           if (props.item.Label === 'Share') {
             onShare ();
           } else if (props.item.Label === 'Sign Out') {
             setVisible (true);
-          }else if(props.item.Label === 'Live Chat'){
-             if(IsSignInToggle){
-               navigation.navigate("LiveChateScreen")
-             }
-          }else if(props.item.Label === 'Call Us'){
-            if(IsSignInToggle){
-              props.item.fun(true)
+          } else if (props.item.Label === 'Live Chat') {
+            if (IsSignInToggle) {
+              navigation.navigate ('LiveChateScreen');
             }
-         }
-          else {
+          } else if (props.item.Label === 'Call Us') {
+            if (IsSignInToggle) {
+              props.item.fun (true);
+            }
+          } else {
             navigation.navigate (props.item.Screen, {
               name: props.item.Label,
             });
@@ -149,7 +152,10 @@ export function DrawerListList (props) {
             <Dialog.Button
               style={{color: 'red', marginHorizontal: 4}}
               label="Yes"
-              onPress={() => storeData ()}
+              onPress={() => {
+                storeData ();
+                props.HandleToggle()
+              }}
             />
           </View>
         </Dialog.Container>
@@ -198,25 +204,39 @@ export function DrawerListList (props) {
   );
 }
 export function DrawerContent (props) {
-  const [IsSignInToggle, setIsSignInToggle] = useState(false)
+  const [IsSignInToggle, setIsSignInToggle] = useState (false);
   const [isEnabled, setIsEnabled] = useState (false);
   const [IsSignIn, setIsSignIn] = useState ('Sign In');
-  const [ToggleModal, setToggleModal] = useState(false)
+  const [ToggleModal, setToggleModal] = useState (false);
   const toggleSwitch = () => setIsEnabled (previousState => !previousState);
-
-  useEffect (
-    () => {
-      if (IsSignInToggle) {
-        setIsSignIn ('Sign Out');
-      } else {
-        setIsSignIn ('Sign In');
+  const GetData = async () => {
+    try {
+      const value = await AsyncStorage.getItem ('UpdateScreen');
+      if (value !== null) {
+        let data = JSON.parse(value)
+        setIsSignInToggle (data);
+        if (data) {
+          setIsSignIn ('Sign Out');
+        } else {
+          setIsSignIn ('Sign In');
+        }
       }
-    },
-    [IsSignInToggle]
-  );
+    } catch (e) {
+      console.log ('read error', e);
+    }
+  };
 
-  function HandleModal(toggleScreen){
-    setToggleModal(toggleScreen)
+
+  useEffect (() => {
+    GetData ();
+  },);
+
+  function HandleToggle(){
+    GetData ();
+  }
+
+  function HandleModal (toggleScreen) {
+    setToggleModal (toggleScreen);
   }
 
   const LinksArray = [
@@ -226,7 +246,7 @@ export function DrawerContent (props) {
       Screen: 'DrawerCategoriesScren',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: ShoppingCart,
@@ -234,7 +254,7 @@ export function DrawerContent (props) {
       Screen: 'CartScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:true,
+      selectedCartItemNumber: true,
     },
     {
       Icon: Profile,
@@ -242,7 +262,7 @@ export function DrawerContent (props) {
       Screen: 'ProfileScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: MyOrder,
@@ -250,7 +270,7 @@ export function DrawerContent (props) {
       Screen: 'OrderScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: GrocerClub,
@@ -258,7 +278,7 @@ export function DrawerContent (props) {
       Screen: 'MemberShipScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Wallet,
@@ -267,7 +287,7 @@ export function DrawerContent (props) {
       selected: IsSignInToggle,
       pricePkr: 'PKR 0',
       selectedPricePKR: IsSignInToggle,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Doller,
@@ -275,7 +295,7 @@ export function DrawerContent (props) {
       Screen: 'ShareAndEarnScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: AlertIcon,
@@ -283,7 +303,7 @@ export function DrawerContent (props) {
       Screen: 'PromoAlertScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: ShareIcon,
@@ -291,7 +311,7 @@ export function DrawerContent (props) {
       Screen: 'Share',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Question,
@@ -299,7 +319,7 @@ export function DrawerContent (props) {
       Screen: 'DrawerFaqsScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Chat,
@@ -307,7 +327,7 @@ export function DrawerContent (props) {
       Screen: 'ProfileScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Phone,
@@ -315,8 +335,8 @@ export function DrawerContent (props) {
       Screen: 'ProfileScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
-      fun:HandleModal
+      selectedCartItemNumber: false,
+      fun: HandleModal,
     },
     {
       Icon: WhishList,
@@ -324,7 +344,7 @@ export function DrawerContent (props) {
       Screen: 'WhishListScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Brands,
@@ -332,7 +352,7 @@ export function DrawerContent (props) {
       Screen: 'DrawerBrandScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: Email,
@@ -340,7 +360,7 @@ export function DrawerContent (props) {
       Screen: 'InBoxScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
     {
       Icon: SignIn,
@@ -348,16 +368,13 @@ export function DrawerContent (props) {
       Screen: 'ProfileScreen',
       selected: true,
       selectedPricePKR: false,
-      selectedCartItemNumber:false,
+      selectedCartItemNumber: false,
     },
   ];
 
   return (
     <View style={{flex: 1}}>
-      <ModalCallUs 
-      setToggleModal={setToggleModal}
-      ToggleModal = {ToggleModal}
-      />
+      <ModalCallUs setToggleModal={setToggleModal} ToggleModal={ToggleModal} />
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{backgroundColor: '#FAFAFA'}}
@@ -383,7 +400,7 @@ export function DrawerContent (props) {
             }}
           >
             {LinksArray.map ((item, index) => {
-              return <DrawerListList key={index} item={item} />;
+              return <DrawerListList key={index} item={item} HandleToggle={HandleToggle} />;
             })}
           </View>
           <View

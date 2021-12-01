@@ -24,7 +24,7 @@ import InBoxScreen from './Components/screens/InBoxScreen';
 import DrawerFaqsScreen from './Components/screens/DrawerFaqsScreen';
 import WishListScreen from './Components/screens/WhishListScreen';
 import SearchScreen from './Components/screens/SearchScren';
-import {Alert, SafeAreaView} from 'react-native';
+import OrderDetailsScreen from './Components/screens/OrderDetailsScreen'
 import {createStackNavigator} from '@react-navigation/stack';
 import Wallet from './Components/screens/WalletScreen';
 import CardsDetailsScreen from './Components/screens/CardsDetailsScreen';
@@ -144,6 +144,11 @@ function Root () {
         name="LiveChateScreen"
         component={LiveChateScreen}
       />
+      <Stack.Screen
+      options={{headerShown: false}}
+      name="OrderDetailsScreen"
+      component={OrderDetailsScreen}
+    />
     </Stack.Navigator>
   );
 }

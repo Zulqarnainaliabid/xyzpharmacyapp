@@ -29,7 +29,12 @@ export default function ProductsBox (props) {
             <View style={{flex: 1, alignItems: 'center'}}>
               <View style={styles.ImageHolderOuterContainerProductBox}>
                 <Image
-                  style={{width: '100%', height: '100%'}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
                   source={props.Data.img}
                 />
               </View>
@@ -80,9 +85,7 @@ export default function ProductsBox (props) {
             </Text>
           </View>
           <View>
-            <AddToCart 
-            Data={props.Data}
-            />
+            <AddToCart item={props.Data} />
           </View>
         </View>
       </View>

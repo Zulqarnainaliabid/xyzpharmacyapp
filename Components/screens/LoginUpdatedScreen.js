@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -18,12 +19,11 @@ export default function LoginUpdatedScreren(props) {
       <View
         style={{
           flex: 1,
-          borderWidth: 1,
           padding: 12,
           backgroundColor: '#FFFFFF',
         }}>
         <ScrollView showsVerticalScrollIndicator={false}>
-         <InputTextField item={props.UserData} />
+         <InputTextField  item={props.UserData} />
         </ScrollView>
       </View>
     </View>

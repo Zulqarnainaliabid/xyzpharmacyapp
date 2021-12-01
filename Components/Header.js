@@ -1,8 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, TouchableHighlight, Image,SafeAreaView} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  Image,
+  SafeAreaView,
+  BackHandler,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+// import { Context } from '../Context/Context'
+import {Context} from './Context/Context';
 import {TempDataCategoriesTag} from './TempData';
-import styles from './Style'
+import styles from './Style';
 const img = require ('./Images/shopping-cart.png');
 const Menu = require ('./Images/menu.png');
 const Ioupe = require ('./Images/search.png');
@@ -10,13 +20,33 @@ const LeftArrow = require ('./Images/left-arrow.png');
 const Sharing = require ('./Images/sharing.png');
 const EditIcon = require ('./Images/edit.png');
 function Header (props) {
+  const contextData = useContext(Context);
   const [TextTopSearch, setTextTopSearch] = useState ('');
   const navigation = useNavigation ();
+  const [ToggleCartValue, setToggleCartValue] = useState(false)
+
+
+
+  useEffect (() => {
+    if(contextData.CartLength===0){
+      setToggleCartValue(false)
+    }else{
+      setToggleCartValue(true)
+    }
+  }, [contextData.UpdateCartItem]);
+
+  useEffect (
+    () => {
+      setTextTopSearch (contextData.TopSearchElement);
+    },
+    [contextData.TopSearchElement]
+  );
+  
   if (props.name === undefined) {
     return (
       <SafeAreaView>
         <View style={styles.OutercontainerHeader}>
-          <Text
+         {ToggleCartValue && <Text
             style={{
               position: 'absolute',
               elevation: 1,
@@ -35,25 +65,35 @@ function Header (props) {
               fontSize: 11,
             }}
           >
-            {/* {bookmarks.length} */}nmnmn
-          </Text>
-          <View style={{marginRight: 19, marginTop: 10, marginLeft: 5,elevation:1}}>
+            {contextData.CartLength}
+          </Text>}
+          <View
+            style={{
+              marginRight: 19,
+              marginTop: 10,
+              marginLeft: 5,
+              elevation: 1,
+            }}
+          >
             <TouchableHighlight
               underlayColor="none"
               onPress={() => {
-                console.log("io")
                 navigation.openDrawer ();
-               
               }}
             >
               <View style={{width: 23, height: 25}}>
                 <Image
-                  style={{width: '100%', height: '100%'}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
                   source={Menu}
                   tintColor="#F6783B"
                 />
               </View>
-             
+
             </TouchableHighlight>
           </View>
           <TouchableHighlight
@@ -68,7 +108,12 @@ function Header (props) {
               <View style={{marginHorizontal: 9, marginTop: 11, padding: 1}}>
                 <View style={{width: 20, height: 20}}>
                   <Image
-                    style={{width: '100%', height: '100%'}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      flex: 1,
+                      resizeMode: 'contain',
+                    }}
                     source={Ioupe}
                     tintColor="#727272"
                   />
@@ -77,9 +122,9 @@ function Header (props) {
               <TextInput
                 editable={false}
                 selectTextOnFocus={false}
-                // onChangeText={onChangeText}
-                // value={text}
-                placeholder="What are you looking for?"
+                onChangeText={userValue => setTextTopSearch (userValue)}
+                value={TextTopSearch}
+                placeholder="What are you looking for"
               />
             </View>
           </TouchableHighlight>
@@ -95,7 +140,12 @@ function Header (props) {
             <View style={{marginTop: 12}}>
               <View style={{width: 25, height: 25}}>
                 <Image
-                  style={{width: '100%', height: '100%'}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
                   source={img}
                   tintColor="#F6783B"
                 />
@@ -109,7 +159,7 @@ function Header (props) {
     return (
       <SafeAreaView>
         <View style={styles.OutercontainerHeader}>
-          <Text
+          {ToggleCartValue && <Text
             style={{
               position: 'absolute',
               elevation: 1,
@@ -128,8 +178,8 @@ function Header (props) {
               fontSize: 11,
             }}
           >
-            {/* {bookmarks.length} */}l
-          </Text>
+             {contextData.CartLength}
+          </Text>}
           <View
             style={{display: 'flex', flexDirection: 'row', paddingVertical: 3}}
           >
@@ -146,11 +196,17 @@ function Header (props) {
                 underlayColor="none"
                 onPress={() => {
                   navigation.goBack ();
+                  contextData.HandaleArraySearchInputValue (null);
                 }}
               >
-                <View style={{width: 25, height: 25,zIndex:1}}>
+                <View style={{width: 25, height: 25, zIndex: 1}}>
                   <Image
-                    style={{width: '100%', height: '100%'}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      flex: 1,
+                      resizeMode: 'contain',
+                    }}
                     source={LeftArrow}
                     tintColor="#F6783B"
                   />
@@ -176,18 +232,25 @@ function Header (props) {
                       >
                         <View style={{width: 20, height: 20}}>
                           <Image
-                            style={{width: '100%', height: '100%'}}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              flex: 1,
+                              resizeMode: 'contain',
+                            }}
                             source={Ioupe}
                             tintColor="#727272"
                           />
                         </View>
                       </View>
                       <TextInput
-                        // onChangeText={text => {
-                        //   HandleSearchItem (text);
-                        // }}
-                        value={TextTopSearch}
+                        selectTextOnFocus={true}
                         autoFocus
+                        onChangeText={userValue => {
+                          setTextTopSearch (userValue);
+                          contextData.HandaleArraySearchInputValue (userValue);
+                        }}
+                        value={TextTopSearch}
                         placeholder="What are you looking for?"
                       />
                     </View>
@@ -197,7 +260,6 @@ function Header (props) {
                       marginTop: 10,
                       fontSize: 20,
                       width: 190,
-                      // borderWidth: 1,
                     }}
                     numberOfLines={1}
                   >
@@ -208,7 +270,12 @@ function Header (props) {
                   <View style={{marginTop: 14, marginRight: 13}}>
                     <View style={{width: 25, height: 25}}>
                       <Image
-                        style={{width: '100%', height: '100%'}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          flex: 1,
+                          resizeMode: 'contain',
+                        }}
                         source={Sharing}
                         tintColor="#F6783B"
                       />
@@ -218,7 +285,12 @@ function Header (props) {
                   <View style={{marginTop: 14, marginRight: 13}}>
                     <View style={{width: 20, height: 20}}>
                       <Image
-                        style={{width: '100%', height: '100%'}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          flex: 1,
+                          resizeMode: 'contain',
+                        }}
                         source={Ioupe}
                         tintColor="#F6783B"
                       />
@@ -239,7 +311,12 @@ function Header (props) {
                       }}
                     >
                       <Image
-                        style={{width: '100%', height: '100%'}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          flex: 1,
+                          resizeMode: 'contain',
+                        }}
                         source={EditIcon}
                         tintColor="#F6783B"
                       />
@@ -252,13 +329,20 @@ function Header (props) {
                         underlayColor="none"
                         style={styles.button}
                         onPress={() => {
-                          navigation.navigate ('CartScreen');
+                          navigation.navigate ('CartScreen', {
+                            name: 'My Cart',
+                          });
                         }}
                       >
                         <View style={{marginTop: 12}}>
                           <View style={{width: 25, height: 25}}>
                             <Image
-                              style={{width: '100%', height: '100%'}}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                flex: 1,
+                                resizeMode: 'contain',
+                              }}
                               source={img}
                               tintColor="#F6783B"
                             />
@@ -271,13 +355,20 @@ function Header (props) {
                         underlayColor="none"
                         style={styles.button}
                         onPress={() => {
-                          navigation.navigate ('CartScreen');
+                          navigation.navigate ('CartScreen', {
+                            name: 'My Cart',
+                          });
                         }}
                       >
                         <View style={{marginTop: 12}}>
                           <View style={{width: 25, height: 25}}>
                             <Image
-                              style={{width: '100%', height: '100%'}}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                flex: 1,
+                                resizeMode: 'contain',
+                              }}
                               source={img}
                               tintColor="#F6783B"
                             />

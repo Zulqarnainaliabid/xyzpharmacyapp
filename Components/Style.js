@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-export default styles = StyleSheet.create({
+export default (styles = StyleSheet.create ({
   Outercontainer: {
     backgroundColor: '#eaeaea',
     paddingHorizontal: 12,
@@ -10,9 +10,10 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 15,
     flex: 1,
   },
-  containerLoader:{
-    flex:1,
-  height:50
+  box: {
+    
+    alignItems: 'center',
+    marginVertical: 10,
   },
   OutercontainerHeader: {
     display: 'flex',
@@ -38,7 +39,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 22,
     height: 45,
-    marginRight:12
+    marginRight: 12,
   },
   HeaderOuterWraperInputinputSearchScreen: {
     borderWidth: 1,
@@ -69,7 +70,7 @@ export default styles = StyleSheet.create({
   },
   InnerContainerTopBrand: {
     padding: 12,
-    borderWidth:1
+    borderWidth: 1,
   },
   CatagoriesTagBoxOuterContainer: {
     borderWidth: 1,
@@ -88,13 +89,6 @@ export default styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  CataGoriesTagBoxImageHolder: {
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderColor: '#EDEDED',
-    padding: 10,
-    width: 114,
   },
   CatagoriesTagBoxOuterWraperImageHolder: {
     borderWidth: 1,
@@ -122,10 +116,6 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  YoungPeopleBuyBoxImageHolder: {
-    width: '100%',
-    padding: 8,
   },
   CatagoriesTags: {
     // borderWidth: 1,
@@ -197,9 +187,9 @@ export default styles = StyleSheet.create({
     padding: 7,
     borderRadius: 5,
     marginTop: 10,
-    display:"flex",
-    flexDirection:"row",
-   justifyContent:"space-between"
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   InnerContainerCatagoriesTagBoxImageHolder: {
@@ -248,15 +238,6 @@ export default styles = StyleSheet.create({
     borderRadius: 3,
     padding: 12,
   },
-  OuterContainerCatagoriesList: {
-    backgroundColor: 'white',
-    // borderWidth: 2,
-    // borderColor: '#D8D8D8',
-    // borderRadius: 3,
-    // paddingBottom: 100,
-    // marginBottom:110
-    flex: 1,
-  },
   InnerContainerItemProduct: {
     borderBottomWidth: 1,
     display: 'flex',
@@ -273,6 +254,9 @@ export default styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
   },
+  outerWraperErrorMessageNameProfileScreen:{
+   marginTop:6
+  },
   InnerContainerItemProductSubmitButton: {
     // textAlign: 'center',
     // fontSize: 14,
@@ -280,8 +264,7 @@ export default styles = StyleSheet.create({
     // backgroundColor: '#18AE43',
     // color: '#E3F2E9',
     // borderRadius: 5,
-    borderWidth:1,
-    
+    borderWidth: 1,
   },
   InnerContainerItemProductOuterWraperArroeIcon: {
     textAlignVertical: 'center',
@@ -303,12 +286,6 @@ export default styles = StyleSheet.create({
   OuterWraperImageDetailsScreen: {
     borderWidth: 1,
     marginTop: 12,
-  },
-  OuterWraperImageHolderDetailScreen: {
-    width: 260,
-    padding: 12,
-    marginLeft: 45,
-    padding: 12,
   },
   OuterWraperDetailTextHolderDetailsScreen: {
     display: 'flex',
@@ -470,7 +447,7 @@ export default styles = StyleSheet.create({
   },
   OuterWraperCardsBox: {
     padding: 15,
-    paddingBottom:25,
+    paddingBottom: 25,
     backgroundColor: 'white',
     borderRadius: 6,
     shadowColor: '#000',
@@ -529,15 +506,15 @@ export default styles = StyleSheet.create({
     fontSize: 25,
     marginLeft: 4,
   },
-  AddcardButton:{
-    backgroundColor:"#FF783E",
-    color:"white",
-    padding:10,
-    fontSize:16,
-    textAlign:"center",
-    borderRadius:3,
-    marginTop:44,
-    shadowColor: "#000",
+  AddcardButton: {
+    backgroundColor: '#FF783E',
+    color: 'white',
+    padding: 10,
+    fontSize: 16,
+    textAlign: 'center',
+    borderRadius: 3,
+    marginTop: 44,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -546,12 +523,20 @@ export default styles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
   },
-  AddcardButtonWalletScreen:{
-    marginTop:33,
-    padding:7,
+  AddcardButtonWalletScreen: {
+    marginTop: 33,
+    padding: 7,
   },
   outerWraperErrorMessageName: {
     top: 27,
+  },
+  outerWraperErrorMessageProfileScreen:{
+    position: 'absolute',
+    // top: 30,
+    marginTop:-22,
+    elevation: 5,
+    zIndex: 5,
+    right: 0,
   },
   outerWraperErrorMessage: {
     position: 'absolute',
@@ -568,14 +553,14 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderTopWidth: 3,
-    fontSize:12,
+    fontSize: 12,
     borderColor: '#F50632',
   },
-  outerwraperTextHolder:{
+  outerwraperTextHolder: {
     // borderWidth:1,
-    marginVertical:50,
-    color:"#757575",
-    fontSize:16,
-    lineHeight:22,
-  }
-});
+    marginVertical: 50,
+    color: '#757575',
+    fontSize: 16,
+    lineHeight: 22,
+  },
+}));

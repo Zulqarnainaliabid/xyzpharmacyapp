@@ -10,45 +10,52 @@ const ErroIcon = (
   />
 );
 
-const img = require('../Images/plain-triangle.png');
-const VisaPic = require('../Images/Visa.png');
+const img = require ('../Images/plain-triangle.png');
+const VisaPic = require ('../Images/Visa.png');
 export default function CardsDetailsScreen({route, navigation}) {
-  const [LabelColorUserName, setLabelColorUserName] = useState('#C2C2C2');
-  const [BorderWidthUserName, setBorderWidthUserName] = useState(1);
-  const [LabelColorUserCardNumber, setLabelColorUserCardNumber] =
-    useState('#C2C2C2');
-  const [BorderWidthUserCardNumber, setBorderWidthUserCardNumber] = useState(1);
-  const [UserName, setUserName] = useState('');
-  const [ValidationCheckCardHolderName, setValidationCheckCardHolderName] =
-    useState(false);
-  const [UserCardNumber, setUserCardNumber] = useState('');
-  const [ValidationCheckUserCardNumber, setValidationCheckUserCardNumber] =
-    useState(false);
-  const [ValidationExpiryDate, setValidationExpiryDate] = useState(false);
-  const [LabelColorExpiryDate, setLabelColorExpiryDate] = useState('#A0A0A0');
-  const [BorderWidthExpiryDate, setBorderWidthExpiryDate] = useState(1);
-  const [ExpiryDate, setExpiryDate] = useState('');
-  const [ValidationUserCW, setValidationUserCW] = useState(false);
-  const [LabelColorUserCW, setLabelColorUserCW] = useState('#A0A0A0');
-  const [BorderWidthUserCW, setBorderWidthUserCW] = useState(1);
-  const [UserCW, setUserCW] = useState('');
-  const [IsFocusCardHolderName, setIsFocusCardHolderName] = useState(false);
-  const [IsFocusCardNumber, setIsFocusCardNumber] = useState(false);
-  const [IsFocusDate, setIsFocusDate] = useState(false);
-  const [IsFocusCW, setIsFocusCW] = useState(false);
+  const [LabelColorUserName, setLabelColorUserName] = useState ('#C2C2C2');
+  const [BorderWidthUserName, setBorderWidthUserName] = useState (1);
+  const [LabelColorUserCardNumber, setLabelColorUserCardNumber] = useState (
+    '#C2C2C2'
+  );
+  const [BorderWidthUserCardNumber, setBorderWidthUserCardNumber] = useState (
+    1
+  );
+  const [UserName, setUserName] = useState ('');
+  const [
+    ValidationCheckCardHolderName,
+    setValidationCheckCardHolderName,
+  ] = useState (false);
+  const [UserCardNumber, setUserCardNumber] = useState ('');
+  const [
+    ValidationCheckUserCardNumber,
+    setValidationCheckUserCardNumber,
+  ] = useState (false);
+  const [ValidationExpiryDate, setValidationExpiryDate] = useState (false);
+  const [LabelColorExpiryDate, setLabelColorExpiryDate] = useState ('#A0A0A0');
+  const [BorderWidthExpiryDate, setBorderWidthExpiryDate] = useState (1);
+  const [ExpiryDate, setExpiryDate] = useState ('');
+  const [ValidationUserCW, setValidationUserCW] = useState (false);
+  const [LabelColorUserCW, setLabelColorUserCW] = useState ('#A0A0A0');
+  const [BorderWidthUserCW, setBorderWidthUserCW] = useState (1);
+  const [UserCW, setUserCW] = useState ('');
+  const [IsFocusCardHolderName, setIsFocusCardHolderName] = useState (false);
+  const [IsFocusCardNumber, setIsFocusCardNumber] = useState (false);
+  const [IsFocusDate, setIsFocusDate] = useState (false);
+  const [IsFocusCW, setIsFocusCW] = useState (false);
 
-  function handleProcced() {
+  function handleProcced () {
     if (UserName === '') {
-      setValidationCheckCardHolderName(true);
+      setValidationCheckCardHolderName (true);
     }
     if (UserCardNumber === '') {
-      setValidationCheckUserCardNumber(true);
+      setValidationCheckUserCardNumber (true);
     }
     if (ExpiryDate === '') {
-      setValidationExpiryDate(true);
+      setValidationExpiryDate (true);
     }
     if (UserCW === '') {
-      setValidationUserCW(true);
+      setValidationUserCW (true);
     }
     // if (
     //   Adress === '' ||
@@ -67,25 +74,26 @@ export default function CardsDetailsScreen({route, navigation}) {
       <View
         style={{
           padding: 15,
-        }}>
+        }}
+      >
         <View style={{position: 'relative', marginTop: 12}}>
           <FloatingLabelInput
             label={'Card Holder Name'}
             value={UserName}
             isFocused={IsFocusCardHolderName}
             onFocus={() => {
-              setLabelColorUserName('#FF783E');
-              setBorderWidthUserName(2);
-              setIsFocusCardHolderName(true);
+              setLabelColorUserName ('#FF783E');
+              setBorderWidthUserName (2);
+              setIsFocusCardHolderName (true);
             }}
             onBlur={() => {
-              setLabelColorUserName('#C2C2C2');
-              setBorderWidthUserName(1);
-              setIsFocusCardHolderName(false);
+              setLabelColorUserName ('#C2C2C2');
+              setBorderWidthUserName (1);
+              setIsFocusCardHolderName (false);
             }}
             onChangeText={value => {
-              setUserName(value);
-              setValidationCheckCardHolderName(false);
+              setUserName (value);
+              setValidationCheckCardHolderName (false);
             }}
             inputStyles={{
               borderBottomWidth: BorderWidthUserName,
@@ -112,12 +120,13 @@ export default function CardsDetailsScreen({route, navigation}) {
               fontSizeFocused: 13,
             }}
           />
-          {ValidationCheckCardHolderName && (
+          {ValidationCheckCardHolderName &&
             <View
               style={[
                 styles.outerWraperErrorMessage,
                 styles.outerWraperErrorMessageName,
-              ]}>
+              ]}
+            >
               <Text style={{textAlign: 'right', marginRight: 10}}>
                 {ErroIcon}
               </Text>
@@ -127,16 +136,22 @@ export default function CardsDetailsScreen({route, navigation}) {
                   height: 10,
                   alignSelf: 'flex-end',
                   marginRight: 12,
-                }}>
+                }}
+              >
                 <Image
-                  style={{width: '100%', height: 10}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
                   source={img}
                   tintColor="#FF0131"
                 />
               </View>
               <Text style={[styles.ErrorMessage]}>Field cannot be empty</Text>
             </View>
-          )}
+            }
         </View>
         <View style={{position: 'relative', marginTop: 12}}>
           <FloatingLabelInput
@@ -144,19 +159,19 @@ export default function CardsDetailsScreen({route, navigation}) {
             value={UserCardNumber}
             isFocused={IsFocusCardNumber}
             onFocus={() => {
-              setLabelColorUserCardNumber('#FF783E');
-              setBorderWidthUserCardNumber(2);
-              setIsFocusCardNumber(true);
+              setLabelColorUserCardNumber ('#FF783E');
+              setBorderWidthUserCardNumber (2);
+              setIsFocusCardNumber (true);
             }}
             onBlur={() => {
-              setLabelColorUserCardNumber('#C2C2C2');
-              setBorderWidthUserCardNumber(1);
-              setIsFocusCardNumber(false);
+              setLabelColorUserCardNumber ('#C2C2C2');
+              setBorderWidthUserCardNumber (1);
+              setIsFocusCardNumber (false);
             }}
             selectionColor={'#FF783E'}
             onChangeText={value => {
-              setUserCardNumber(value);
-              setValidationCheckUserCardNumber(false);
+              setUserCardNumber (value);
+              setValidationCheckUserCardNumber (false);
             }}
             inputStyles={{
               borderBottomWidth: BorderWidthUserCardNumber,
@@ -187,12 +202,13 @@ export default function CardsDetailsScreen({route, navigation}) {
               paddingBottom: 0,
             }}
           />
-          {ValidationCheckUserCardNumber && (
+          {ValidationCheckUserCardNumber &&
             <View
               style={[
                 styles.outerWraperErrorMessage,
                 styles.outerWraperErrorMessageName,
-              ]}>
+              ]}
+            >
               <Text style={{textAlign: 'right', marginRight: 10}}>
                 {ErroIcon}
               </Text>
@@ -202,16 +218,21 @@ export default function CardsDetailsScreen({route, navigation}) {
                   height: 10,
                   alignSelf: 'flex-end',
                   marginRight: 12,
-                }}>
+                }}
+              >
                 <Image
-                  style={{width: '100%', height: 10}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
                   source={img}
                   tintColor="#FF0131"
                 />
               </View>
               <Text style={[styles.ErrorMessage]}>Field cannot be empty</Text>
-            </View>
-          )}
+            </View>}
         </View>
         <View
           style={{
@@ -219,26 +240,27 @@ export default function CardsDetailsScreen({route, navigation}) {
             flexDirection: 'row',
             width: '100%',
             marginTop: 12,
-          }}>
+          }}
+        >
           <View style={{position: 'relative', width: '50%'}}>
             <FloatingLabelInput
               label={'Expiry Date(MM/YY)'}
               value={ExpiryDate}
               isFocused={IsFocusDate}
               onFocus={() => {
-                setLabelColorExpiryDate('#FF783E');
-                setBorderWidthExpiryDate(2);
-                setIsFocusDate(true);
+                setLabelColorExpiryDate ('#FF783E');
+                setBorderWidthExpiryDate (2);
+                setIsFocusDate (true);
               }}
               onBlur={() => {
-                setLabelColorExpiryDate('#C2C2C2');
-                setBorderWidthExpiryDate(1);
-                setIsFocusDate(false);
+                setLabelColorExpiryDate ('#C2C2C2');
+                setBorderWidthExpiryDate (1);
+                setIsFocusDate (false);
               }}
               selectionColor={'#FF783E'}
               onChangeText={value => {
-                setExpiryDate(value);
-                setValidationExpiryDate(false);
+                setExpiryDate (value);
+                setValidationExpiryDate (false);
               }}
               inputStyles={{
                 borderBottomWidth: BorderWidthExpiryDate,
@@ -268,12 +290,13 @@ export default function CardsDetailsScreen({route, navigation}) {
                 fontSize: 20,
               }}
             />
-            {ValidationExpiryDate && (
+            {ValidationExpiryDate &&
               <View
                 style={[
                   styles.outerWraperErrorMessage,
                   styles.outerWraperErrorMessageName,
-                ]}>
+                ]}
+              >
                 <Text style={{textAlign: 'right', marginRight: 10}}>
                   {ErroIcon}
                 </Text>
@@ -283,16 +306,21 @@ export default function CardsDetailsScreen({route, navigation}) {
                     height: 10,
                     alignSelf: 'flex-end',
                     marginRight: 12,
-                  }}>
+                  }}
+                >
                   <Image
-                    style={{width: '100%', height: 10}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      flex: 1,
+                      resizeMode: 'contain',
+                    }}
                     source={img}
                     tintColor="#FF0131"
                   />
                 </View>
                 <Text style={[styles.ErrorMessage]}>Field cannot be empty</Text>
-              </View>
-            )}
+              </View>}
           </View>
           <View style={{position: 'relative', marginLeft: 45, width: '37%'}}>
             <FloatingLabelInput
@@ -300,19 +328,19 @@ export default function CardsDetailsScreen({route, navigation}) {
               value={UserCW}
               isFocused={IsFocusCW}
               onFocus={() => {
-                setLabelColorUserCW('#FF783E');
-                setBorderWidthUserCW(2);
-                setIsFocusCW(true);
+                setLabelColorUserCW ('#FF783E');
+                setBorderWidthUserCW (2);
+                setIsFocusCW (true);
               }}
               onBlur={() => {
-                setLabelColorUserCW('#C2C2C2');
-                setBorderWidthUserCW(1);
-                setIsFocusCW(false);
+                setLabelColorUserCW ('#C2C2C2');
+                setBorderWidthUserCW (1);
+                setIsFocusCW (false);
               }}
               selectionColor={'#FF783E'}
               onChangeText={value => {
-                setUserCW(value);
-                setValidationUserCW(false);
+                setUserCW (value);
+                setValidationUserCW (false);
               }}
               inputStyles={{
                 borderBottomWidth: BorderWidthUserCW,
@@ -339,12 +367,13 @@ export default function CardsDetailsScreen({route, navigation}) {
                 fontSizeFocused: 13,
               }}
             />
-            {ValidationUserCW && (
+            {ValidationUserCW &&
               <View
                 style={[
                   styles.outerWraperErrorMessage,
                   styles.outerWraperErrorMessageName,
-                ]}>
+                ]}
+              >
                 <Text style={{textAlign: 'right', marginRight: 10}}>
                   {ErroIcon}
                 </Text>
@@ -354,16 +383,21 @@ export default function CardsDetailsScreen({route, navigation}) {
                     height: 10,
                     alignSelf: 'flex-end',
                     marginRight: 12,
-                  }}>
+                  }}
+                >
                   <Image
-                    style={{width: '100%', height: 10}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      flex: 1,
+                      resizeMode: 'contain',
+                    }}
                     source={img}
                     tintColor="#FF0131"
                   />
                 </View>
                 <Text style={[styles.ErrorMessage]}>Field cannot be empty</Text>
-              </View>
-            )}
+              </View>}
           </View>
         </View>
         <TouchableOpacity onPress={handleProcced}>
@@ -379,44 +413,78 @@ export default function CardsDetailsScreen({route, navigation}) {
             display: 'flex',
             flexDirection: 'row',
             marginTop: 12,
-          }}>
+          }}
+        >
           <View
-            style={{ padding: 4, backgroundColor: '#F1F3F2',marginHorizontal:3}}>
+            style={{
+              padding: 4,
+              backgroundColor: '#F1F3F2',
+              marginHorizontal: 3,
+            }}
+          >
             <View
               style={{
                 width: 60,
                 height: 20,
-              }}>
+              }}
+            >
               <Image
-                style={{width: '100%', height: 18}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  flex: 1,
+                  resizeMode: 'contain',
+                }}
                 source={VisaPic}
                 //   tintColor="#FF0131"
               />
             </View>
           </View>
           <View
-            style={{ padding: 4, backgroundColor: '#F1F3F2',marginHorizontal:3}}>
+            style={{
+              padding: 4,
+              backgroundColor: '#F1F3F2',
+              marginHorizontal: 3,
+            }}
+          >
             <View
               style={{
                 width: 60,
                 height: 20,
-              }}>
+              }}
+            >
               <Image
-                style={{width: '100%', height: 18}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  flex: 1,
+                  resizeMode: 'contain',
+                }}
                 source={VisaPic}
                 //   tintColor="#FF0131"
               />
             </View>
           </View>
           <View
-            style={{padding: 4, backgroundColor: '#F1F3F2',marginHorizontal:3}}>
+            style={{
+              padding: 4,
+              backgroundColor: '#F1F3F2',
+              marginHorizontal: 3,
+            }}
+          >
             <View
               style={{
                 width: 60,
                 height: 20,
-              }}>
+              }}
+            >
               <Image
-                style={{width: '100%', height: "100%"}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  flex: 1,
+                  resizeMode: 'contain',
+                }}
                 source={VisaPic}
                 //   tintColor="#FF0131"
               />

@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
+import { Context } from '../Context/Context'
 import {
   View,
   Text,
   Button,
   StyleSheet,
   ScrollView,
+  TextInput,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -13,37 +15,68 @@ import CartItems from './CartItems';
 import CheckOutButton from './CheckOutButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
-import PaymentsBillsCollection from './PaymentsBillsCollection'
+import EasyPaisaScreen from './EasyPaisaScreen'
+import CheckOutSection from './CheckOutSection';
+import PaymentsBillsCollection from './PaymentsBillsCollection';
+import DebitCardScreen from './DebitCardScreen'
+import CashonDeliveryScren from './CashonDeliveryScren'
 const CartScreen = ({route, navigation}) => {
+  const contextData = useContext(Context);
+  const [step, setStep] = useState (0);
   const [CartData, setCartData] = useState ([]);
   const [CheckCartValue, setCheckCartValue] = useState (false);
+  const [PaymentScreen, setPaymentScreen] = useState("PaymentScreen")
+  const [PaymentMethod, setPaymentMethod] = useState("Cash on Delivery")
   let {name} = route.params;
   let HeaderName = JSON.stringify (name);
   HeaderName = HeaderName.replace ('"', '').replace ('"', '');
-  useEffect (() => {
-    // AsyncStorage.clear();
-    getData ();
-  }, []);
 
-  const getData = async () => {
+  useEffect ( async () => {
     try {
-      const value = await AsyncStorage.getItem ('CartData');
+      var itemsInCart = await AsyncStorage.getItem ('cart');
       setCheckCartValue (false);
-      if (value !== null) {
-        let data = JSON.parse (value);
-        console.log ('local Data', data);
-        setCartData (data);
-        setCheckCartValue (true);
+      if (itemsInCart !== null) {
+        let Cartdata = JSON.parse (itemsInCart);
+        setCartData (Cartdata);
+        if(Cartdata.length===0){
+          setCheckCartValue (false);
+        }else{
+          setCheckCartValue (true);
+        }
       }
     } catch (e) {
       console.log ('read error', e);
     }
-  };
+  }, [contextData.UpdateCartItem]);
+
+  function HandleCheckPaymentMethod(PaymentMethod){
+    setPaymentMethod(PaymentMethod)
+  }
+
+  function onNextStep (number) {
+    if(number===2){
+      {
+        contextData.HandaleOrderCompleted(true)
+        if(PaymentMethod==="Easy Paisa"){
+          setPaymentScreen("Easy Paisa")
+        }else if(PaymentMethod==="Debit Card"){
+          setPaymentScreen("Debit Card")
+        }else if(PaymentMethod==="Cash on Delivery"){
+          setPaymentScreen("Cash on Delivery")
+        }
+      }
+     
+    }else{
+      setStep (number);
+    }
+  }
+  if(PaymentScreen==="PaymentScreen"){
   return (
     <View style={{flex: 1}}>
       <Header name={HeaderName} EditButton={false} ScreenName={false} />
       <View style={{flex: 1}}>
         <ProgressSteps
+          activeStep={step}
           borderWidth={2}
           marginBottom={0}
           activeStepIconBorderColor="#44A903"
@@ -70,15 +103,11 @@ const CartScreen = ({route, navigation}) => {
                     />
                   );
                 })}
-            </View>
-            <View>
-              <PaymentsBillsCollection/>
-              </View>
+            </View>  
+             {CheckCartValue && <PaymentsBillsCollection />}
           </ProgressStep>
-          <ProgressStep label="2.Place Holder">
-            <View style={{alignItems: 'center'}}>
-              <Text>This is the content within step 2!</Text>
-            </View>
+          <ProgressStep removeBtnRow={true} label="2.Place Holder">
+            <CheckOutSection HandleCheckPaymentMethod={HandleCheckPaymentMethod} />
           </ProgressStep>
           <ProgressStep label="3.Completed">
             <View style={{alignItems: 'center'}}>
@@ -87,9 +116,8 @@ const CartScreen = ({route, navigation}) => {
           </ProgressStep>
         </ProgressSteps>
       </View>
-
       {CheckCartValue
-        ? <CheckOutButton />
+        ? <CheckOutButton onNextStep={onNextStep} />
         : <View style={{backgroundColor: '#F8F8F8', padding: 22}}>
             <Text style={{textAlign: 'center', color: '#646464', fontSize: 16}}>
               Your cart is empty
@@ -97,7 +125,9 @@ const CartScreen = ({route, navigation}) => {
             <Text style={{textAlign: 'center', color: '#646464', fontSize: 16}}>
               let's fill it by adding some item
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              navigation.navigate("HomPage")
+            }}>
               <Text
                 style={{
                   color: '#FFFFFF',
@@ -126,6 +156,19 @@ const CartScreen = ({route, navigation}) => {
           </View>}
     </View>
   );
+  }else if(PaymentScreen==="Easy Paisa"){
+    return(
+      <EasyPaisaScreen setPaymentScreen={setPaymentScreen} />
+    )
+  }else if(PaymentScreen==="Debit Card"){
+    return(
+      <DebitCardScreen/>
+    )
+  }else if(PaymentScreen==="Cash on Delivery"){
+    return(
+      <CashonDeliveryScren/>
+    )
+  }
 };
 
 export default CartScreen;

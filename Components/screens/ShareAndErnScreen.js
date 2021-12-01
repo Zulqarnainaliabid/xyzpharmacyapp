@@ -1,25 +1,22 @@
 import React from 'react';
 import {View, Text, ScrollView, Image} from 'react-native';
 import Header from '../Header';
-const img = require('../Images/FreePik.jpg');
+const img = require ('../Images/FreePik.jpg');
 const ShareAndEarnScreen = ({route, navigation}) => {
   let {name} = route.params;
-  let HeaderName = JSON.stringify(name);
-  HeaderName = HeaderName.replace('"', '').replace('"', '');
+  let HeaderName = JSON.stringify (name);
+  HeaderName = HeaderName.replace ('"', '').replace ('"', '');
   return (
     <View style={{flex: 1}}>
-      <Header
-        name={HeaderName}
-        ScreenName={false}
-        EditButton={false}
-      />
+      <Header name={HeaderName} ScreenName={false} EditButton={false} />
 
       <View
         style={{
           flex: 1,
           backgroundColor: '#FFFFFF',
           padding: 16,
-        }}>
+        }}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={{color: '#000000', fontSize: 19}}>
             Want more Grocery for less
@@ -38,9 +35,18 @@ const ShareAndEarnScreen = ({route, navigation}) => {
               justifyContent: 'center',
               alignItems: 'center',
               marginVertical: 15,
-            }}>
+            }}
+          >
             <View style={{width: 250}}>
-              <Image style={{width: '100%', height: 200}} source={img} />
+              <Image
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  flex: 1,
+                  resizeMode: 'contain',
+                }}
+                source={img}
+              />
             </View>
           </View>
           <Text style={{color: '#777777', marginVertical: 12, fontSize: 17}}>
@@ -55,7 +61,8 @@ const ShareAndEarnScreen = ({route, navigation}) => {
               borderWidth: 1,
               padding: 12,
               borderColor: '#E7E7E7',
-            }}>
+            }}
+          >
             <Text style={{fontSize: 19}}> Sign in to get code</Text>
             <Text style={{fontSize: 19, color: '#7BA3B2'}}> Copy</Text>
           </View>
@@ -70,16 +77,17 @@ const ShareAndEarnScreen = ({route, navigation}) => {
               marginVertical: 22,
               borderRadius: 3,
               fontSize: 17,
-              shadowColor: "#000",
+              shadowColor: '#000',
               shadowOffset: {
                 width: 0,
                 height: 1,
               },
               shadowOpacity: 0.22,
               shadowRadius: 2.22,
-              
+
               elevation: 3,
-            }}>
+            }}
+          >
             SIGN IN TO INVITE FRIENDS
           </Text>
         </ScrollView>

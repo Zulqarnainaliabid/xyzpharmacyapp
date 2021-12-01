@@ -12,7 +12,7 @@ const CatagoriesListSecreen = ({route, navigation}) => {
     <View>
       <Header name={HeaderName} EditButton={false} ScreenName={true} />
       <ScrollView>
-        <View style={styles.OuterContainerCatagoriesList}>
+        <View style={{ flex: 1,backgroundColor:"white"}}>
         {TempDataCategoriesTag &&
               TempDataCategoriesTag.map((item, index) => {
                 return <ItemsProduct key={index} Data={item} />;

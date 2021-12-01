@@ -9,13 +9,15 @@ import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './Components/redux/store';
-
+import {ContextProvider} from './Components/Context/Context';
 const PharmacyApp = () => {
   useEffect (() => {
     SplashScreen.hide ();
   }, []);
   return (
+    <ContextProvider>
         <App />
+    </ContextProvider>
   );
 };
 AppRegistry.registerComponent (appName, () => PharmacyApp);

@@ -6,27 +6,22 @@ import Swiper from 'react-native-swiper';
 import DeliveryCharges from './DeliveryCharges';
 import Pakges from './Pakges';
 import FaqsScreen from './FaqsScreen';
-const img = require('../Images/FreeClub.webp');
+const img = require ('../Images/FreeClub.webp');
 
 const MemberShipScreen = ({route, navigation}) => {
-
-  function HandleGotoPlansScreenScreen(data) {
-    navigation.navigate('PlansScreen', {
+  function HandleGotoPlansScreenScreen (data) {
+    navigation.navigate ('PlansScreen', {
       name: 'Pay For MemberShip',
-      OtherData:data,
+      OtherData: data,
     });
   }
 
   let {name} = route.params;
-  let HeaderName = JSON.stringify(name);
-  HeaderName = HeaderName.replace('"', '').replace('"', '');
+  let HeaderName = JSON.stringify (name);
+  HeaderName = HeaderName.replace ('"', '').replace ('"', '');
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <Header
-        name={HeaderName}
-        ScreenName={false}
-        EditButton={false}
-      />
+      <Header name={HeaderName} ScreenName={false} EditButton={false} />
       <View style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.OutercontainerClubScreen}>
@@ -36,8 +31,17 @@ const MemberShipScreen = ({route, navigation}) => {
                 marginVertical: 5,
                 marginTop: 55,
                 backgroundColor: '#FFFFFF',
-              }}>
-              <Image style={{width: '100%', height: 130}} source={img} />
+              }}
+            >
+              <Image
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  flex: 1,
+                  resizeMode: 'contain',
+                }}
+                source={img}
+              />
             </View>
             <Text
               style={{
@@ -46,7 +50,8 @@ const MemberShipScreen = ({route, navigation}) => {
                 fontSize: 16,
                 color: '#2B2B2B',
                 marginBottom: 25,
-              }}>
+              }}
+            >
               Select the plan which suit your needs
             </Text>
             <View
@@ -54,10 +59,23 @@ const MemberShipScreen = ({route, navigation}) => {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-              }}>
-              <Pakges HandleGotoPlansScreenScreen={HandleGotoPlansScreenScreen}  ActualAmount={299} AmountLess={499} />
-              <Pakges HandleGotoPlansScreenScreen={HandleGotoPlansScreenScreen}  ActualAmount={499} AmountLess={799} />
-              <Pakges HandleGotoPlansScreenScreen={HandleGotoPlansScreenScreen}  ActualAmount={899} AmountLess={1399}/>
+              }}
+            >
+              <Pakges
+                HandleGotoPlansScreenScreen={HandleGotoPlansScreenScreen}
+                ActualAmount={299}
+                AmountLess={499}
+              />
+              <Pakges
+                HandleGotoPlansScreenScreen={HandleGotoPlansScreenScreen}
+                ActualAmount={499}
+                AmountLess={799}
+              />
+              <Pakges
+                HandleGotoPlansScreenScreen={HandleGotoPlansScreenScreen}
+                ActualAmount={899}
+                AmountLess={1399}
+              />
             </View>
             <Text
               style={{
@@ -66,7 +84,8 @@ const MemberShipScreen = ({route, navigation}) => {
                 fontSize: 16,
                 color: '#2B2B2B',
                 marginBottom: 25,
-              }}>
+              }}
+            >
               You can cancle anytime within 15 days
             </Text>
             <DeliveryCharges />

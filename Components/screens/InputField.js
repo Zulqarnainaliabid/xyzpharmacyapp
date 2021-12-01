@@ -72,6 +72,9 @@ export default function InputTextField (props) {
     ValidationCheckUserHouseAdress,
     setValidationCheckUserHouseAdress,
   ] = useState (false);
+   const [ToggleEditButton, setToggleEditButton] = useState(false)
+
+
   function handleDate (date) {
     setDate (date);
     setValidationCheckUserDate (false);
@@ -177,7 +180,12 @@ export default function InputTextField (props) {
                     }}
                   >
                     <Image
-                      style={{width: '100%', height: 10}}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                        resizeMode: 'contain',
+                      }}
                       source={img}
                       tintColor="#FF0131"
                     />
@@ -239,7 +247,12 @@ export default function InputTextField (props) {
                     }}
                   >
                     <Image
-                      style={{width: '100%', height: 10}}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                        resizeMode: 'contain',
+                      }}
                       source={img}
                       tintColor="#FF0131"
                     />
@@ -340,7 +353,12 @@ export default function InputTextField (props) {
                     }}
                   >
                     <Image
-                      style={{width: '100%', height: 10}}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                        resizeMode: 'contain',
+                      }}
                       source={img}
                       tintColor="#FF0131"
                     />
@@ -407,7 +425,12 @@ export default function InputTextField (props) {
                       }}
                     >
                       <Image
-                        style={{width: '100%', height: 10}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          flex: 1,
+                          resizeMode: 'contain',
+                        }}
                         source={img}
                         tintColor="#FF0131"
                       />
@@ -479,7 +502,12 @@ export default function InputTextField (props) {
                       }}
                     >
                       <Image
-                        style={{width: '100%', height: 10}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          flex: 1,
+                          resizeMode: 'contain',
+                        }}
                         source={img}
                         tintColor="#FF0131"
                       />
@@ -550,7 +578,12 @@ export default function InputTextField (props) {
                     }}
                   >
                     <Image
-                      style={{width: '100%', height: 10}}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                        resizeMode: 'contain',
+                      }}
                       source={img}
                       tintColor="#FF0131"
                     />
@@ -612,7 +645,12 @@ export default function InputTextField (props) {
                     }}
                   >
                     <Image
-                      style={{width: '100%', height: 10}}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                        resizeMode: 'contain',
+                      }}
                       source={img}
                       tintColor="#FF0131"
                     />

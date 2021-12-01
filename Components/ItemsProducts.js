@@ -26,10 +26,9 @@ export default function ItemsProduct (props) {
   const [togglePlusMinusButton, settogglePlusMinusButton] = useState (false);
   const navigation = useNavigation ();
 
-
-
-  useEffect (() => {
-    // getQuantityData()
+  useEffect (
+    () => {
+      // getQuantityData()
       if (props.Data.Quantity >= 2) {
         settogglePlusMinusButton (true);
       } else {
@@ -38,21 +37,8 @@ export default function ItemsProduct (props) {
     },
     [props.Data.Quantity]
   );
-
-  // const storeData = async ItemArray => {
-  //   try {
-  //     await AsyncStorage.setItem (
-  //       JSON.stringify ('CartData'),
-  //       JSON.stringify (ItemArray)
-  //     );
-  //   } catch (e) {
-  //     console.log ('error', e);
-  //   }
-  //   props.getData ();
-  // };
-
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, alignItems: 'center'}}>
       <View style={styles.InnerContainerItemProduct}>
         <TouchableOpacity
           onPress={() => {
@@ -68,6 +54,8 @@ export default function ItemsProduct (props) {
                 width: '100%',
                 height: 120,
                 borderColor: '#F4CA16',
+                flex: 1,
+                resizeMode: 'contain',
               }}
               source={props.Data.img}
             />
@@ -149,7 +137,12 @@ export default function ItemsProduct (props) {
                           }}
                         >
                           <Image
-                            style={{width: '100%', height: '100%'}}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              flex: 1,
+                              resizeMode: 'contain',
+                            }}
                             source={MinusIconPic}
                             tintColor="#00C41A"
                           />
@@ -165,7 +158,12 @@ export default function ItemsProduct (props) {
                           }}
                         >
                           <Image
-                            style={{width: '100%', height: '100%'}}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              flex: 1,
+                              resizeMode: 'contain',
+                            }}
                             source={DeleteIconPic}
                             tintColor="#00C41A"
                           />
@@ -191,7 +189,12 @@ export default function ItemsProduct (props) {
                       }}
                     >
                       <Image
-                        style={{width: '100%', height: '100%'}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          flex: 1,
+                          resizeMode: 'contain',
+                        }}
                         source={PlusIconPic}
                         tintColor="#00C41A"
                       />

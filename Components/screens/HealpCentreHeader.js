@@ -17,10 +17,12 @@ export default function HealpCentreHeader (props) {
         source={Backimg}
         style={{
           width: '100%',
-          // height: '30%',
+          height: '100%',
           justifyContent: 'center',
           borderWidth: 1,
           paddingVertical: 14,
+          flex: 1,
+          resizeMode: 'contain',
         }}
       >
         <View
@@ -38,7 +40,12 @@ export default function HealpCentreHeader (props) {
           >
             <View style={{width: 15, height: 15}}>
               <Image
-                style={{width: '100%', height: '100%'}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  flex: 1,
+                  resizeMode: 'contain',
+                }}
                 source={img}
                 tintColor="white"
               />

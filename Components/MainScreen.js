@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {Context} from './Context/Context';
 import {
   Text,
   View,
@@ -14,7 +15,7 @@ import TopBrand from './TopBrand';
 import YoungPeopleBuySection from './YoungPeopleBuySection';
 import CatagoriesTag from './CatagoriesTags';
 import ItemsProduct from './ItemsProducts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import OrderStatus from './OrderStatus';
 import Header from './Header';
 import {
   TempDataTopSlleer,
@@ -27,19 +28,27 @@ import {
 import 'react-native-gesture-handler';
 const img = require ('./Images/FreeClub.webp');
 export default function HomPage({navigation}) {
+  const contextData = useContext (Context);
   const [ToggleHeader, setToggleHeader] = useState (false);
-  const [AllData, setAlltData] = useState ([
+  const [AllData, setAlltData] = useState (
+    [
     {data: TempDataCategoriesTag},
     {data: TempDataFeatureProduct},
     {data: TempDataTopSlleer},
     {data: TempDataFruitsAndVegatbles},
     {data: TempDataDaalain},
-  ]);
+  ])
+
+  useEffect(() => {
+    contextData.HandaleCompletedServerData(AllData)
+  }, []);
+
   function HandleGotoMemberShipScreen () {
     navigation.navigate ('MemberShipScreen', {
       name: 'GrocerClub Membership mmmm',
     });
   }
+ 
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header
@@ -49,7 +58,9 @@ export default function HomPage({navigation}) {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.Outercontainer}>
+          {contextData.orderCompleted && <OrderStatus />}
           <MyCarousel />
+
           <View style={styles.OutercontainerdProduct}>
             <Products
               name={'Featured products'}
@@ -62,8 +73,18 @@ export default function HomPage({navigation}) {
             style={styles.button}
             onPress={HandleGotoMemberShipScreen}
           >
-            <View style={{width: 335, marginVertical: 5}}>
-              <Image style={{width: '100%', height: 130}} source={img} />
+            <View>
+              <View style={{width: 335, height: 115}}>
+                <Image
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
+                  source={img}
+                />
+              </View>
             </View>
           </TouchableOpacity>
           <View style={styles.OutercontainerdProduct}>
@@ -89,8 +110,18 @@ export default function HomPage({navigation}) {
             style={styles.button}
             onPress={HandleGotoMemberShipScreen}
           >
-            <View style={{width: 335, marginVertical: 5}}>
-              <Image style={{width: '100%', height: 130}} source={img} />
+            <View>
+              <View style={{width: 335, height: 115}}>
+                <Image
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
+                  source={img}
+                />
+              </View>
             </View>
           </TouchableOpacity>
 

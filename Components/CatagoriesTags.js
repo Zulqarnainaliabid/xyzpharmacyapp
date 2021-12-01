@@ -55,7 +55,8 @@ export default function CatagoriesTag(props) {
         <View style={styles.InnerContainerCatagoriesTagBoxImageHolder}>
           <View style={styles.CatagoriesTags}>
             <Image
-              style={{width: '100%', height: 100}}
+              style={{width: '100%', height: "100%",flex: 1,
+              resizeMode: 'contain',}}
               source={props.Data.img}
             />
           </View>

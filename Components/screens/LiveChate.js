@@ -9,10 +9,10 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import HelpCentreContectinApp from './HelpCentreContectinApp';
-import HelpCentreDeliverySlots from './HealpCentreDeliverySlotes'
-import ModalLiveChat from './ModalLiveChat'
-import HelpCentreWhereDelivery from './HelpCentreWhereDelivery'
-import ChatBox from './ChatBoxScreen'
+import HelpCentreDeliverySlots from './HealpCentreDeliverySlotes';
+import ModalLiveChat from './ModalLiveChat';
+import HelpCentreWhereDelivery from './HelpCentreWhereDelivery';
+import ChatBox from './ChatBoxScreen';
 const img = require ('../Images/BackImageLiveChate.jpg');
 const right_Arrow = require ('../Images/right_Arrow.png');
 const imgMan = require ('../Images/Man.jpg');
@@ -41,7 +41,13 @@ export function User () {
       }}
     >
       <Image
-        style={{width: '100%', height: '100%', borderRadius: 40}}
+        style={{
+          width: '100%',
+          height: '100%',
+          flex: 1,
+          resizeMode: 'contain',
+          borderRadius: 40,
+        }}
         source={imgMan}
       />
     </View>
@@ -50,25 +56,29 @@ export function User () {
 export default function LiveChateScreen (props) {
   const [ToggleScreenHelpCentre, setToggleScreenHelpCentre] = useState (false);
   const [Screen, setScreen] = useState (null);
-  const [ShowModal, setShowModal] = useState(false)
-  const navigation = useNavigation();
+  const [ShowModal, setShowModal] = useState (false);
+  const navigation = useNavigation ();
   if (ToggleScreenHelpCentre) {
     if (Screen === 1) {
-      return <HelpCentreContectinApp 
-      setToggleScreenHelpCentre={setToggleScreenHelpCentre}
-      />;
+      return (
+        <HelpCentreContectinApp
+          setToggleScreenHelpCentre={setToggleScreenHelpCentre}
+        />
+      );
     } else if (Screen === 2) {
       return (
-        <HelpCentreWhereDelivery  setToggleScreenHelpCentre={setToggleScreenHelpCentre} />
+        <HelpCentreWhereDelivery
+          setToggleScreenHelpCentre={setToggleScreenHelpCentre}
+        />
       );
     } else if (Screen === 3) {
-      return <HelpCentreDeliverySlots 
-      setToggleScreenHelpCentre={setToggleScreenHelpCentre}
-      />;
+      return (
+        <HelpCentreDeliverySlots
+          setToggleScreenHelpCentre={setToggleScreenHelpCentre}
+        />
+      );
     } else if (Screen === 4) {
-      return <ChatBox 
-      setToggleScreenHelpCentre={setToggleScreenHelpCentre}
-      />;
+      return <ChatBox setToggleScreenHelpCentre={setToggleScreenHelpCentre} />;
     }
   } else {
     return (
@@ -89,7 +99,7 @@ export default function LiveChateScreen (props) {
             }}
           >
             <ParallaxScrollView
-            backgroundScrollSpeed={61}
+              backgroundScrollSpeed={61}
               backgroundColor="transparent"
               contentBackgroundColor="transparent"
               parallaxHeaderHeight={180}
@@ -114,19 +124,19 @@ export default function LiveChateScreen (props) {
                   >
                     <Text style={{color: 'white', fontSize: 24}}>Logo</Text>
                     <TouchableOpacity
-                    onPress={()=>{
-                      navigation.navigate("HomPage")
-                    }}
-                    >
-                    <Text
-                      style={{
-                        color: 'white',
-
-                        fontSize: 19,
+                      onPress={() => {
+                        navigation.navigate ('HomPage');
                       }}
                     >
-                      X
-                    </Text>
+                      <Text
+                        style={{
+                          color: 'white',
+
+                          fontSize: 19,
+                        }}
+                      >
+                        X
+                      </Text>
                     </TouchableOpacity>
                   </View>
                   <Text
@@ -185,8 +195,8 @@ export default function LiveChateScreen (props) {
                   <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                      setToggleScreenHelpCentre(true)
-                      setScreen(4)
+                      setToggleScreenHelpCentre (true);
+                      setScreen (4);
                     }}
                   >
                     <View
@@ -234,59 +244,60 @@ export default function LiveChateScreen (props) {
                   <Text style={{fontSize: 20}}>
                     Find your answer now
                   </Text>
-                  <TouchableOpacity
-                  onPress={()=>setShowModal(true)}>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      borderColor: '#DEDEDE',
-                      marginTop: 12,
-                      borderTopRightRadius: 6,
-                      borderTopLeftRadius: 6,
-                      borderBottomRightRadius: 6,
-                      borderBottomLeftRadius: 6,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        textAlignVertical: 'center',
-                        color: '#737374',
-                        marginHorizontal: 20,
-                      }}
-                    >
-                      Search our articles
-                    </Text>
+                  <TouchableOpacity onPress={() => setShowModal (true)}>
                     <View
                       style={{
-                        height: 40,
-                        width: 40,
-                        padding: 13,
-                        backgroundColor: '#F7600F',
-                        borderBottomRightRadius: 6,
+                        borderWidth: 1,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        borderColor: '#DEDEDE',
+                        marginTop: 12,
                         borderTopRightRadius: 6,
+                        borderTopLeftRadius: 6,
+                        borderBottomRightRadius: 6,
+                        borderBottomLeftRadius: 6,
                       }}
                     >
-                      <Image
+                      <Text
                         style={{
-                          width: '100%',
-                          height: '100%',
-                          borderRadius: 40,
+                          fontSize: 16,
+                          textAlignVertical: 'center',
+                          color: '#737374',
+                          marginHorizontal: 20,
                         }}
-                        source={right_Arrow}
-                        tintColor="white"
-                      />
+                      >
+                        Search our articles
+                      </Text>
+                      <View
+                        style={{
+                          height: 40,
+                          width: 40,
+                          padding: 13,
+                          backgroundColor: '#F7600F',
+                          borderBottomRightRadius: 6,
+                          borderTopRightRadius: 6,
+                        }}
+                      >
+                        <Image
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: 40,
+                            flex: 1,
+                            resizeMode: 'contain',
+                          }}
+                          source={right_Arrow}
+                          tintColor="white"
+                        />
+                      </View>
                     </View>
-                  </View>
                   </TouchableOpacity>
                 </View>
-                <ModalLiveChat 
-                    setShowModa={setShowModal}
-                    ShowModal={ShowModal}
-                    />
+                <ModalLiveChat
+                  setShowModa={setShowModal}
+                  ShowModal={ShowModal}
+                />
                 <TouchableOpacity
                   onPress={() => {
                     setToggleScreenHelpCentre (true);

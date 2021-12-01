@@ -6,7 +6,8 @@ export default function Catagories() {
     <>
      <View style={styles.TopBrandOuterWraperImageHolder}>
         <View style={styles.TopBrandImageHolder}>
-          <Image style={{width: '100%', height: 100}} source={img} />
+          <Image style={{width: '100%', height: "100%",flex: 1,
+        resizeMode: 'contain',}} source={img} />
         </View>
         <Text style={{textAlign:"center",marginTop:14}}>Unilever</Text>
       </View>
