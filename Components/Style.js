@@ -530,6 +530,9 @@ export default (styles = StyleSheet.create ({
   outerWraperErrorMessageName: {
     top: 27,
   },
+  outerWraperErrorMessageWishlistName:{
+    top: 7,
+  },
   outerWraperErrorMessageProfileScreen:{
     position: 'absolute',
     // top: 30,

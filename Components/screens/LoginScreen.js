@@ -15,8 +15,9 @@ const ErroIcon = (
     name={'exclamation-circle'}
   />
 );
-const PlainTriangle = require ('../Images/plain-triangle.png');
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+const PlainTriangle = require ('../Images/plain-triangle.png');
 const img = require ('../Images/loin.jpg');
 const img2 = require ('../Images/Fb.png');
 const img3 = require ('../Images/Gm.png');

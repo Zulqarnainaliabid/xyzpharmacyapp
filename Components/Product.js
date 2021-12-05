@@ -17,6 +17,7 @@ export default function Products(props) {
             onPress={() => {
               navigation.navigate('CatagoriesListSecreen', {
                 name: props.name,
+                WishListData:false
               });
             }}>
             <Text style={styles.ViewAllButtonInnercontainerdProduct}>

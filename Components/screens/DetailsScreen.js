@@ -10,6 +10,7 @@ import {
   Pressable,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../Header';
@@ -21,8 +22,15 @@ import Swiper from 'react-native-swiper';
 import ProductsBox from '../ProductBox';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {TempDataCategoriesTag, TempDataFeatureProduct} from '../TempData';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Loading from './LoadingScreen';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+const ErroIcon = (
+  <FontAwesome5
+    style={{fontSize: 19, color: '#EF6012'}}
+    name={'exclamation-circle'}
+  />
+);
 const CrossIcon = (
   <FontAwesome5 style={{fontSize: 30, color: '#F08243'}} name={'times'} />
 );
@@ -35,9 +43,8 @@ const HeartUnFilld = (
 const PlusIcon = (
   <FontAwesome5 style={{fontSize: 20, color: '#F08243'}} name={'plus'} />
 );
+const PlainTriangle = require ('../Images/plain-triangle.png');
 const DetailsScreen = ({route, navigation}) => {
-  const [Index, setIndex] = useState (null);
-  const [FavouriteListItemArray, setFavouriteListItemArray] = useState (null);
   const [Click, setClick] = useState (false);
   const [ShowMessageBox, setShowMessageBox] = useState (false);
   const [spinner, setspinner] = useState (true);
@@ -45,8 +52,10 @@ const DetailsScreen = ({route, navigation}) => {
     ToggleModalCreateListScreen,
     setToggleModalCreateListScreen,
   ] = useState (false);
-  const [HandleFavouriteListText, setHandleFavouriteListText] = useState ('');
   const [ToggleModal, setToggleModal] = useState (false);
+  const [TextWishlist, setTextWishlist] = useState (null);
+  const [ValidationWishListText, setValidationWishListText] = useState (false);
+  const [FavouriteListNamesArray, setFavouriteListNamesArray] = useState (null);
 
   useEffect (
     () => {
@@ -61,32 +70,6 @@ const DetailsScreen = ({route, navigation}) => {
     refRBSheet.current.open ();
   }
 
-  // const storeData = async (listName, value) => {
-  //   let data = JSON.stringify(value);
-  //   try {
-  //     await AsyncStorage.setItem(listName, data);
-  //   } catch (e) {
-  //     console.log('error', e);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const value = await AsyncStorage.getItem('WishListArray');
-  //       if (value !== null) {
-  //         let data = JSON.parse(value);
-  //         setFavouriteListItemArray(data);
-  //       } else {
-  //         setFavouriteListItemArray(['somthing You Want..']);
-  //       }
-  //     } catch (e) {
-  //       console.log('read error', e);
-  //     }
-  //   };
-  //   getData();
-  // }, [ToggleModal]);
-
   let {otherData} = route.params;
   let name = otherData.titleName;
   let actualPrice = otherData.actualPrice;
@@ -94,7 +77,7 @@ const DetailsScreen = ({route, navigation}) => {
   let dicount = otherData.dic;
   let waight = otherData.productWaight;
   let HeaderName = JSON.stringify (name);
-
+  console.log("other Data",otherData)
   HeaderName = HeaderName.replace ('"', '').replace ('"', '');
 
   function HandleGotoDetailsSecreen (name) {
@@ -103,18 +86,195 @@ const DetailsScreen = ({route, navigation}) => {
     });
   }
   const refRBSheet = useRef ();
-  // return (
-  //   <View style={{backgroundColor: 'white', flex: 1}}>
-  //     <Header name={'kkkk'} EditButton={false} ScreenName={true} />
-  //     <Loading setspinner={setspinner} spinner={spinner}/>
-  //   </View>
-  // );
 
   useEffect (() => {
     setInterval (() => {
       setspinner (false);
     }, 2000);
   }, []);
+
+  useEffect (() => {
+    getWishListData ();
+  }, []);
+
+  useEffect (async () => {
+    let flag = false;
+    let previousList = await AsyncStorage.getItem ('WishlistNames');
+    if (previousList !== null || previousList !== undefined) {
+      previousList = JSON.parse (previousList);
+      for (let i = 0; i < previousList.length; i++) {
+        for (let j = 0; j < previousList[i].Array.length; j++) {
+          if (previousList[i].Array[j].Id === otherData.Id) {
+            setClick (true);
+            flag = true;
+            break;
+          } else {
+            setClick (false);
+          }
+        }
+        if (flag) {
+          break;
+        }
+      }
+    }
+    let previousDefaulednamedList = await AsyncStorage.getItem (
+      'WishlistDaultArray'
+    );
+    if (
+      previousDefaulednamedList !== null ||
+      previousDefaulednamedList !== undefined
+    ) {
+      previousDefaulednamedList = JSON.parse (previousDefaulednamedList);
+      for (let i = 0; i < previousDefaulednamedList.length; i++) {
+        if (previousDefaulednamedList[i].Id === otherData.Id) {
+          setClick (true);
+          break;
+        } else {
+          setClick (false);
+        }
+      }
+    }
+  }, []);
+
+  async function getWishListData () {
+    let flag = false;
+    let previousList = await AsyncStorage.getItem ('WishlistNames');
+    if (previousList !== null || previousList !== undefined) {
+      previousList = JSON.parse (previousList);
+      setFavouriteListNamesArray (previousList);
+    }
+    let previousDefaulednamedList = await AsyncStorage.getItem (
+      'WishlistDaultArray'
+    );
+    if (
+      previousDefaulednamedList !== null ||
+      previousDefaulednamedList !== undefined
+    ) {
+      previousDefaulednamedList = JSON.parse (previousDefaulednamedList);
+    }
+  }
+
+  async function HandleAddNamedWishlistData (item) {
+    let previousDefaultList = await AsyncStorage.getItem ('WishlistDaultArray');
+    if (previousDefaultList !== null || previousDefaultList !== undefined) {
+      previousDefaultList = JSON.parse (previousDefaultList);
+     for (let index = 0; index < previousDefaultList.length; index++) {
+             console.log("item",previousDefaultList[index]);
+             if(previousDefaultList[index].ID===otherData.ID){
+              previousDefaultList.splice(index,1)
+             }
+     }
+
+    }
+
+    await AsyncStorage.setItem (
+      'WishlistDaultArray',
+      JSON.stringify (previousDefaultList)
+    );
+
+    var index = item.Array.findIndex (x => x.Id == otherData.Id);
+    index === -1
+      ? item.Array.push (otherData)
+      : console.log ('object already exists');
+    let previousList = await AsyncStorage.getItem ('WishlistNames');
+    if (previousList !== null || previousList !== undefined) {
+      previousList = JSON.parse (previousList);
+      previousList.map ((itemdata, index) => {
+        itemdata.Array.map ((item, index) => {
+          itemdata.Array.splice (index, 1);
+        });
+        if (itemdata.name === item.name) {
+          previousList[index].Array = item.Array;
+        }
+      });
+      await AsyncStorage.setItem (
+        'WishlistNames',
+        JSON.stringify (previousList)
+      );
+      getWishListData ();
+    }
+  }
+  // AsyncStorage.clear()
+
+  function HandleTextWishlist (text) {
+    if (text) {
+      setTextWishlist (text);
+    } else {
+      setTextWishlist (null);
+    }
+    setValidationWishListText (false);
+  }
+  async function handlecreateList () {
+    if (TextWishlist !== null) {
+      let Listname = [];
+      let previousList = await AsyncStorage.getItem ('WishlistNames');
+      if (previousList === null || previousList === undefined) {
+        Listname.push ({name: TextWishlist, Array: []});
+      } else {
+        Listname = JSON.parse (previousList);
+        Listname.push ({name: TextWishlist, Array: []});
+      }
+      await AsyncStorage.setItem ('WishlistNames', JSON.stringify (Listname));
+      setToggleModalCreateListScreen (false);
+      setTextWishlist (null);
+    } else {
+      setValidationWishListText (true);
+    }
+  }
+
+  async function HandleWishlistDefaultArray () {
+    let WishListDefaultArray = [];
+    let previousList = await AsyncStorage.getItem ('WishlistDaultArray');
+    if (previousList === null || previousList === undefined) {
+      WishListDefaultArray.push (otherData);
+    } else {
+      WishListDefaultArray = JSON.parse (previousList);
+
+      var index = WishListDefaultArray.findIndex (x => x.Id == otherData.Id);
+      index === -1
+        ? WishListDefaultArray.push (otherData)
+        : console.log ('object already exists');
+    }
+    await AsyncStorage.setItem (
+      'WishlistDaultArray',
+      JSON.stringify (WishListDefaultArray)
+    );
+  }
+
+  async function HandleRemoveWishlistitem () {
+    let previousList = await AsyncStorage.getItem ('WishlistDaultArray');
+    if (previousList !== null || previousList !== undefined) {
+      previousList = JSON.parse (previousList);
+      previousList.map ((item, index) => {
+        if (item.Id === otherData.Id) {
+          previousList.splice (index, 1);
+        }
+      });
+    }
+    await AsyncStorage.setItem (
+      'WishlistDaultArray',
+      JSON.stringify (previousList)
+    );
+    let previousListNamedArray = await AsyncStorage.getItem ('WishlistNames');
+    if (
+      previousListNamedArray !== null ||
+      previousListNamedArray !== undefined
+    ) {
+      previousListNamedArray = JSON.parse (previousListNamedArray);
+      previousListNamedArray.map ((itemdata, index) => {
+        itemdata.Array.map ((item, index) => {
+          if (item.Id === otherData.Id) {
+            itemdata.Array.splice (index, 1);
+          }
+        });
+      });
+      await AsyncStorage.setItem (
+        'WishlistNames',
+        JSON.stringify (previousListNamedArray)
+      );
+      getWishListData ();
+    }
+  }
 
   if (ToggleModalCreateListScreen) {
     return (
@@ -146,17 +306,44 @@ const DetailsScreen = ({route, navigation}) => {
         <TextInput
           style={{
             borderWidth: 1,
-            marginVertical: 44,
-            fontSize: 22,
-            padding: 12,
+            marginVertical: 20,
+            fontSize: 17,
+            paddingVertical: 6,
+            paddingHorizontal: 10,
             borderColor: '#E7E7E7',
             color: '#A0A0A0',
           }}
-          onChangeText={text => setHandleFavouriteListText (text)}
-          // value={number}
+          onChangeText={text => HandleTextWishlist (text)}
           placeholder="List Name"
-          keyboardType="text"
         />
+        <View style={{position: 'absolute', top: 155, left: 190, zIndex: 1}}>
+          {ValidationWishListText &&
+            <View>
+              <Text style={{textAlign: 'right', marginRight: 10}}>
+                {ErroIcon}
+              </Text>
+              <View
+                style={{
+                  width: 15,
+                  height: 10,
+                  alignSelf: 'flex-end',
+                  marginRight: 12,
+                }}
+              >
+                <Image
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    flex: 1,
+                    resizeMode: 'contain',
+                  }}
+                  source={PlainTriangle}
+                  tintColor="#FF0131"
+                />
+              </View>
+              <Text style={[styles.ErrorMessage]}>Field cannot be empty</Text>
+            </View>}
+        </View>
         <Text
           style={{
             backgroundColor: '#FF783E',
@@ -167,9 +354,7 @@ const DetailsScreen = ({route, navigation}) => {
             fontSize: 21,
           }}
           onPress={() => {
-            FavouriteListItemArray.push (HandleFavouriteListText);
-            setToggleModalCreateListScreen (false);
-            storeData ('WishListArray', FavouriteListItemArray);
+            handlecreateList ();
           }}
         >
           Create
@@ -219,7 +404,7 @@ const DetailsScreen = ({route, navigation}) => {
                         padding: 12,
                         marginLeft: 45,
                         padding: 12,
-                        height:200,
+                        height: 200,
                         // borderWidth:1
                       }}
                     >
@@ -290,19 +475,23 @@ const DetailsScreen = ({route, navigation}) => {
                   ? <Text
                       style={{marginLeft: 17, marginTop: 5}}
                       onPress={() => {
-                        setClick (!Click);
+                        setClick (false);
                         setShowMessageBox (true);
                         setToggleModal (!ToggleModal);
+                        getWishListData ();
+                        HandleRemoveWishlistitem ();
                       }}
                     >
                       {HeartFilld}
                     </Text>
                   : <Pressable
                       onPress={() => {
-                        setClick (!Click);
+                        setClick (true);
                         HnadleOpenBottomModal ();
                         setShowMessageBox (true);
                         setToggleModal (!ToggleModal);
+                        getWishListData ();
+                        HandleWishlistDefaultArray ();
                       }}
                     >
                       <Text style={{marginLeft: 17, marginTop: 5}}>
@@ -320,11 +509,51 @@ const DetailsScreen = ({route, navigation}) => {
                     marginRight: 2,
                   }}
                 >
-                  mkmk
-                  {/* {waight} */}
+                  
+                  {otherData.productWaight} Kg
                 </Text>
               </View>
             </View>
+            <View
+          style={{
+            display: ShowMessageBox ? 'flex' : 'none',
+            alignItems: 'center',
+          }}
+        >
+          {Click
+            ? <Text
+                style={{
+                  // borderWidth: 1,
+                  position: 'absolute',
+                  
+                  zIndex:9999,
+                  elevation: 1,
+                  bottom: 0,
+                  padding: 12,
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  fontSize: 16,
+                  borderRadius: 14,
+                  
+                }}
+              >
+                Item added favurite list
+              </Text>
+            : <Text
+                style={{
+                  // borderWidth: 1,
+                  position: 'absolute',
+                  zIndex:9999,
+                  elevation: 1,
+                  bottom: 0,
+                  padding: 12,
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  fontSize: 16,
+                  borderRadius: 14,
+                }}
+              >
+                Item removed from the favurite list
+              </Text>}
+        </View>
             <View style={{marginLeft: 16, marginTop: 12}}>
               <View
                 style={{
@@ -442,42 +671,6 @@ const DetailsScreen = ({route, navigation}) => {
                 </View>}
           </ScrollView>
         </View>
-        <View
-          style={{
-            display: ShowMessageBox ? 'flex' : 'none',
-            alignItems: 'center',
-          }}
-        >
-          {Click
-            ? <Text
-                style={{
-                  // borderWidth: 1,
-                  position: 'absolute',
-                  elevation: 1,
-                  bottom: 0,
-                  padding: 12,
-                  backgroundColor: '#DCDCDC',
-                  fontSize: 16,
-                  borderRadius: 14,
-                }}
-              >
-                Item added favurite list
-              </Text>
-            : <Text
-                style={{
-                  // borderWidth: 1,
-                  position: 'absolute',
-                  elevation: 1,
-                  bottom: 0,
-                  padding: 12,
-                  backgroundColor: '#DCDCDC',
-                  fontSize: 16,
-                  borderRadius: 14,
-                }}
-              >
-                Item removed from the favurite list
-              </Text>}
-        </View>
         <RBSheet
           ref={refRBSheet}
           closeOnDragDown={true}
@@ -506,32 +699,28 @@ const DetailsScreen = ({route, navigation}) => {
           <View style={{minHeight: '10%', maxHeight: 200}}>
             <ScrollView>
               <View style={{paddingHorizontal: 12}}>
-                {FavouriteListItemArray &&
-                  FavouriteListItemArray.map ((item, index) => {
+                {FavouriteListNamesArray &&
+                  FavouriteListNamesArray.map ((item, index) => {
                     return (
-                      <Pressable
+                      <TouchableOpacity
                         key={index}
                         onPress={() => {
-                          HandleSetData (item);
-                          setIndex (index);
+                          HandleAddNamedWishlistData (item);
                         }}
                       >
                         <Text
                           key={index}
                           style={{
-                            marginVertical: 12,
-                            fontSize: 17,
+                            marginVertical: 4,
+                            fontSize: 15,
                             color: '#7B7B7B',
-                            borderWidth: 1,
-                            textAlign: 'center',
-                            padding: 6,
+                            textAlign: 'left',
                             borderRadius: 3,
-                            borderColor: '#FF783E',
                           }}
                         >
-                          {item}
+                          {item.name} ({item.Array.length})
                         </Text>
-                      </Pressable>
+                      </TouchableOpacity>
                     );
                   })}
               </View>
